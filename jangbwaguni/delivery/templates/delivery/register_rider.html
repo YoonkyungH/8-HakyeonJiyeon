@@ -1,0 +1,25 @@
+{% extends 'delivery/base.html' %}
+
+{% block head_title %}장봐구니 라이더 등록{% endblock %}
+{% block navbar_title %}라이더 등록{% endblock %}
+{% block main_area %}
+<div class="container">
+    <form class="d-flex justify-content-center my-5" method="post">
+        <div id="pic_area" class="row">
+            <div id="rider_pic" class="col-auto" style="background-color: brown; width: 150px; height: 150px;"></div>
+            <div class="col-auto ms-5 my-auto">
+                <div class="row mb-4">
+                    <label class="col-auto my-auto fs-4"><strong>닉네임</strong></label>
+                    <input type="text" class="col form-control form-control-sm border-0 pb-0" placeholder="예) 용돈벌이">
+                    <div class="border-top border-1 border-grey mt-1"></div>
+                </div>
+                <div class="row mt-4">
+                    <label class="col-auto my-auto fs-4"><strong>닉네임</strong></label>
+                    <input type="text" class="col form-control form-control-sm border-0 pb-0" placeholder="예) 용돈벌이">
+                    <div class="border-top border-1 border-grey mt-1"></div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}

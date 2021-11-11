@@ -13,6 +13,22 @@
     margin-right: 12rem !important;
 }
 
+
+
+/* colors */
+
 .bg-browngrey {
     background-color: #8E8455;
+}
+
+
+
+/* text size */
+
+.text-sm {
+    font-size: 0.85rem;
+}
+
+.text-xs {
+    font-size: 0.5rem;
 }

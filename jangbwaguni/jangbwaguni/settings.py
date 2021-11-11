@@ -60,7 +60,7 @@ ROOT_URLCONF = 'jangbwaguni.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR, 'templates'], # 확장형 template 경로
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -109,9 +109,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'en-us' #'ko-kr' 
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Seoul' #'UTC'
 
 USE_I18N = True
 

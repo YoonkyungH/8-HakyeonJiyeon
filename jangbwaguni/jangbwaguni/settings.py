@@ -9,38 +9,23 @@ https://docs.djangoproject.com/en/3.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
-import os, json
-from pathlib import Path
 
-from django.core.exceptions import ImproperlyConfigured
+from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-
-secret_file = os.path.join(BASE_DIR, 'secrets.json')
-
-with open(secret_file) as f:
-    secrets = json.loads(f.read())
-
-def get_secret(setting, secrets=secrets):
-    try:
-        return secrets[setting]
-    except KeyError:
-        error_msg = "Set the {} environment variable".format(setting)
-        raise ImproperlyConfigured(error_msg)
-
-SECRET_KEY = get_secret("SECRET_KEY")
+SECRET_KEY = 'django-insecure-jy9%mkn$roqoe3zk4jb%2&wm=z0+dv9=2k6k&ee4_huco#q$=w'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
 
 # Application definition
 
@@ -51,10 +36,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'main',
-    'delivery',
-    'orderrequest',
-    'member',
+    'delivery.apps.DeliveryConfig',  # delivery/apps.py의 DeliveryConfig라는 class가 정의되어 있는 것을 등록
+    'member.apps.MemberConfig',
+    'multiselectfield',              # 다중선택 필드
+    'phonenumber_field',             # 전화번호 필드
 ]
 
 MIDDLEWARE = [

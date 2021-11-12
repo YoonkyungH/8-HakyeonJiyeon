@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'delivery',
     'orderrequest',
     'member',
+    'phonenumber_field'
 ]
 
 MIDDLEWARE = [
@@ -124,7 +125,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static') # 개발자가 관리하는 파일
+
 MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media') # 사용자가 업로드한 파일
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field

@@ -1,3 +1,6 @@
 from django.contrib import admin
 
-# Register your models here.
+from .models import Rider, Customer#, OrderApply
+admin.site.register(Rider)
+admin.site.register(Customer)
+#admin.site.register(OrderApply)

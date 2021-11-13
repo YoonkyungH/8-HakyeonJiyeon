@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/3.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
+
 import os, json
 from django.core.exceptions import ImproperlyConfigured
 from pathlib import Path
@@ -17,9 +18,8 @@ import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 # Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
+# See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
 secret_file = os.path.join(BASE_DIR, 'secrets.json')
@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     'delivery',
     'orderrequest',
     'member',
+    'phonenumber_field'
 ]
 
 MIDDLEWARE = [
@@ -72,7 +73,7 @@ ROOT_URLCONF = 'jangbwaguni.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')], # 확장형 template 경로
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -121,9 +122,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'en-us' #'ko-kr' 
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Seoul' #'UTC'
 
 USE_I18N = True
 
@@ -136,6 +137,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static') # 개발자가 관리하는 파일
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media') # 사용자가 업로드한 파일
 
 STATICFILES_DIRS = [
     Path(BASE_DIR, 'delivery', 'static'),

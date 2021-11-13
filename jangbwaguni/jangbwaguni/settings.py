@@ -41,7 +41,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -55,7 +54,8 @@ INSTALLED_APPS = [
     'delivery',
     'orderrequest',
     'member',
-    'phonenumber_field'
+    'multiselectfield',              # 다중선택 필드
+    'phonenumber_field'              # 전화번호 필드
 ]
 
 MIDDLEWARE = [

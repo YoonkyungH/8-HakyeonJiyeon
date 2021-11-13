@@ -15,8 +15,8 @@ class Customer(models.Model):
 class Rider(models.Model):
     sig_date_rider = models.DateTimeField('date signup rider', auto_now_add=True) # 라이더 가입일 / 자동기입 
     nickname = models.OneToOneField(Customer, on_delete=models.CASCADE, related_name='rider_nickname') # Customer 클래스와 일대일 관계
-    introduction = models.TextField('소개', max_length=200) # 소개 / 최대 200자리
-    address_rider = models.CharField(max_length=30) # 라이더 주소 / 최대 30자리
+    # introduction = models.TextField('소개', max_length=200) # 소개 / 최대 200자리
+    # address_rider = models.CharField(max_length=30) # 라이더 주소 / 최대 30자리
     # 주소
     # 배달 내역
     # 소개

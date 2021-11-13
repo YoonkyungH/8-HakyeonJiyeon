@@ -12,7 +12,7 @@ urlpatterns = [
     path('delivery/', include('delivery.urls')),
     path('order/', include('orderrequest.urls')),
     # path('member/', include('member.urls')),
-]
+] 
 
 urlpatterns += \
     static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

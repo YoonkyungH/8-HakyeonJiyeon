@@ -1,0 +1,35 @@
+*{
+    margin:0;
+    padding:0;
+}
+
+.row, .col {
+    border: 1px solid black;
+}
+
+.container{
+    margin-left: auto;
+    margin-right:auto;
+}
+
+@media(min-width:576px){
+    /* .col-sm{
+        -ms-flex-preferred-size:0;
+        flex-basis:0;
+        -ms-flex-positive:0;
+        flex-grow:0;
+        max-width:100%
+    } */
+}
+
+@media(min-width:768px){
+
+}
+
+@media(min-width:992px){
+
+}
+
+@media(min-width:1200px){
+
+}

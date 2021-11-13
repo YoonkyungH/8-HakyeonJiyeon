@@ -1,14 +1,124 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'base.html' %}
+{% block head_title %}라이더 선택{% endblock %}
+{% block navbar_title %}라이더 선택{% endblock %}
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>배달원 선택</title>
+    <!-- <meta http-equiv="X-UA-Compatible" content="IE=edge"> -->
 </head>
-<body>
-    
-</body>
-</html>
 
-<a href="{% url 'd_order_cus'%}">주문하기</a>
+{% block main_area %}
+<a href="{% url 'orderrequest:d_rider_list'%}">주문하기</a>
+
+<!-- 정렬 -->
+<select class="col-auto form-select form-select-sm w-auto" aria-label="정렬 선택">
+    <option selected value="order_count">내역순</option>
+    <option value="recent">최신순</option>
+    <option value="nickname">이름순</option>
+</select>
+
+<!--  -->
+<div class="container container-sm">
+    <div class="justify-content-around row my-3 container">
+
+        <div class="col border p-3" style="position:relative; margin:1%;" >
+            <div class="row box align-items-center gx-9 gy-9">
+
+                <div class="col-4 bg-light p-3 border" style="position: relative">
+                    <div class="row">
+                        <div class="p-4 border bg-light">One of three columns</div>
+                    </div>
+                    <div class="row">
+                        <div class="p-1 border bg-light"><a class="btn btn-lg btn-primary" style="right: 0px; bottom: 0px;">배송하기</a></div>
+                    </div>
+                </div>
+
+                <div class="col-8 p-3">
+                    <div class="row">
+                        <div class="p-4 border bg-light">Custom column padding1</div>
+                    </div>
+                    <div class="row">
+                        <div class="p-4 border bg-light">Custom column padding1</div>
+                    </div>
+                    <div class="row">
+                        <div class="p-4 border bg-light">Custom column padding1</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="w-100  d-lg-none"></div>
+
+        <div class="col border p-3" style="position: relative; margin:1%;">
+            <div class="row box align-items-center gx-9 gy-9">
+
+                <div class="col-4 bg-light p-3 border" style="position: relative">
+                    <div class="row">
+                        <div class="p-4 border bg-light">One of three columns</div>
+                    </div>
+                    <div class="row">
+                        <div class="p-1 border bg-light"><a class="btn btn-lg btn-primary" style="right: 0px; bottom: 0px;">배송하기</a></div>
+                    </div>
+                </div>
+
+                <div class="col-8 p-3">
+                    <div class="row">
+                        <div class="p-4 border bg-light">Custom column padding1</div>
+                    </div>
+                    <div class="row">
+                        <div class="p-4 border bg-light">Custom column padding1</div>
+                    </div>
+                    <div class="row">
+                        <div class="p-4 border bg-light">Custom column padding1</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+ 
+
+</div>
+
+
+<!-- 별점1 : https://getbootstrap.com/docs/4.0/components/collapse/ -->
+<p>
+    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+      3건
+    </button>
+</p>
+<div class="collapse " id="collapseExample">
+    <div class="card card-body">
+      스피드 ★★★
+      신선도 ★★★
+      정확도 ★★☆
+    </div>
+</div>
+
+<!-- 별점2 : https://getbootstrap.com/docs/4.0/components/collapse/ -->
+<!-- <button type="button" class="btn btn-lg btn-danger" data-toggle="popover" title="Popover title" data-content="스피드 ★★★ 신선도 ★★★ ㄴ정확도 ★★☆" data-placement="bottom">
+    3건
+</button>
+<button type="button" class="btn btn-lg btn-danger" data-toggle="popover" title="Popover title" data-content="And here's some amazing content. It's very engaging. Right?">Click to toggle popover</button>
+<button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="bottom" title="Tooltip on bottom">
+    Tooltip on bottom
+  </button> -->
+<!-- Paginator : https://getbootstrap.com/docs/4.0/components/pagination/ -->
+<nav aria-label="Page navigation example">
+    <ul class="pagination pagination-sm justify-content-center">
+      <li class="page-item">
+        <a class="page-link" href="#" aria-label="Previous">
+          <span aria-hidden="true">&laquo;</span>
+          <span class="sr-only">Previous</span>
+        </a>
+      </li>
+      <li class="page-item"><a class="page-link" href="#">1</a></li>
+      <li class="page-item"><a class="page-link" href="#">2</a></li>
+      <li class="page-item"><a class="page-link" href="#">3</a></li>
+      <li class="page-item">
+        <a class="page-link" href="#" aria-label="Next">
+          <span aria-hidden="true">&raquo;</span>
+          <span class="sr-only">Next</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+{% endblock %}

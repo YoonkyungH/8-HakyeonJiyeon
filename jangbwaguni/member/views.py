@@ -2,12 +2,48 @@ from django.contrib.auth import logout
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.shortcuts import redirect, render
 
+# 회원가입
 from django.contrib import auth
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 
 # django에 이 라이브러리들이 내장되어 있음
+
+
+
+from django.views.generic.edit import FormView
+from .forms import LoginForm, RegisterForm
+
+def index(request):
+    return render(request, 'index.html')
+
+class RegisterView(FormView):   # 회원가입
+    template_name = 'register.html'
+    form_class = RegisterForm
+
+class LoginView(FormView):      # 로그인
+    template_name = 'login.html'
+    form_class = LoginForm
+    success_url = '/'
+
+    def form_valid(self, form):     # 유효성 검사가 끝났을 때 실행
+        self.request.session['user'] = form.email   # 로그인한 사용자의 email을 세션에 저장
+
+        return super().form_valid(form)             # super 함수를 이용해 form_valid 호출
+
+# 테스트 필요
+class LogoutView(FormView):
+    template_name = 'logout.html'
+    form_class = LoginForm
+    success_url = '/'
+
+    def logout(request):
+        auth.logout(request)
+        return redirect('home')
+
+
+
 
 def login_view(request):
     if request.method == 'POST':
@@ -31,19 +67,19 @@ def logout_view(request):
     return redirect("home")
 
 
-# 회원가입
-def signup(request):
-    if request.method == 'POST':
-        if request.POST['password1'] == request.POST['password2']:
-            user = User.objects.create_user(
-                username=request.POST['username'],
-                password=request.POST['password1'],
-                # email=request.POST['email'],
-                )
-            auth.login(request, user)
-            return redirect('/')
-        return render(request, 'signup.html')
-    return render(request, 'signup.html')
+# # 회원가입
+# def signup(request):
+#     if request.method == 'POST':
+#         if request.POST['password1'] == request.POST['password2']:
+#             user = User.objects.create_user(
+#                 username=request.POST['username'],
+#                 password=request.POST['password1'],
+#                 # email=request.POST['email'],
+#                 )
+#             auth.login(request, user)
+#             return redirect('/')
+#         return render(request, 'signup.html')
+#     return render(request, 'signup.html')
 
 
 

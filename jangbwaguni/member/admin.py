@@ -1,4 +1,10 @@
 from django.contrib import admin
+from .models import User
 
-from .models import user
-admin.site.register(user)
+class UserAdmin(admin.ModelAdmin):
+    list_display = ('email', )
+
+admin.site.register(User, UserAdmin)
+
+# from .models import User
+# admin.site.register(User)

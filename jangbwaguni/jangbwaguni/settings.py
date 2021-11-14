@@ -36,8 +36,15 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'delivery.apps.DeliveryConfig',  # delivery/apps.py의 DeliveryConfig라는 class가 정의되어 있는 것을 등록
-    'member.apps.MemberConfig',
+
+    # 'accounts.apps.AccountsConfig',
+
+    'delivery',
+    'member',
+    'orderrequest',
+    # 'delivery.apps.DeliveryConfig',  # delivery/apps.py의 DeliveryConfig라는 class가 정의되어 있는 것을 등록
+    # 'member.apps.MemberConfig',
+    # 'orderrequest.apps.OrderrequestConfig',
     'multiselectfield',              # 다중선택 필드
     'phonenumber_field',             # 전화번호 필드
 ]

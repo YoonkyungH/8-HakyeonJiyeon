@@ -57,6 +57,9 @@ from django.shortcuts import get_object_or_404
 from .models import User
 from django.core.serializers import serialize
 
+# 로그인시 필요
+from rest_framework.parsers import JSONParser
+
 class IndexView(View):
     def get(self, request):
         users = User.objects.all().order_by('-id')
@@ -98,3 +101,16 @@ class IndexView(View):
         user = get_object_or_404(User, pk=id)
         user.delete()
         return HttpResponse(status = 200)
+
+# http://127.0.0.1:8000/member/ -> GET으로 먼저 유저 목록을 확인한 뒤
+# http://127.0.0.1:8000/member/login -> {"cus_id":"", "cus_pw":""} id와 pw를 POST로 보내기
+def login(request):
+    if request.method == 'POST':
+        data = JSONParser().parse(request)  # rest_framework.parsers
+        search_id = data['cus_id']
+        obj = User.objects.get(cus_id = search_id)
+
+        if data['cus_pw'] == obj.cus_pw:
+            return HttpResponse(status=200)
+        else:
+            return HttpResponse(status=400)

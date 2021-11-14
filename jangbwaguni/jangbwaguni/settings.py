@@ -10,17 +10,31 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
+import os, json
+from django.core.exceptions import ImproperlyConfigured
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 # Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
+# See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-jy9%mkn$roqoe3zk4jb%2&wm=z0+dv9=2k6k&ee4_huco#q$=w'
+secret_file = os.path.join(BASE_DIR, 'secrets.json')
+
+with open(secret_file) as f:
+    secrets = json.loads(f.read())
+
+def get_secret(setting, secrets=secrets):
+    try:
+        return secrets[setting]
+    except KeyError:
+        error_msg = "Set the {} environment variable".format(setting)
+        raise ImproperlyConfigured(error_msg)
+
+SECRET_KEY = get_secret("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -36,17 +50,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
-    # 'accounts.apps.AccountsConfig',
-
+    'main',
     'delivery',
-    'member',
     'orderrequest',
-    # 'delivery.apps.DeliveryConfig',  # delivery/apps.py의 DeliveryConfig라는 class가 정의되어 있는 것을 등록
-    # 'member.apps.MemberConfig',
-    # 'orderrequest.apps.OrderrequestConfig',
+    'member',
     'multiselectfield',              # 다중선택 필드
-    'phonenumber_field',             # 전화번호 필드
+    'phonenumber_field'              # 전화번호 필드
 ]
 
 MIDDLEWARE = [
@@ -64,7 +73,7 @@ ROOT_URLCONF = 'jangbwaguni.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')], # 확장형 template 경로
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -113,9 +122,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'en-us' #'ko-kr' 
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Seoul' #'UTC'
 
 USE_I18N = True
 
@@ -128,8 +137,21 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static') # 개발자가 관리하는 파일
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media') # 사용자가 업로드한 파일
+
+STATICFILES_DIRS = [
+    Path(BASE_DIR, 'delivery', 'static'),
+]
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# AbstractUser
+# AUTH_USER_MODEL = 'member.User'

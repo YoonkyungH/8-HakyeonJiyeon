@@ -38,7 +38,7 @@ class orders(models.Model):
         db_table = 'orders'
 
 
-class rider(models.Model): # 배달원
+class Rider(models.Model): # 배달원
     # 아이디, 비밀번호, 배달원 성명, 소개, 지역 선택, 배달 수단, 최소 주문 금액, 통장 사본 유무?, 운전 면허증 유무?, 추천인 코드(선택)
     # 스피드, 신선도, 정확도
 

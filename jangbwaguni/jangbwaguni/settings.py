@@ -73,7 +73,10 @@ ROOT_URLCONF = 'jangbwaguni.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')], # 확장형 template 경로
+        'DIRS': [
+            os.path.join(BASE_DIR, 'templates'),
+            os.path.join(BASE_DIR, 'member', 'templates', 'member'),
+        ], # 확장형 template 경로
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+
+{% block head_title %}장봐구니 라이더 후기{% endblock %}
+{% block navbar_title %}장봐구니 라이더 후기{% endblock %}
+{% block main_area %}
+<div class="container">
+    <div class="d-flex flex-column my-5 mx-5">
+
+        <div id="rider_spec" class="p-5 bg-lightbrowngrey">
+            <div class="row">
+                <div id="rider_pic" class="col-auto ms-3" style="background-color: brown; width: 150px; height: 150px;"></div>
+                <div class="col-auto ms-4">
+                    <div class="fw-bold fs-5">김겨울</div>
+                    <div class="fs-5">★★☆</div>
+                    <div class="my-2">충남 천안시 병천면 충절로 1600 1공 C102호</div>
+                    <div class="row my-3">
+                        <div class="col-5 fw-bold">이동 수단</div>
+                        <div class="col-auto">모터사이클</div>
+                    </div>
+                    <div class="row my-3">
+                        <div class="col-5 fw-bold">최소주문금액</div>
+                        <div class="col-auto">10,000</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="review_section" class="my-5">
+            <div class="ms-3">
+                <div class="fs-2 fw-bold">REVIEWS</div>
+                <div class="text-sm">배달에 대해 평가해주세요.</div>
+            </div>
+            <div class="my-3 mx-3 py-4 justify-content-center row border border-browngrey fs-4 fw-bold">
+                <a class="col-auto text-decoration-none mx-5 my-3">좋아요</a>
+                <a class="col-auto text-decoration-none text-reset mx-5 my-3">보통이에요</a>
+                <a class="col-auto text-decoration-none text-reset mx-5 my-3">싫어요</a>
+            </div>
+        </div>
+
+        <div id="review_list" class="mx-3 mb-5">
+            <div class="bg-browngrey" style="min-height: 12px;"></div>
+            <div class="mb-5">
+
+                <div class="row my-3 mx-3 py-3 border border-browngrey">
+                    <div class="col-auto row gx-2 align-items-center">
+                        <div class="col-auto fs-5 fw-bold ms-3">닉네임</div>
+                        <div class="col-auto text-xs">2021.10.17</div>
+                    </div>
+                    <div class="col-6 row justify-content-center align-items-center">
+                        <div class="col-auto">좋아요</div>
+                        <div class="col-auto">/</div>
+                        <div class="col-auto">23,000원 구매</div>
+                    </div>
+                </div>
+
+                <div class="row my-3 mx-3 py-3 border border-browngrey">
+                    <div class="col-auto row gx-2 align-items-center">
+                        <div class="col-auto fs-5 fw-bold ms-3">닉네임</div>
+                        <div class="col-auto text-xs">2021.10.17</div>
+                    </div>
+                    <div class="col-6 row justify-content-center align-items-center">
+                        <div class="col-auto">좋아요</div>
+                        <div class="col-auto">/</div>
+                        <div class="col-auto">23,000원 구매</div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

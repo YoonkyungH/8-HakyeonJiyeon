@@ -1,12 +1,15 @@
 {% extends 'base.html' %}
+
+<!-- base.html에 있지만 적용이 안됨 -->
+{% load static %}
+
 {% block head_title %}라이더 선택{% endblock %}
 {% block navbar_title %}라이더 선택{% endblock %}
 <head>
-    <!-- <meta http-equiv="X-UA-Compatible" content="IE=edge"> -->
 </head>
 
 {% block main_area %}
-<a href="{% url 'orderrequest:d_rider_list'%}">주문하기</a>
+
 
 <!-- 정렬 -->
 <select class="col-auto form-select form-select-sm w-auto" aria-label="정렬 선택">
@@ -16,82 +19,117 @@
 </select>
 
 <!--  -->
-<div class="container container-sm">
-    <div class="justify-content-around row my-3 container">
+<div class="container">
+    <div class="justify-content-around row my-3 container" style="height:auto;">
 
-        <div class="col border p-3" style="position:relative; margin:1%;" >
-            <div class="row box align-items-center gx-9 gy-9">
+    <!-- 반복 -->
+        <div class="container-unique col col-sm" style="position:relative; padding-top:0 !important; margin:1%; border-top:0.5em solid gray; border-bottom:0.1em solid gray;" >
+            <div class="row box align-items-center">
 
-                <div class="col-4 bg-light p-3 border" style="position: relative">
+                <div class="col-4" style="position: relative; padding:2% !important;">
                     <div class="row">
-                        <div class="p-4 border bg-light">One of three columns</div>
+                        <div class="profile-image-col p-4 ">
+                            <img src="{% static 'orderrequest/images/donut-image.jpg' %}" class="profile-image img-fluid rounded float-start " alt="프로필사진">
+                        </div>
                     </div>
-                    <div class="row">
-                        <div class="p-1 border bg-light"><a class="btn btn-lg btn-primary" style="right: 0px; bottom: 0px;">배송하기</a></div>
+                    <div class="row text-center">
+                        <div class="button-delivery-container p-1"><a class="button-delivery btn btn-lg align-items-center">배달요청</a></div>
                     </div>
                 </div>
 
-                <div class="col-8 p-3">
-                    <div class="row">
-                        <div class="p-4 border bg-light">Custom column padding1</div>
+                <div class="col" style="position:relative;">
+                    <div class="row" style="border-bottom:0.1em solid gray;">
+                        <div class="subtitle-col1 col-6 align-self-center;" >닉네임</div>
+                        <div class="subtitle-col2 col align-self-center" style="height:100%; border-left:0.1em solid gray;">배고픈 학생</div>
+                    </div>
+                    <div class="row" style="border-bottom:0.1em solid gray;">
+                        <div class="subtitle-col1 col-6 align-self-center">지역</div>
+                        <div class="subtitle-col2 col p-3 align-self-center"style="height:100%; border-left:0.1em solid gray;">충남 천안시 병천면 충절로 1600 예솔관 무인택배함</div>
+                    </div>
+                    <div class="row" style="border-bottom:0.1em solid gray;">
+                        <div class="subtitle-col1 col-6 align-self-center">배달 내역</div>
+                        <div class="subtitle-col2 col p-2 align-self-center" style="height:100%; border-left:0.1em solid gray;">
+                            <!-- 팝오버 -->
+                            <p style="margin-bottom:0em !important;">
+                                <button id="pop" class="btn" data-original-title="" data-toggle="Popover" 
+                                data-content="스피드 ★★★
+                                신선도 ★★★ 
+                                정확도 ★★☆ " data-placement="bottom">
+                                3건<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000"><path d="M0 0h24v24H0z" fill="none"/><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"/></svg>
+                            </button>
+                            </p>
+                        </div>
+
+
                     </div>
                     <div class="row">
-                        <div class="p-4 border bg-light">Custom column padding1</div>
-                    </div>
-                    <div class="row">
-                        <div class="p-4 border bg-light">Custom column padding1</div>
+                        <div class="subtitle-col1 col-6 align-self-center">소개</div>
+                        <div class="subtitle-col2 col p-4 align-self-center" style="height:100%; border-left:0.1em solid gray;">용돈벌고싶어요오아우아엉ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ</div>
                     </div>
                 </div>
+                
             </div>
         </div>
 
-        <div class="w-100  d-lg-none"></div>
+        <div class="w-100 d-lg-none"></div>
+    <!-- 반복 여기까지 -->
 
-        <div class="col border p-3" style="position: relative; margin:1%;">
-            <div class="row box align-items-center gx-9 gy-9">
+    <div class="container-unique col col-sm" style="position:relative; padding-top:0 !important; margin:1%; border-top:0.5em solid gray; border-bottom:0.1em solid gray;" >
+        <div class="row box align-items-center">
 
-                <div class="col-4 bg-light p-3 border" style="position: relative">
-                    <div class="row">
-                        <div class="p-4 border bg-light">One of three columns</div>
-                    </div>
-                    <div class="row">
-                        <div class="p-1 border bg-light"><a class="btn btn-lg btn-primary" style="right: 0px; bottom: 0px;">배송하기</a></div>
+            <div class="col-4" style="position: relative; padding:2% !important;">
+                <div class="row">
+                    <div class="profile-image-col p-4 ">
+                        <img src="{% static 'orderrequest/images/donut-image.jpg' %}" class="profile-image img-fluid rounded float-start " alt="프로필사진">
                     </div>
                 </div>
-
-                <div class="col-8 p-3">
-                    <div class="row">
-                        <div class="p-4 border bg-light">Custom column padding1</div>
-                    </div>
-                    <div class="row">
-                        <div class="p-4 border bg-light">Custom column padding1</div>
-                    </div>
-                    <div class="row">
-                        <div class="p-4 border bg-light">Custom column padding1</div>
-                    </div>
+                <div class="row text-center">
+                    <div class="button-delivery-container p-1"><a class="button-delivery btn btn-lg align-items-center">배달요청</a></div>
                 </div>
             </div>
+
+            <div class="col" style="position:relative;">
+                <div class="row" style="border-bottom:0.1em solid gray;">
+                    <div class="subtitle-col1 col-6 align-self-center;" >닉네임</div>
+                    <div class="subtitle-col2 col align-self-center" style="height:100%; border-left:0.1em solid gray;">배고픈 학생</div>
+                </div>
+                <div class="row" style="border-bottom:0.1em solid gray;">
+                    <div class="subtitle-col1 col-6 align-self-center">지역</div>
+                    <div class="subtitle-col2 col p-3 align-self-center"style="height:100%; border-left:0.1em solid gray;">충남 천안시 병천면 충절로 1600 예솔관 무인택배함</div>
+                </div>
+                <div class="row" style="border-bottom:0.1em solid gray;">
+                    <div class="subtitle-col1 col-6 align-self-center">배달 내역</div>
+                    <div class="subtitle-col2 col p-2 align-self-center" style="height:100%; border-left:0.1em solid gray;">
+                        <!-- 팝오버 -->
+                        <p style="margin-bottom:0em !important;">
+                            <button id="pop" class="btn" data-original-title="" data-toggle="Popover" 
+                            data-content="스피드 ★★★
+                            신선도 ★★★ 
+                            정확도 ★★☆ " data-placement="bottom">
+                            3건<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000"><path d="M0 0h24v24H0z" fill="none"/><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"/></svg>
+                        </button>
+                        </p>
+                    </div>
+
+
+                </div>
+                <div class="row">
+                    <div class="subtitle-col1 col-6 align-self-center">소개</div>
+                    <div class="subtitle-col2 col p-4 align-self-center" style="height:100%; border-left:0.1em solid gray;">용돈벌고싶어요오아우아엉ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ</div>
+                </div>
+            </div>
+            
         </div>
     </div>
 
- 
+    
+    <div class="w-100 "></div>
 
-</div>
-
-
-<!-- 별점1 : https://getbootstrap.com/docs/4.0/components/collapse/ -->
-<p>
-    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-      3건
-    </button>
-</p>
-<div class="collapse " id="collapseExample">
-    <div class="card card-body">
-      스피드 ★★★
-      신선도 ★★★
-      정확도 ★★☆
     </div>
 </div>
+
+
+
 
 <!-- 별점2 : https://getbootstrap.com/docs/4.0/components/collapse/ -->
 <!-- <button type="button" class="btn btn-lg btn-danger" data-toggle="popover" title="Popover title" data-content="스피드 ★★★ 신선도 ★★★ ㄴ정확도 ★★☆" data-placement="bottom">
@@ -121,4 +159,30 @@
       </li>
     </ul>
   </nav>
+
+<!-- 팝오버 -->
+<script src="js/jquery-2.1.3.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script>
+    $("#pop").popover();
+</script>
+
+<!-- 별점1 : https://getbootstrap.com/docs/4.0/components/collapse/ -->
+<!-- <p style="margin:0;">
+    <button class="btn" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+    3건
+    </button>
+</p>
+<div class="collapse" id="collapseExample">
+    <div class="card card-body">
+    스피드 ★★★ <br>
+    신선도 ★★★ <br>
+    정확도 ★★☆ <br>
+    </div>
+</div> -->
+
+<!-- arrow 이모티콘 -->
+<input type="checkbox" id="aa">
+<label for="aa" class="bb"></label>
+<label for="aa" class="cc">Lorem Ipsum Dolor</label>
 {% endblock %}

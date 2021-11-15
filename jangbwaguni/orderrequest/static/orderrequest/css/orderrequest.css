@@ -1,35 +1,118 @@
 *{
     margin:0;
     padding:0;
+} 
+
+@font-face {
+    font-family: 'SBAggroB';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SBAggroB.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'SBAggroM';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SBAggroM.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'SBAggroL';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SBAggroL.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
 }
 
 .row, .col {
-    border: 1px solid black;
+    /* border: 1px solid black; */
 }
 
 .container{
     margin-left: auto;
     margin-right:auto;
+    /* height:auto; */
 }
 
+.container-unique{
+    width:80%;
+    height:60%;
+}
+
+.profile-image-col{
+    padding : 0px !important;
+    margin-left:auto;
+    margin-right:auto;
+    width:30em;
+    height:auto;
+}
+
+.button-delivery-container{
+    align-self: end;
+}
+.button-delivery{
+    background-color:#8E8455;
+    color : white;
+}
+
+.subtitle-col1{
+    width:30%;
+    align-self: center;
+    text-align: center;
+    font-family: 'SBAggroM', 'serif';
+}
+.subtitle-col2{
+    padding: 1% !important;
+    font-family: 'SBAggroL';
+}
+
+.rider-history:visited{
+    border:none !important;
+}
+
+/* 이모티콘 */
+
+/* label.bb:before {
+    content: "\f107";
+    font-family: "Font Awesome 5 Free";
+    color: black;
+    font-size: 1.2em;
+    font-weight: bold;
+    justify-items: end;
+}
+input#aa:checked + label.bb:before {
+    content: "\f106";
+    color: #000000;
+    font-weight:bold;
+}
+input#aa {
+    display: none;
+} */
+
+
+
 @media(min-width:576px){
-    /* .col-sm{
-        -ms-flex-preferred-size:0;
-        flex-basis:0;
-        -ms-flex-positive:0;
-        flex-grow:0;
-        max-width:100%
-    } */
+    /* .profile-image-col{
+        width:100px !important;
+        height:auto; */
+    /* } */
 }
 
 @media(min-width:768px){
-
+    /* .profile-image-col{
+        width:1000px !important;
+        height:auto;
+    } */
 }
 
 @media(min-width:992px){
-
+    /* .profile-image-col{
+        width: 300px !important;
+        height:auto;
+    } */
 }
 
 @media(min-width:1200px){
-
+    /* .profile-image-col{
+        width: 400px !important;
+        height:auto;
+    } */
 }

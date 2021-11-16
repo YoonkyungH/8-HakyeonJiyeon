@@ -5,22 +5,18 @@
 
 {% block head_title %}라이더 선택{% endblock %}
 {% block navbar_title %}라이더 선택{% endblock %}
-<head>
-</head>
-
 {% block main_area %}
 
 
-<!-- 정렬 -->
-<select class="col-auto form-select form-select-sm w-auto" aria-label="정렬 선택">
+<div class="container" style="justify-items: center;">
+    <!-- 정렬 -->
+<select class="sort col-auto form-select form-select-sm w-auto" aria-label="정렬 선택">
     <option selected value="order_count">내역순</option>
     <option value="recent">최신순</option>
     <option value="nickname">이름순</option>
 </select>
 
-<!--  -->
-<div class="container">
-    <div class="justify-content-around row my-3 container" style="height:auto;">
+    <div class="justify-content-around row my-3 container" style="height:auto; margin:0 !important;">
 
     <!-- 반복 -->
         <div class="container-unique col col-sm" style="position:relative; padding-top:0 !important; margin:1%; border-top:0.5em solid gray; border-bottom:0.1em solid gray;" >
@@ -122,7 +118,7 @@
         </div>
     </div>
 
-    
+
     <div class="w-100 "></div>
 
     </div>

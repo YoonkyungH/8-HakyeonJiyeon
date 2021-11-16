@@ -26,6 +26,13 @@
     /* border: 1px solid black; */
 }
 
+.sort {
+    /* position:absolute; */
+    margin-left:8%;
+    margin-top: 5%;
+    margin-bottom:0;
+}
+
 .container{
     margin-left: auto;
     margin-right:auto;

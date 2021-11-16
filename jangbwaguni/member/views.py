@@ -111,6 +111,16 @@ def login(request):
         obj = User.objects.get(cus_id = search_id)
 
         if data['cus_pw'] == obj.cus_pw:
+            # 로그인 후 이동하는 화면
             return HttpResponse(status=200)
         else:
-            return HttpResponse(status=400)
+            return render(request, 'login.html', 
+                {'error': 'password is incorrect.', }
+            )
+            # return HttpResponse(status=400)
+
+def logout(request):
+    if request.method == 'POST':
+        auth.logout(request)
+        redirect('/')
+    return render(request, 'login.html')

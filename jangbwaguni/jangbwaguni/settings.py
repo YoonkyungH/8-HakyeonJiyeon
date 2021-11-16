@@ -74,7 +74,10 @@ ROOT_URLCONF = 'jangbwaguni.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')], # 확장형 template 경로
+        'DIRS': [
+            os.path.join(BASE_DIR, 'templates'),
+            os.path.join(BASE_DIR, 'member', 'templates', 'member'),
+        ], # 확장형 template 경로
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -145,9 +148,9 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media') # 사용자가 업로드한 파일
 
 STATICFILES_DIRS = [
     Path(BASE_DIR, 'delivery', 'static'),
+    Path(BASE_DIR, 'orderrequest', 'static'),
+    Path(BASE_DIR, 'member', 'static'),
 ]
-
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field

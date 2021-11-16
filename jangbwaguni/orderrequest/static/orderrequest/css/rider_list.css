@@ -1,0 +1,149 @@
+*{
+    margin:0;
+    padding:0;
+} 
+html{
+    overflow:scroll;
+}
+
+@font-face {
+    font-family: 'SBAggroB';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SBAggroB.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'SBAggroM';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SBAggroM.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'SBAggroL';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SBAggroL.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* 정렬 */
+.sort-box{
+    margin-left:5%;
+    margin-top:2%;
+}
+.sort-title{
+    font-family: 'SBAggroM', 'serif';
+    vertical-align: bottom;
+    font-size:1.5rem;
+    margin-right: 1%;
+}
+.sort-list:focus{
+    outline: none !important;
+    box-shadow: none !important;
+    border-color:gray;
+}
+.input-search-box{
+    vertical-align: middle;
+    margin-left:70%;
+}
+#input-search:focus{
+    outline:1px solid gray;
+}
+
+.pop:active{
+    outline:none !important;
+    box-shadow: none !important;
+}
+
+/* 이모티콘 */
+
+/* label.bb:before {
+    content: "\f107";
+    font-family: "Font Awesome 5 Free";
+    color: black;
+    font-size: 1.2em;
+    font-weight: bold;
+    justify-items: end;
+}
+input#aa:checked + label.bb:before {
+    content: "\f106";
+    color: #000000;
+    font-weight:bold;
+}
+input#aa {
+    display: none;
+} */
+
+
+@media(min-width:576px){
+
+}
+
+@media(min-width:768px){
+
+}
+
+@media(min-width:992px){
+
+}
+
+@media(min-width:1200px){
+
+}
+
+.table-container{
+    display:flex;
+    flex-wrap: wrap;
+    /* justify-content: flex-start;
+    align-content:space-evenly; */
+    margin-top:10px;
+}
+
+.table-rider-list{
+    border-top:10px solid gray;
+    margin-left:auto;
+    margin-right:auto;
+    margin-bottom: 30px;
+}
+
+.col1{
+    text-align: center;
+    padding-top:5px;
+    vertical-align: middle;
+    align-content: center;
+    width:200px;
+}
+.col2{
+    text-align: center;
+    border-bottom: 2px solid gray;
+    vertical-align: middle;
+    min-width: 100px;
+    padding-top:5px;
+    border-right: 2px solid gray;
+    font-family:  'SBAggroM', 'serif';
+}
+.col3{
+    border-bottom: 2px solid gray;    
+    vertical-align: middle;
+    width: 300px;
+    min-width:300px; 
+    padding-top:5px;
+    padding-left: 5px;
+    font-family:  'SBAggroL', 'serif';
+}
+.table-profile-image{
+    width:180px;
+    height:auto;
+    border-radius: 10%;
+}
+.button-delivery{
+    background-color:#8E8455;
+    color : white;
+    vertical-align: center;
+    margin:1px;
+    width:200px;
+    font-family:  'SBAggroM', 'serif';
+}
+.button-delivery:hover{
+    background-color:white;
+    color : #8E8455;
+}

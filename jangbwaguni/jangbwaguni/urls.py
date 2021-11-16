@@ -11,7 +11,7 @@ urlpatterns = [
     # path('main/', include('main.urls')),
     path('delivery/', include('delivery.urls')),
     path('order/', include('orderrequest.urls')),
-    # path('member/', include('member.urls')),
+    path('member/', include('member.urls')),
 ]
 
 urlpatterns += \

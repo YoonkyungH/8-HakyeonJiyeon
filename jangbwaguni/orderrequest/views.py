@@ -1,11 +1,40 @@
+from django.core import serializers
+from django.core.serializers import serialize
+from django.core.serializers.base import Serializer
+from django.http.response import JsonResponse
 from django.shortcuts import render, get_object_or_404
 #from .models import Customer, Rider
+
+# View
+import json
+from django.views import View
+from delivery.models import Rider
+from django.core.serializers import serialize
+from delivery.serializers import DeliverySerializer
+from rest_framework.parsers import JSONParser
+from rest_framework.renderers import JSONRenderer
+
+from rest_framework import serializers
+
 
 def d_order_cus(request):
     return render(request, 'orderrequest/order_cus.html')
 
 def d_rider_list(request):
     return render(request, 'orderrequest/rider_list.html')
+
+class IndexView(View):
+    def get(self, request): # 배달원 목록 불러오기(모든 정보포함)
+        # rider_list = Rider.objects.all()
+        # data = json.loads(serialize('json', rider_list))
+        # return JsonResponse({'rider_list': data})
+
+
+        rider_list = Rider.objects.all()
+        data = json.loads(serialize('json', rider_list))
+        return JsonResponse({'rider_list': data})
+        
+
 
 
 #### 예제

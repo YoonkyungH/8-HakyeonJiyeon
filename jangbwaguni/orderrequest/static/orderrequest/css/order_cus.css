@@ -66,6 +66,10 @@
     /* font-family: 'SBAggroL', 'serif'; */
 }
 
+html{
+    padding-bottom: 100px;
+}
+
 p{
     color:black;
     margin-bottom:0px;
@@ -78,6 +82,13 @@ input{
 
 td{
     font-family: 'SBAggroL', 'serif';
+}
+
+#btn-add{
+    border: 2px solid #D4E2C2;
+    color: #D4E2C2;
+    font-weight: bold;
+    background-color: white;
 }
 
 .container-flex-box{
@@ -133,7 +144,7 @@ td{
 }
 
 .sub-td{
-    min-width:300px;
+    min-width:600px;
 }
 
 
@@ -155,9 +166,18 @@ td{
     /* height:100%; */
     /* min-width:200px; */
     text-align:center;
-    min-width:300px;
+    min-width:400px;
+    font-family: 'SBAggroL', 'serif';
 }
 
+.input-point{
+    background-color: #EEEEEE;
+    border-radius: 1em;
+    padding: 1%;
+    display:inline-flex;
+    justify-content: space-between;
+    margin-bottom:5px;
+}
 
 /* @media(max-width:576px){
     th{
@@ -182,6 +202,7 @@ td{
         width:15vw;
     }
 }
+
 
 @media(max-width:992px){
     th{
@@ -210,17 +231,19 @@ td{
 .credit-table{
     border-color:rgba(142, 132, 85, 0);
     /* align-items: center; */
-    width: 200px;
+    width: 300px;
     margin-left:auto;
     margin-right:auto;
     margin-top:30px;
+    color:white;
+    font-family: 'SBAggroL','serif';
 }
 
 .rider-info{
     border-radius: 10%;
     border: 2px solid white;
-    max-width:200px;
-    max-height:240px;
+    max-width:240px;
+    max-height:280px;
     margin-left:auto;
     margin-right:auto;
     margin-top: 10vh;
@@ -236,9 +259,25 @@ td{
     overflow: hidden;
     margin-left:auto;
     margin-right:auto;
+    margin-bottom: 2vw;
 }
+
 .profile-image{
     width:150px;
     height:auto;
     object-fit:cover;
+}
+
+.star-filled{
+    color:rgb(252, 252, 73);
+    padding-top:1px;
+}
+
+#btn-pay{
+    width:320px;
+    height:70px;
+    border: none;
+    border-radius: 4vw;
+    font-family: 'SBAggroB','serif';
+    font-size: 1.5rem;
 }

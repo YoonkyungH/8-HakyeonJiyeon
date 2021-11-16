@@ -3,11 +3,53 @@
 {% block head_title %}주문하기{% endblock %}
 {% block navbar_title %}주문하기{% endblock %}
 <head>
-<!-- 구글 icon -->
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-rel="stylesheet">
+    <!-- 구글 icon -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    rel="stylesheet">
 </head>
 {% block main_area %}
+<!-- 천단위 콤마 추가 -->
+<script>
+     function inputNumberFormat(obj) {
+     obj.value = comma(uncomma(obj.value));
+ }
+
+ function comma(str) {
+     str = String(str);
+     return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+ }
+
+ function uncomma(str) {
+     str = String(str);
+     return str.replace(/[^\d]+/g, '');
+ }
+</script>
+
+<!-- 테이블에 행 추가 -->
+<script>
+    var newRow = HTMLTableElement.insertRow(index);
+    var newCell = HTMLTableRowElement.insertCell(index);
+
+    function addRow() {
+    // table element 찾기
+    const table = document.getElementById('order-detail-table-1');
+    
+    // 새 행(Row) 추가
+    const newRow = table.insertRow();
+    
+    // 새 행(Row)에 Cell 추가
+    const newCell1 = newRow.insertCell(0);
+    const newCell2 = newRow.insertCell(1);
+    const newCell3 = newRow.insertCell(1);
+    const newCell4 = newRow.insertCell(1);
+
+    // Cell에 텍스트 추가
+    newCell1.innerText = '1';
+    newCell2.innerText = '2';
+    newCell3.innerText = '3';
+    newCell4.innerText = '4';
+}
+</script>
 <div class="container-flex-box">
 
 
@@ -33,8 +75,8 @@ rel="stylesheet">
                     <option value="">1/죠리퐁</option>
                 </optgroup>
             </select>
-            <P style="color:rgb(182, 182, 182);">
-                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M11 7h2v2h-2zm0 4h2v6h-2zm1-9C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/></svg>
+            <P style="color:rgb(182, 182, 182); font-size:0.3rem;">
+                <svg xmlns="http://www.w3.org/2000/svg" height="14px" viewBox="0 0 24 24" width="16px" fill="rgb(182, 182, 182)"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M11 7h2v2h-2zm0 4h2v6h-2zm1-9C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/></svg>
                 <!-- <span class="material-icons-outlined">info</span> -->
                 선택하면 자동으로 추가됩니다.</P>
         </td>
@@ -47,17 +89,17 @@ rel="stylesheet">
 
         <td class="sub-td" style="width:25rem;">
             <table id="order-detail-table-1" style="min-width: 400px;">
-                <th>수량</th>
-                <th>품목명</th>
-                <th>구매소</th>
-                <th>가격</th>
+                <th style="text-align: center;">수량</th>
+                <th style="text-align: center;">품목명</th>
+                <th style="text-align: center;">구매소</th>
+                <th style="text-align: center;">가격</th>
 
                 <!-- 반복할 구간 -->
-                <tr class="order-list">
-                    <td>1</td>
-                    <td>파워에이드</td>
-                    <td>편의점</td>
-                    <td>2,000원</td>
+                <tr class="order-list" style="vertical-align: center;">
+                    <td style="border-right: 1px solid white;  max-width:120px;"><input name="input-quantity" type="number" aria-label="수량" class="form-control" style="background-color: #D4E2C2;"></td>
+                    <td style="border-right: 1px solid white; min-width: 150px;"><input name="input-item" type="text" aria-label="품목" class="form-control" style="background-color: #D4E2C2;"></td>
+                    <td style="border-right: 1px solid white;"><input name="input-location" type="text" aria-label="구매소" class="form-control" style="background-color: #D4E2C2;"></td>
+                    <td style="border-right: 1px solid white;"><input id="input-price" name="input-price" type="text" aria-label="가격" class="form-control" style="background-color: #D4E2C2;" onkeyup="inputNumberFormat(this)"></td>
                 </tr>
                 <!-- 반복 종료 -->
             </table>
@@ -67,7 +109,7 @@ rel="stylesheet">
         <td></td>
         <td></td>
         <td>
-            <button type="submit">+추가</button>
+            <button onclick='addRow()' value="행추가" id="btn-add" type="submit">&nbsp + 추가 &nbsp</button>
         </td>
     </tr>
 
@@ -107,7 +149,7 @@ rel="stylesheet">
         <td class="sub-td">
             <div class="sub-td input-group">
                 <input name="input-adress" type="text" aria-label="주소" class="form-control" style="background-color: #D4E2C2;" placeholder="주소">
-                <input name="input-post" type="text" aria-label="우편번호" class="form-control" style="background-color: #D4E2C2;" placeholder="우편번호">
+                <input name="input-post" type="text" aria-label="우편번호" class="form-control" style="background-color: #D4E2C2; max-width:100px;" placeholder="우편번호">
             </div>
         </td>
     </tr>
@@ -137,13 +179,13 @@ rel="stylesheet">
     <tr>
         <td></td>
         <td class="sub-th">쿠폰 사용</td>
-        <td class="sub-td">첫 구매 할일(-2,000)</td>
+        <td class="sub-td">첫 구매 할인 (-2,000)</td>
     </tr>
     <tr>
         <td></td>
         <td class="sub-th">포인트 사용</td>
-        <td class="sub-td" style="background-color: #EEEEEE; border-radius: 1em;">
-            <span style="text-align: left;">3,000</span>
+        <td class="sub-td input-point">
+            <span style="text-align: left; vertical-align: center;">3,000</span>
             <span style="text-align: right;">(사용 가능 적립금 4,500)</span>
         </td>
     </tr>
@@ -170,7 +212,7 @@ rel="stylesheet">
         </td>
     </tr>
 
-    <td colspan="3" style="text-align: center;">결제 금액의 일부는 장봐구니 라이더에게 전달됩니다<br>
+    <td colspan="3" style="text-align: center; padding-top:30px;">결제 금액의 일부는 장봐구니 라이더에게 전달됩니다<br>
         주문 내용을 확인하였으며, 개인정보 수집 정보 제공에 동의합니다</td>
 
 </table>
@@ -178,24 +220,25 @@ rel="stylesheet">
 
 <article class="section" id="container-right">
     <div class="rider-info">
-        <p>배달원 정보</p>
+        <p style="font-family:'SBAggroB', 'serif'; font-size:1.4rem; margin-bottom:10px;">배달원 정보</p>
         <div class="profile-box">
             <img src="{% static 'orderrequest/images/donut-image.jpg' %}" class="profile-image" alt="프로필사진">
         </div>
-        <p>스피드 ★★★</p>
-        <p>신선도 ★★★</p>
-        <p>정확도 ★★★</p>
+        <p style="margin-bottom:6px;">스피드 <i class="star-filled fas fa-star"></i><i class="star-filled fas fa-star"></i><i class="star-filled fas fa-star"></i></p>
+        <p style="margin-bottom:6px;">신선도 <i class="star-filled fas fa-star"></i><i class="star-filled fas fa-star"></i><i class="star-filled fas fa-star"></i></p>
+        <p style="margin-bottom:6px;">정확도 <i class="star-filled fas fa-star"></i><i class="star-filled fas fa-star"></i><i class="star-filled fas fa-star" style="color:gray;"></i></p>
     </div>
 
     <div style="align-items: center;">
         <table class="credit-table table">
             <tbody>
               <tr>
-                <th scope="row" style="text-align: right;">기본가격</th>
+                <td scope="row" style="text-align: right; max-width:80px;
+                ">기본가격</td>
                 <td >20,000원</td>
               </tr>
               <tr>
-                <th scope="row" style="text-align: right;">할인가격</th>
+                <td scope="row" style="text-align: right; max-width:80px;">할인가격</td>
                 <td>-2,000원</td>
               </tr>
               <tr>
@@ -203,17 +246,20 @@ rel="stylesheet">
                 <td>-3,000원</td>
               </tr>
               <tr>
-                <th scope="row" style="text-align: right;" >배송가격</th>
+                <td scope="row" style="text-align: right; max-width:80px;" >배송가격</td>
                 <td>+2,000원</td>
               </tr>
               <tr style="border-top: white solid 2px !important;">
-                <th scope="row" style="text-align: right;">최종 결제금액</th>
-                <td>17,000원</td>
+                <td scope="row" style="text-align: right; max-width:80px;">최종 결제금액</td>
+                <td style="color:red; font-size:1.4rem;">17,000원</td>
               </tr>
             </tbody>
           </table>
     </div>
-</>
+    <div>
+        <button id="btn-pay" type="submit">결제하기</button>
+    </div>
+
 </article>
 </div>
 

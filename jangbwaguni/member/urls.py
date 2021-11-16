@@ -11,5 +11,6 @@ from . import views
 app_name = 'member'
 urlpatterns = [
     path('', views.IndexView.as_view(), name='index'),
-    path('login', views.login, name="login"),
+    path('login/', views.login, name="login"),
+    path('logout/', views.logout, name="logout")
 ]

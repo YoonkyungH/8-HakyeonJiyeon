@@ -18,10 +18,10 @@ from rest_framework import serializers
 
 
 def d_order_cus(request):
-    return render(request, 'order_cus.html')
+    return render(request, 'orderrequest/order_cus.html')
 
 def d_rider_list(request):
-    return render(request, 'rider_list.html')
+    return render(request, 'orderrequest/rider_list.html')
 
 class IndexView(View):
     def get(self, request): # 배달원 목록 불러오기(모든 정보포함)

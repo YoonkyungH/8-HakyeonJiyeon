@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% block head_title %}장봐구니 고객 후기{% endblock %}
+{% block navbar_title %}장봐구니 고객 후기{% endblock %}
+{% block main_area %}
+<div class="container">
+    <div class="d-flex flex-column my-5 mx-5">
+
+        <div id="customer_spec" class="p-5 bg-lightbrowngrey">
+            <div class="row">
+                <div id="rider_pic" class="col-auto ms-3" style="background-color: brown; width: 150px; height: 150px;"></div>
+                <div class="col-auto ms-4">
+                    <div class="fw-bold fs-5">김겨울</div>
+                    <div class="fs-5">★★☆</div>
+                    <div class="my-2">충남 천안시 병천면 충절로 1600 1공 C102호</div>
+                </div>
+            </div>
+        </div>
+
+        <div id="review_section" class="my-5">
+            <div class="ms-3">
+                <div class="fs-2 fw-bold">REVIEWS</div>
+                <div class="text-sm">고객에 대해 평가해주세요.</div>
+            </div>
+            <div class="row my-3 mx-3 py-4 justify-content-center border border-browngrey fs-4 fw-bold">
+                <div class="col-auto mx-5 my-3">스피드 ☆☆☆</div>
+                <div class="col-auto mx-5 my-3">신선도 ☆☆☆</div>
+                <div class="col-auto mx-5 my-3">정확도 ☆☆☆</div>
+            </div>
+        </div>
+
+        <div id="review_list" class="mx-3 mb-5">
+            <div class="bg-browngrey" style="min-height: 12px;"></div>
+            <div class="mb-5">
+
+                <div class="row my-3 mx-3 py-3 border border-browngrey">
+                    <div class="col-auto row gx-2 align-items-center">
+                        <div class="col-auto fs-5 fw-bold ms-3">닉네임</div>
+                        <div class="col-auto text-xs">2021.10.17</div>
+                    </div>
+                    <div class="col row justify-content-center align-items-center fw-bold">
+                        <div class="col-auto mx-4 my-1">스피드 ☆☆☆</div>
+                        <div class="col-auto mx-4 my-1">신선도 ☆☆☆</div>
+                        <div class="col-auto mx-4 my-1">정확도 ☆☆☆</div>
+                    </div>
+                </div>
+
+                <div class="row my-3 mx-3 py-3 border border-browngrey">
+                    <div class="col-auto row gx-2 align-items-center">
+                        <div class="col-auto fs-5 fw-bold ms-3">닉네임</div>
+                        <div class="col-auto text-xs">2021.10.17</div>
+                    </div>
+                    <div class="col row justify-content-center align-items-center fw-bold">
+                        <div class="col-auto mx-4 my-1">스피드 ☆☆☆</div>
+                        <div class="col-auto mx-4 my-1">신선도 ☆☆☆</div>
+                        <div class="col-auto mx-4 my-1">정확도 ☆☆☆</div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

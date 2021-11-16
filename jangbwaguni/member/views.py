@@ -126,3 +126,10 @@ def mypage_view(request):
 
 #     # logout으로 GET 요청이 들어왔을 때, 로그인 화면을 띄워준다.
 #     return render(request, 'login.html')
+
+
+def d_mypage_orderlist(request):
+    return render(request, 'member/mypage_orderlist.html')
+
+def d_mypage(request):
+    return render(request, 'member/mypage.html')

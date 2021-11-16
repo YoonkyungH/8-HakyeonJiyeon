@@ -145,6 +145,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media') # 사용자가 업로드한 파일
 STATICFILES_DIRS = [
     Path(BASE_DIR, 'delivery', 'static'),
     Path(BASE_DIR, 'orderrequest', 'static'),
+    Path(BASE_DIR, 'member', 'static'),
 ]
 
 # Default primary key field type

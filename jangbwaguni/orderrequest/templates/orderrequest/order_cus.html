@@ -1,12 +1,16 @@
-{% extends 'base.html' %}
+{% extends 'base.html' %} 
+
 {% load static %}
 {% block head_title %}주문하기{% endblock %}
 {% block navbar_title %}주문하기{% endblock %}
-<head>
+{% block style %}
+    <link rel="stylesheet" type="text/css" href="{% static 'orderrequest/css/order_cus.css' %}">
+
     <!-- 구글 icon -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
     rel="stylesheet">
-</head>
+{% endblock %}
+
 {% block main_area %}
 <!-- 천단위 콤마 추가 -->
 <script>
@@ -231,7 +235,7 @@
 
     <div style="align-items: center;">
         <table class="credit-table table">
-            <tbody>
+            <tbody> 
               <tr>
                 <td scope="row" style="text-align: right; max-width:80px;
                 ">기본가격</td>

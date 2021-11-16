@@ -29,9 +29,8 @@
             integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk"
             crossorigin="anonymous">
         <link rel="stylesheet" href="{% static 'delivery/css/delivery.css'%}">
-        <link rel="stylesheet" type="text/css" href="{% static 'orderrequest/css/orderrequest.css' %}">
-        <link rel="stylesheet" type="text/css" href="{% static 'orderrequest/css/order_cus.css' %}">
-        
+        {% block style %}
+        {% endblock %}
     </head>
     <body>
         <div class="">
@@ -50,8 +49,9 @@
                     </div>
                 </div>
             </div>
-            {% block main_area %}
-            {% endblock %}
+            
         </div>
+        {% block main_area %}
+        {% endblock %}
     </body>
 </html>

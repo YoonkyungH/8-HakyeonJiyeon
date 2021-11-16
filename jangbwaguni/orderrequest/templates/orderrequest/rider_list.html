@@ -6,179 +6,223 @@
 {% block head_title %}라이더 선택{% endblock %}
 {% block navbar_title %}라이더 선택{% endblock %}
 {% block main_area %}
+{% block style %}
+    <link rel="stylesheet" type="text/css" href="{% static 'orderrequest/css/rider_list.css' %}">
 
-
-<div class="container" style="justify-items: center;">
+    <script src="js/jquery-2.1.3.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+{% endblock %}
+<div>
+<div class="sort-box">
+    <span class="sort-title">정렬</span>
     <!-- 정렬 -->
-<select class="sort col-auto form-select form-select-sm w-auto" aria-label="정렬 선택">
-    <option selected value="order_count">내역순</option>
-    <option value="recent">최신순</option>
-    <option value="nickname">이름순</option>
-</select>
-
-    <div class="justify-content-around row my-3 container" style="height:auto; margin:0 !important;">
-
-    <!-- 반복 -->
-        <div class="container-unique col col-sm" style="position:relative; padding-top:0 !important; margin:1%; border-top:0.5em solid gray; border-bottom:0.1em solid gray;" >
-            <div class="row box align-items-center">
-
-                <div class="col-4" style="position: relative; padding:2% !important;">
-                    <div class="row">
-                        <div class="profile-image-col p-4 ">
-                            <img src="{% static 'orderrequest/images/donut-image.jpg' %}" class="profile-image img-fluid rounded float-start " alt="프로필사진">
-                        </div>
-                    </div>
-                    <div class="row text-center">
-                        <div class="button-delivery-container p-1"><a class="button-delivery btn btn-lg align-items-center">배달요청</a></div>
-                    </div>
-                </div>
-
-                <div class="col" style="position:relative;">
-                    <div class="row" style="border-bottom:0.1em solid gray;">
-                        <div class="subtitle-col1 col-6 align-self-center;" >닉네임</div>
-                        <div class="subtitle-col2 col align-self-center" style="height:100%; border-left:0.1em solid gray;">배고픈 학생</div>
-                    </div>
-                    <div class="row" style="border-bottom:0.1em solid gray;">
-                        <div class="subtitle-col1 col-6 align-self-center">지역</div>
-                        <div class="subtitle-col2 col p-3 align-self-center"style="height:100%; border-left:0.1em solid gray;">충남 천안시 병천면 충절로 1600 예솔관 무인택배함</div>
-                    </div>
-                    <div class="row" style="border-bottom:0.1em solid gray;">
-                        <div class="subtitle-col1 col-6 align-self-center">배달 내역</div>
-                        <div class="subtitle-col2 col p-2 align-self-center" style="height:100%; border-left:0.1em solid gray;">
-                            <!-- 팝오버 -->
-                            <p style="margin-bottom:0em !important;">
-                                <button id="pop" class="btn" data-original-title="" data-toggle="Popover" 
-                                data-content="스피드 ★★★
-                                신선도 ★★★ 
-                                정확도 ★★☆ " data-placement="bottom">
-                                3건<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000"><path d="M0 0h24v24H0z" fill="none"/><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"/></svg>
-                            </button>
-                            </p>
-                        </div>
-
-
-                    </div>
-                    <div class="row">
-                        <div class="subtitle-col1 col-6 align-self-center">소개</div>
-                        <div class="subtitle-col2 col p-4 align-self-center" style="height:100%; border-left:0.1em solid gray;">용돈벌고싶어요오아우아엉ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ</div>
-                    </div>
-                </div>
-                
-            </div>
-        </div>
-
-        <div class="w-100 d-lg-none"></div>
-    <!-- 반복 여기까지 -->
-
-    <div class="container-unique col col-sm" style="position:relative; padding-top:0 !important; margin:1%; border-top:0.5em solid gray; border-bottom:0.1em solid gray;" >
-        <div class="row box align-items-center">
-
-            <div class="col-4" style="position: relative; padding:2% !important;">
-                <div class="row">
-                    <div class="profile-image-col p-4 ">
-                        <img src="{% static 'orderrequest/images/donut-image.jpg' %}" class="profile-image img-fluid rounded float-start " alt="프로필사진">
-                    </div>
-                </div>
-                <div class="row text-center">
-                    <div class="button-delivery-container p-1"><a class="button-delivery btn btn-lg align-items-center">배달요청</a></div>
-                </div>
-            </div>
-
-            <div class="col" style="position:relative;">
-                <div class="row" style="border-bottom:0.1em solid gray;">
-                    <div class="subtitle-col1 col-6 align-self-center;" >닉네임</div>
-                    <div class="subtitle-col2 col align-self-center" style="height:100%; border-left:0.1em solid gray;">배고픈 학생</div>
-                </div>
-                <div class="row" style="border-bottom:0.1em solid gray;">
-                    <div class="subtitle-col1 col-6 align-self-center">지역</div>
-                    <div class="subtitle-col2 col p-3 align-self-center"style="height:100%; border-left:0.1em solid gray;">충남 천안시 병천면 충절로 1600 예솔관 무인택배함</div>
-                </div>
-                <div class="row" style="border-bottom:0.1em solid gray;">
-                    <div class="subtitle-col1 col-6 align-self-center">배달 내역</div>
-                    <div class="subtitle-col2 col p-2 align-self-center" style="height:100%; border-left:0.1em solid gray;">
-                        <!-- 팝오버 -->
-                        <p style="margin-bottom:0em !important;">
-                            <button id="pop" class="btn" data-original-title="" data-toggle="Popover" 
-                            data-content="스피드 ★★★
-                            신선도 ★★★ 
-                            정확도 ★★☆ " data-placement="bottom">
-                            3건<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000"><path d="M0 0h24v24H0z" fill="none"/><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"/></svg>
-                        </button>
-                        </p>
-                    </div>
-
-
-                </div>
-                <div class="row">
-                    <div class="subtitle-col1 col-6 align-self-center">소개</div>
-                    <div class="subtitle-col2 col p-4 align-self-center" style="height:100%; border-left:0.1em solid gray;">용돈벌고싶어요오아우아엉ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ</div>
-                </div>
-            </div>
-            
-        </div>
-    </div>
-
-
-    <div class="w-100 "></div>
-
-    </div>
+    <span style="display:inline-block;">
+        <select class="sort-list col-auto form-select form-select-sm w-auto" aria-label="정렬 선택">
+            <option selected value="order_count">내역순</option>
+            <option value="recent">최신순</option>
+            <option value="nickname">이름순</option>
+        </select>
+    </span>
+    <span class="input-search-box">
+        <input name="input-search" id="input-search"type="text" placeholder="검색어를 입력하세요">
+        <span><svg xmlns="http://www.w3.org/2000/svg" height="1.4rem" viewBox="0 0 24 24" width="1.4rem" fill="#000000"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg></span>
+    </span>
 </div>
 
+<div class="table-container">
+    <!-- 반복시작 -->
+    <table class="table-rider-list">  
+        <tr>
+            <td rowspan="3" class="col1">
+                <img src="{% static 'orderrequest/images/donut-image.jpg' %}" class="table-profile-image" alt="프로필사진"></td>
+            <td class="col2">닉네임</td>
+            <td class="col3">배고픈 학생</td>
+        </tr>
+        <tr>
+            <td class="col2">지역</td>
+            <td class="col3">충절로</td>
+        </tr>
+        <tr>
+            <td class="col2">배달 내역</td>
+            <td class="col3">
+                <!-- 팝오버 -->
+                <p style="margin-bottom:0em !important;">
+                    <button id="" class="btn pop" data-original-title="" data-toggle="Popover" 
+                    data-content="스피드 ★★★
+                    신선도 ★★★ 
+                    정확도 ★★☆ " data-placement="bottom">
+                    3건<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000"><path d="M0 0h24v24H0z" fill="none"/><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"/></svg>
+                </button>
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td class="col1" style="border-bottom: 2px solid gray; vertical-align: bottom;"><a class="button-delivery btn btn-lg align-items-center">배달요청</a></td>
+            <td class="col2" style="border-bottom: 2px solid gray; ">소개</td>
+            <td class="col3" style="border-bottom: 2px solid gray; ">용돈벌고싶어요오아우아엉ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ</td>
+        </tr>
+    </table>
+    <!-- 반복 끝 -->
+    <!-- 반복시작 -->
+    <table class="table-rider-list">  
+        <tr>
+            <td rowspan="3" class="col1">
+                <img src="{% static 'orderrequest/images/donut-image.jpg' %}" class="table-profile-image" alt="프로필사진"></td>
+            <td class="col2">닉네임</td>
+            <td class="col3">배고픈 학생</td>
+        </tr>
+        <tr>
+            <td class="col2">지역</td>
+            <td class="col3">충절로</td>
+        </tr>
+        <tr>
+            <td class="col2">배달 내역</td>
+            <td class="col3">
+                <!-- 팝오버 -->
+                <p style="margin-bottom:0em !important;">
+                    <button id="" class="btn pop" data-original-title="" data-toggle="Popover" 
+                    data-content="스피드 ★★★
+                    신선도 ★★★ 
+                    정확도 ★★☆ " data-placement="bottom">
+                    3건<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000"><path d="M0 0h24v24H0z" fill="none"/><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"/></svg>
+                </button>
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td class="col1" style="border-bottom: 2px solid gray; vertical-align: bottom;"><a class="button-delivery btn btn-lg align-items-center">배달요청</a></td>
+            <td class="col2" style="border-bottom: 2px solid gray; ">소개</td>
+            <td class="col3" style="border-bottom: 2px solid gray; ">용돈벌고싶어요오아우아엉ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ</td>
+        </tr>
+    </table>
+    <!-- 반복 끝 -->
+    <!-- 반복시작 -->
+    <table class="table-rider-list">  
+        <tr>
+            <td rowspan="3" class="col1">
+                <img src="{% static 'orderrequest/images/donut-image.jpg' %}" class="table-profile-image" alt="프로필사진"></td>
+            <td class="col2">닉네임</td>
+            <td class="col3">배고픈 학생</td>
+        </tr>
+        <tr>
+            <td class="col2">지역</td>
+            <td class="col3">충절로</td>
+        </tr>
+        <tr>
+            <td class="col2">배달 내역</td>
+            <td class="col3">
+                <!-- 팝오버 -->
+                <p style="margin-bottom:0em !important;">
+                    <button id="" class="btn pop" data-original-title="" data-toggle="Popover" 
+                    data-content="스피드 ★★★
+                    신선도 ★★★ 
+                    정확도 ★★☆ " data-placement="bottom">
+                    3건<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000"><path d="M0 0h24v24H0z" fill="none"/><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"/></svg>
+                </button>
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td class="col1" style="border-bottom: 2px solid gray; vertical-align: bottom;"><a class="button-delivery btn btn-lg align-items-center">배달요청</a></td>
+            <td class="col2" style="border-bottom: 2px solid gray; ">소개</td>
+            <td class="col3" style="border-bottom: 2px solid gray; ">용돈벌고싶어요오아우아엉ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ</td>
+        </tr>
+    </table>
+    <!-- 반복 끝 -->
+    <!-- 반복시작 -->
+    <table class="table-rider-list">  
+        <tr>
+            <td rowspan="3" class="col1">
+                <img src="{% static 'orderrequest/images/donut-image.jpg' %}" class="table-profile-image" alt="프로필사진"></td>
+            <td class="col2">닉네임</td>
+            <td class="col3">배고픈 학생</td>
+        </tr>
+        <tr>
+            <td class="col2">지역</td>
+            <td class="col3">충절로</td>
+        </tr>
+        <tr>
+            <td class="col2">배달 내역</td>
+            <td class="col3">
+                <!-- 팝오버 -->
+                <p style="margin-bottom:0em !important;">
+                    <button id="" class="btn pop" data-original-title="" data-toggle="Popover" 
+                    data-content="스피드 ★★★
+                    신선도 ★★★ 
+                    정확도 ★★☆ " data-placement="bottom">
+                    3건<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000"><path d="M0 0h24v24H0z" fill="none"/><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"/></svg>
+                </button>
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td class="col1" style="border-bottom: 2px solid gray; vertical-align: bottom;"><a class="button-delivery btn btn-lg align-items-center">배달요청</a></td>
+            <td class="col2" style="border-bottom: 2px solid gray; ">소개</td>
+            <td class="col3" style="border-bottom: 2px solid gray; ">용돈벌고싶어요오아우아엉ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ</td>
+        </tr>
+    </table>
+    <!-- 반복 끝 -->
+    <!-- 반복시작 -->
+    <table class="table-rider-list">  
+        <tr>
+            <td rowspan="3" class="col1">
+                <img src="{% static 'orderrequest/images/donut-image.jpg' %}" class="table-profile-image" alt="프로필사진"></td>
+            <td class="col2">닉네임</td>
+            <td class="col3">배고픈 학생</td>
+        </tr>
+        <tr>
+            <td class="col2">지역</td>
+            <td class="col3">충절로</td>
+        </tr>
+        <tr>
+            <td class="col2">배달 내역</td>
+            <td class="col3">
+                <!-- 팝오버 -->
+                <p style="margin-bottom:0em !important;">
+                    <button id="" class="btn pop" data-original-title="" data-toggle="Popover" 
+                    data-content="스피드 ★★★
+                    신선도 ★★★ 
+                    정확도 ★★☆ " data-placement="bottom">
+                    3건<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000"><path d="M0 0h24v24H0z" fill="none"/><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"/></svg>
+                </button>
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td class="col1" style="border-bottom: 2px solid gray; vertical-align: bottom;"><a class="button-delivery btn btn-lg align-items-center">배달요청</a></td>
+            <td class="col2" style="border-bottom: 2px solid gray; ">소개</td>
+            <td class="col3" style="border-bottom: 2px solid gray; ">용돈벌고싶어요오아우아엉ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ</td>
+        </tr>
+    </table>
+    <!-- 반복 끝 -->
+</div>
 
-
-
-<!-- 별점2 : https://getbootstrap.com/docs/4.0/components/collapse/ -->
-<!-- <button type="button" class="btn btn-lg btn-danger" data-toggle="popover" title="Popover title" data-content="스피드 ★★★ 신선도 ★★★ ㄴ정확도 ★★☆" data-placement="bottom">
-    3건
-</button>
-<button type="button" class="btn btn-lg btn-danger" data-toggle="popover" title="Popover title" data-content="And here's some amazing content. It's very engaging. Right?">Click to toggle popover</button>
-<button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="bottom" title="Tooltip on bottom">
-    Tooltip on bottom
-  </button> -->
-<!-- Paginator : https://getbootstrap.com/docs/4.0/components/pagination/ -->
-<nav aria-label="Page navigation example">
-    <ul class="pagination pagination-sm justify-content-center">
-      <li class="page-item">
-        <a class="page-link" href="#" aria-label="Previous">
-          <span aria-hidden="true">&laquo;</span>
-          <span class="sr-only">Previous</span>
-        </a>
-      </li>
-      <li class="page-item"><a class="page-link" href="#">1</a></li>
-      <li class="page-item"><a class="page-link" href="#">2</a></li>
-      <li class="page-item"><a class="page-link" href="#">3</a></li>
-      <li class="page-item">
-        <a class="page-link" href="#" aria-label="Next">
-          <span aria-hidden="true">&raquo;</span>
-          <span class="sr-only">Next</span>
-        </a>
-      </li>
-    </ul>
-  </nav>
+<div style="text-align: center; margin-top:5%;">
+    <nav aria-label="Page navigation example" style="display:inline-block;">
+        <ul class="pagination">
+          <li class="page-item">
+            <a class="page-link" href="#" aria-label="Previous">
+              <span aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" height="16px" viewBox="0 5 24 24" width="16px" fill="#000000"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12l4.58-4.59z"/></svg>
+              </span>
+            </a>
+          </li>
+          <li class="page-item"><a style="color:black;" class="page-link" href="#">1</a></li>
+          <li class="page-item"><a style="color:rgb(167, 167, 167);" class="page-link" href="#">2</a></li>
+          <li class="page-item"><a style="color:rgb(167, 167, 167);" class="page-link" href="#">3</a></li>
+          <li class="page-item">
+            <a class="page-link" href="#" aria-label="Next">
+              <span aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" height="16px" viewBox="0 5 24 24" width="16px" fill="#000000"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M10.02 6L8.61 7.41 13.19 12l-4.58 4.59L10.02 18l6-6-6-6z"/></svg>
+              </span>
+            </a>
+          </li>
+        </ul>
+    </nav>
+</div>
 
 <!-- 팝오버 -->
-<script src="js/jquery-2.1.3.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
 <script>
-    $("#pop").popover();
+    $(".pop").popover();
 </script>
 
-<!-- 별점1 : https://getbootstrap.com/docs/4.0/components/collapse/ -->
-<!-- <p style="margin:0;">
-    <button class="btn" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-    3건
-    </button>
-</p>
-<div class="collapse" id="collapseExample">
-    <div class="card card-body">
-    스피드 ★★★ <br>
-    신선도 ★★★ <br>
-    정확도 ★★☆ <br>
-    </div>
-</div> -->
-
-<!-- arrow 이모티콘 -->
-<input type="checkbox" id="aa">
-<label for="aa" class="bb"></label>
-<label for="aa" class="cc">Lorem Ipsum Dolor</label>
 {% endblock %}

@@ -54,6 +54,10 @@ def review_rider_view(request):
 def review_cus_view(request):
     return render(request, 'review_cus.html')
 
+# 마이페이지
+def mypage_view(request):
+    return render(request, 'mypage.html')
+
 
 
 # from django.shortcuts import render, redirect

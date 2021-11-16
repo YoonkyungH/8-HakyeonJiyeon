@@ -11,8 +11,8 @@ urlpatterns = [
     # path('main/', include('main.urls')),
     path('delivery/', include('delivery.urls')),
     path('order/', include('orderrequest.urls')),
-    path('mypage/', include('member.urls')),
-] 
+    path('member/', include('member.urls')),
+]
 
 urlpatterns += \
     static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

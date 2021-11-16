@@ -46,6 +46,17 @@ def signup(request):
     return render(request, 'signup.html')
 
 
+# 라이더 리뷰
+def review_rider_view(request):
+    return render(request, 'review_rider.html')
+
+# 고객 리뷰
+def review_cus_view(request):
+    return render(request, 'review_cus.html')
+
+# 마이페이지
+def mypage_view(request):
+    return render(request, 'mypage.html')
 
 
 

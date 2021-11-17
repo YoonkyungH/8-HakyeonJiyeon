@@ -2,16 +2,16 @@ from django.contrib.auth import logout
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.shortcuts import redirect, render
 
-from django.contrib import auth
+from django.contrib import auth 
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 
-import json
+# import json
 from django.views import View
-from django.http import HttpResponse, JsonResponse
-from django.shortcuts import get_object_or_404
-from .models import User
-from django.core.serializers import serialize
+# from django.http import HttpResponse, JsonResponse
+# from django.shortcuts import get_object_or_404
+# from .models import User
+# from django.core.serializers import serialize
 # django에 이 라이브러리들이 내장되어 있음
 
 def login_view(request):

@@ -77,6 +77,7 @@ TEMPLATES = [
         'DIRS': [
             os.path.join(BASE_DIR, 'templates'),
             os.path.join(BASE_DIR, 'member', 'templates', 'member'),
+            os.path.join(BASE_DIR, 'main', 'templates', 'main'),
         ], # 확장형 template 경로
         'APP_DIRS': True,
         'OPTIONS': {

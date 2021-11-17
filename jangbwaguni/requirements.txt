@@ -8,6 +8,7 @@ charset-normalizer==2.0.7
 Django==3.2.9
 django-multiselectfield==0.1.12
 django-phonenumber-field==6.0.0
+djangorestframework==3.12.4
 dnspython==2.1.0
 eventlet==0.32.0
 falcon==3.0.1

@@ -3,7 +3,8 @@
 
 from django.http import JsonResponse
 from django.shortcuts import render, get_object_or_404, redirect
-from django.utils import timezone
+# from django.utils import timezone
+import datetime
 
 # from delivery.models import Rider
 from member.models import Customer, Rider
@@ -33,12 +34,23 @@ def d_order_cus(request, rider_id):
     if request.method == 'POST':
         new_order = OrderApply()
         new_order.quantity = request.POST['input-quantity']
-        new_order.product = request.POST['input-item']
+        # listIWantToStore = request.POST['input-quantity']
+        new_order.product = request.POST.get("input-item[]", False)
+        # new_order.product = request.POST["test[]"]
+        # new_order.product = request.POST.get('input-item')
+# name_age_pairs = zip(request.POST.getlist('name'), request.POST.getlist('age'))
+# data_dicts = [{'name': name, 'age': age} for name, age in name_age_pairs]
+# for data in data_dicts:
+#     form = PersonForm(data)
+#     form.save()
+
         new_order.sale_store = request.POST['input-store']
         new_order.price = request.POST['input-price']
-        new_order.created_at = timezone.now()
+        new_order.created_at = datetime.datetime.now()
+        new_order.rider_selected = request.POST['rider-select'] 
         new_order.save()
-        return redirect('d_rider_list')
+        # return redirect('d_rider_list')
+        return redirect('d_mypage_orderlist')
     # GET 방식일 때
     else:
         new_order = OrderApply.objects.all()

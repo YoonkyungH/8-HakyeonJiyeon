@@ -119,7 +119,7 @@
                         <!-- 반복할 구간 -->
                             <tbody id="first-row">
                             <tr class="order-list" style="vertical-align: center; background-color: #D4E2C2; border-bottom:1px solid white;">
-                                <td style="border-right: 1px solid white;  max-width:120px;"><input name="input-quantity" type="number" aria-label="수량" class="form-control" style="background-color: #D4E2C2;"  min="0"></td>
+                                <td style="border-right: 1px solid white;  max-width:120px;"><input name="input-quantity" type="number" aria-label="수량" class="form-control" style="background-color: #D4E2C2;" min="1"></td>
                                 <td style="border-right: 1px solid white; min-width: 150px;"><input name="input-item" type="text" aria-label="품목" class="form-control" style="background-color: #D4E2C2;"></td>
                                 <td style="border-right: 1px solid white;"><input name="input-store" type="text" aria-label="구매소" class="form-control" style="background-color: #D4E2C2;"></td>
                                 <td style="border-right: 1px solid white;"><input id="input-price" name="input-price" type="text" aria-label="가격" class="form-control" style="background-color: #D4E2C2;" onkeyup="inputNumberFormat(this)"></td>
@@ -128,6 +128,19 @@
                         <!-- 반복 종료 -->
                             <tbody id="repeat-list">
                             </tbody>
+                            <!-- <input type="hidden" name='test[]' id='test_list' value=''>
+                            <script>
+                                src = "http://code.jquery.com/jquery-latest.min.js"
+                            </script> -->
+                            <!-- <script>
+                                function getlist(){
+                                    var list = new Array();
+                                    $("input[name=input-item]").each(function(index, item){
+                                        list.push($(item).val());
+                                    });
+                                    $("#test_list").val(list);
+                                }
+                            </script> -->
                         </table>
                     </td>
                 </tr>
@@ -253,6 +266,7 @@
                 <div class="profile-box">
                     <img src="{{ rider.rider_img.url }}" class="profile-image" alt="프로필사진">
                 </div>
+                <input name="rider-select" type="text" aria-label="선택한 라이더" style="display:none;" value="{{ rider.rider_name }}">
                 <p style="margin-bottom:6px;">스피드 <i class="star-filled fas fa-star"></i><i class="star-filled fas fa-star"></i><i class="star-filled fas fa-star"></i></p>
                 <p style="margin-bottom:6px;">신선도 <i class="star-filled fas fa-star"></i><i class="star-filled fas fa-star"></i><i class="star-filled fas fa-star"></i></p>
                 <p style="margin-bottom:6px;">정확도 <i class="star-filled fas fa-star"></i><i class="star-filled fas fa-star"></i><i class="star-filled fas fa-star" style="color:gray;"></i></p>
@@ -287,7 +301,7 @@
                 </table>
             </div>
             <div>
-                <button id="btn-pay" type="submit">결제하기</button>
+                <button id="btn-pay" type="submit" onclick="getlist()">결제하기</button>
             </div>
         </article>
     </div>

@@ -2,6 +2,9 @@ from django.db import models
 from member.models import Rider, Customer
 
 from django.core.validators import MaxValueValidator, MinValueValidator
+# from django.contrib.postgres.fields import ArrayField
+# from django_mysql.models import ListTextField
+
 
 # from django.utils import timezone
 # import datetime
@@ -11,20 +14,24 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 
 # phone_num = PhoneNumberField(unique=True, null=True, blank=False) # 휴대폰 번호
 
-
-
 class OrderApply(models.Model):
     # orderer = models.ForeignKey(Customer, on_delete=models.CASCADE, verbose_name='주문자', blank=True, related_name='ord')
     # product = models.ForeignKey(Product, verbose_name = "상품", on_delete = models.CASCADE)
-    quantity = models.PositiveSmallIntegerField(verbose_name = "수량", null=True, default=1, validators=[MinValueValidator(1), MaxValueValidator(100)]) # 1이상 100이하
-    product = models.CharField(max_length=15, verbose_name = "상품명")
-    price = models.CharField(max_length=200)
+    # quantity = models.PositiveSmallIntegerField(verbose_name = "수량", blank=True, null=True, default=1, validators=[MinValueValidator(1), MaxValueValidator(100)]) # 1이상 100이하
+    quantity = models.PositiveSmallIntegerField(verbose_name = "수량", blank=True, null=True, validators=[MinValueValidator(1), MaxValueValidator(100)]) # 1이상 100이하
+    product = models.CharField(verbose_name = "상품명", max_length=15)
+    # product = ArrayField(models.CharField(verbose_name = "상품명", max_length=15, blank=True))
+
+    price = models.CharField(verbose_name = "가격", max_length=200)
     # price = models.PositiveSmallIntegerField(verbose_name = "가격", null=True, default=1, validators=[MinValueValidator(1)]) # 1이상
     sale_store = models.CharField(verbose_name="구매장소", max_length=15, null=True, blank=True)
-    created_at = models.DateTimeField(auto_now_add=True, verbose_name="등록시간")
+    created_at = models.DateTimeField(verbose_name="등록시간", null=True, blank=True) #auto_now_add=True,
+
+    rider_selected = models.CharField(max_length=20, verbose_name='라이더 이름', blank=True) # rider_name
+    # rider = models.Col
 
     class Meta:
-        verbose_name = '장바구니'
+        verbose_name = '주문서'
         verbose_name_plural = f'{verbose_name} 목록'
         # ordering = ['-pk']
 

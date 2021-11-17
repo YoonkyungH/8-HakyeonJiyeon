@@ -8,16 +8,44 @@ from django.shortcuts import render, get_object_or_404
 # View
 import json
 from django.views import View
-from delivery.models import Rider
+from delivery.models import Rider, orders
 from django.core.serializers import serialize
 from delivery.serializers import DeliverySerializer
 from rest_framework.parsers import JSONParser
 from rest_framework.renderers import JSONRenderer
+from django.http import HttpResponse, JsonResponse
+
 
 from rest_framework import serializers
 
-
+# delivery에서 옮긴 주문 기능
 def d_order_cus(request):
+    if request.method == 'GET':  # 주문 목록
+        order_list = orders.objects.all()
+        data = json.loads(serialize('json', order_list))
+        return JsonResponse({'order_list': data})
+
+    if request.method == 'POST':    # 주문하기
+        if request.META['CONTENT_TYPE'] == 'application/json':
+            request = json.loads(request.body)
+            order_list = orders(
+                cus_name=request['cus_name'],
+                cus_address=request['cus_address'],
+                # order_product
+                cus_call=request['cus_call'],
+                order_message=request['order_message'],
+            )
+        else:
+            order_list = orders(
+                cus_name=request.POST['cus_name'],
+                cus_address=request['cus_address'],
+                # order_product
+                cus_call=request['cus_call'],
+                order_message=request['order_message'],
+            )
+        order_list.save()
+        return HttpResponse(status=200)
+        # return render(request, 'delivery/order_list.html', {})
     return render(request, 'orderrequest/order_cus.html')
 
 def d_rider_list(request):

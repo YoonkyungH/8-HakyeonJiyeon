@@ -25,77 +25,79 @@ def register_rider_view(request):   # 라이더 등록
     if request.method == 'GET':
         rider_list = Rider.objects.all()
         data = json.loads(serialize('json', rider_list))
-        # return JsonResponse({'rider_lsit': data})
-        return render(request, 'delivery/register_rider.html', {})
+        return JsonResponse({'rider_lsit': data})
+        # return render(request, 'delivery/register_rider.html', {})
 
 
     if request.method == 'POST':
         if request.META['CONTENT_TYPE'] == 'application/json':
             request = json.loads(request.body)
             rider = Rider(
-                rider_id = request['rider_id'],
-                rider_pw = request['rider_pw'],
+                # rider_id = request['rider_id'],
+                # rider_pw = request['rider_pw'],
                 rider_name = request['rider_name'],
                 min_delivery_amount=request['min_delivery_amount'],
                 rider_intro = request['rider_intro'],
                 recommended_person=request['recommended_person'],
-                rider_area = request.get('rider_area'),
-                bankbook = request['bankbook'],
-                license = request['license'],
+                rider_area = request.POST('rider_area'),
+                # bankbook = request['bankbook'],
+                # license = request['license'],
 
 
                 # multiselectfield(여러개 값을 받야아 하는) 체크박스 값이 잘 post되는지 테스트 필요
                 # rider_vehicle = request.POST.getlist('input태그 id값')
-                # rider_vehicle = request.POST.getlist('radio')
+                # rider_vehicle = request.POST.getlist('vehicle')
                 # rider_vehicle = request.POST.getlist('input태그 name값[]')
+                rider_vehicle=request.POST.getlist('vehicle[]'),
 
 
                 # rider_vehicle = request['rider_vehicle'],
             )
         else:
             rider = Rider(
-                rider_id=request.POST['rider_id'],
-                rider_pw=request.POST['rider_pw'],
+                # rider_id=request.POST['rider_id'],
+                # rider_pw=request.POST['rider_pw'],
                 rider_name=request.POST['rider_name'],
                 min_delivery_amount=request.POST['min_delivery_amount'],
                 rider_intro = request.POST['rider_intro'],
                 recommended_person=request.POST['recommended_person'],
                 rider_area=request.POST['rider_area'],
-                bankbook=request.POST['bankbook'],
-                license=request.POST['license'],
+                # bankbook=request.POST['bankbook'],
+                # license=request.POST['license'],
 
-
+                # rider_vehicle = request.POST.getlist('vehicle')
                 # rider_vehicle=request.POST['rider_vehicle'],
+                rider_vehicle=request.POST.getlist('vehicle[]'),
             )
         rider.save()
-        # return HttpResponse(status=200)
-        return render(request, 'delivery/register_rider.html', {})
-
-
-def order_list_view(request):
-    if request.method == 'GET': # 주문 목록
-        order_list = orders.objects.all()
-        data = json.loads(serialize('json', order_list))
-        return JsonResponse({'order_list': data})
-
-    if request.method == 'POST':    # 주문하기
-        if request.META['CONTENT_TYPE'] == 'application/json':
-            request = json.loads(request.body)
-            order_list = orders(
-                cus_name = request['cus_name'],
-                cus_address = request['cus_address'],
-                # order_product
-                cus_call = request['cus_call'],
-                order_message = request['order_message'],
-            )
-        else:
-            order_list = orders(
-                cus_name = request.POST['cus_name'],
-                cus_address = request['cus_address'],
-                # order_product
-                cus_call = request['cus_call'],
-                order_message = request['order_message'],
-            )
-        order_list.save()
         return HttpResponse(status=200)
-        # return render(request, 'delivery/order_list.html', {})
+        # return render(request, 'delivery/register_rider.html', {})
+
+
+# def order_list_view(request):
+#     if request.method == 'GET': # 주문 목록
+#         order_list = orders.objects.all()
+#         data = json.loads(serialize('json', order_list))
+#         return JsonResponse({'order_list': data})
+
+#     if request.method == 'POST':    # 주문하기
+#         if request.META['CONTENT_TYPE'] == 'application/json':
+#             request = json.loads(request.body)
+#             order_list = orders(
+#                 cus_name = request['cus_name'],
+#                 cus_address = request['cus_address'],
+#                 # order_product
+#                 cus_call = request['cus_call'],
+#                 order_message = request['order_message'],
+#             )
+#         else:
+#             order_list = orders(
+#                 cus_name = request.POST['cus_name'],
+#                 cus_address = request['cus_address'],
+#                 # order_product
+#                 cus_call = request['cus_call'],
+#                 order_message = request['order_message'],
+#             )
+#         order_list.save()
+#         return HttpResponse(status=200)
+#         # return render(request, 'delivery/order_list.html', {})

@@ -42,9 +42,9 @@ class Rider(models.Model): # 배달원
     # 아이디, 비밀번호, 배달원 성명, 소개, 지역 선택, 배달 수단, 최소 주문 금액, 통장 사본 유무?, 운전 면허증 유무?, 추천인 코드(선택)
     # 스피드, 신선도, 정확도
 
-    rider_id = models.CharField(max_length=10, verbose_name='라이더 아이디', blank=True)
-    rider_pw = models.CharField(max_length=20, verbose_name='라이더 비밀번호', blank=True)
-    rider_name = models.CharField(max_length=20, verbose_name='라이더 이름', blank=True)        # 배달원 이름 필수값
+    # rider_id = models.CharField(max_length=10, verbose_name='라이더 아이디', blank=True)
+    # rider_pw = models.CharField(max_length=20, verbose_name='라이더 비밀번호', blank=True)
+    rider_name = models.CharField(max_length=100, verbose_name='라이더 이름', blank=True)        # 배달원 이름 필수값
     rider_intro = models.TextField(max_length=100, verbose_name='라이더 소개', blank=True)
     
     AREA_CHOICES = (
@@ -62,16 +62,16 @@ class Rider(models.Model): # 배달원
         max_length=2,
         # max_choices = 1,
         verbose_name='배달 지역',
-        blank=True
+        blank=True,
     )
 
     VEHICLE_CHOICES = (
         ('NL', '뚜벅이'),
-        ('CR', '차'),
+        ('CR', '차'),   # 자동차
         ('BC', '자전거'),
         ('AB', '오토바이'),
     )
-    rider_vehicle = MultiSelectField(   # 다중 선택(~2개)
+    rider_vehicle = MultiSelectField(   # 다중 선택(~2개) -> 단일 선택으로 바뀜
         choices=VEHICLE_CHOICES,
         max_choices = 2,
         verbose_name='배달 수단',

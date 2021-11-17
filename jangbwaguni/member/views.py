@@ -12,6 +12,62 @@ from django.http import HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404
 from .models import User
 from django.core.serializers import serialize
+# django에 이 라이브러리들이 내장되어 있음
+
+def login_view(request):
+    if request.method == 'POST':
+        form = AuthenticationForm(request=request, data=request.POST)
+        if form.is_valid():
+            # cleaned_data: 유효성 검사를 통과한 클린한 데이터
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            user = authenticate(request=request, username=username, password=password)
+
+            if user is not None:
+                login_view(request, user)
+            
+            return redirect('home')
+    else:
+        form = AuthenticationForm()
+        return render(request, 'login.html', {'form' : form})
+
+def logout_view(request):
+    logout(request)
+    return redirect("home")
+
+
+# 회원가입
+def signup(request):
+    if request.method == 'POST':
+        if request.POST['password1'] == request.POST['password2']:
+            user = User.objects.create_user(
+                username=request.POST['username'],
+                password=request.POST['password1'],
+                # email=request.POST['email'],
+                )
+            auth.login(request, user)
+            return redirect('/')
+        return render(request, 'signup.html')
+    return render(request, 'signup.html')
+
+
+# 라이더 리뷰
+def review_rider_view(request):
+    return render(request, 'review_rider.html')
+
+# 고객 리뷰
+def review_cus_view(request):
+    return render(request, 'review_cus.html')
+
+# 마이페이지
+def mypage_view(request):
+    return render(request, 'mypage.html')
+
+
+
+# from django.shortcuts import render, redirect
+# from django.contrib.auth.models import User
+# from django.contrib import auth
 
 # 로그인시 필요
 from rest_framework.parsers import JSONParser

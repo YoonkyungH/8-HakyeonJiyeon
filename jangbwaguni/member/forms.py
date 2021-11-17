@@ -39,7 +39,7 @@ class RegisterForm(forms.Form):
                 self.add_error('password', '비밀번호를 다시 확인해주세요.')
                 self.add_error('re_password', '비밀번호를 다시 확인해주세요.')
             else:
-                user = User(    # User 데이터베이스에 저장
+                user = Customer(    # User 데이터베이스에 저장
                     email = email,
                     password = password,
                 )
@@ -69,8 +69,8 @@ class LoginForm(forms.Form):
 
         if email and password:
             try:
-                user = User.objects.get(email=email)    # User의 email과 요청받은 email이 같은가
-            except User.DoesNotExist:                   # User DB와 불일치
+                user = Customer.objects.get(email=email)    # User의 email과 요청받은 email이 같은가
+            except Customer.DoesNotExist:                   # User DB와 불일치
                 self.add_error('email', '존재하지 않는 이메일입니다.')
                 return
 

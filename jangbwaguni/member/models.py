@@ -21,6 +21,8 @@ class Customer(models.Model):
     cus_address = models.TextField(max_length=100, verbose_name='고객 주소', blank=True)
     cus_sig_date = models.DateTimeField('date signup customer', auto_now_add=True, null=True) # 가입일 / 자동기입
     recommended_person = models.CharField(max_length=20, verbose_name='추천인', blank=True)     # 선택, 사용자 이름을 20자로 받기 때문에 max 20
+    cus_img = models.ImageField(upload_to='images/', verbose_name='고객 프로필 사진', blank=True, null=True)
+
 
     def __str__(self):  # 객체가 설정한 [cus_name]으로 보여짐
         return self.cus_nickname
@@ -29,6 +31,7 @@ class Customer(models.Model):
         db_table = 'customer'
         # ordering = ['cus_nickname']
         verbose_name = '고객 가입 정보'
+        verbose_name_plural = "고객 가입 정보" # 뒤에 붙는 s 없앰
 
 class Rider(models.Model): # 배달원
     # X : 아이디, 비밀번호
@@ -39,7 +42,9 @@ class Rider(models.Model): # 배달원
     rider_nickname = models.OneToOneField(Customer, on_delete=models.CASCADE, related_name='info') # Customer 클래스와 일대일 관계
     rider_name = models.CharField(max_length=20, verbose_name='라이더 이름', blank=True)        # 배달원 이름 필수값
     rider_intro = models.TextField(max_length=100, verbose_name='라이더 소개', blank=True)
-    
+    rider_img = models.ImageField(upload_to='images/', verbose_name='라이더 프로필 사진', blank=True, null=True)
+
+
     AREA_CHOICES = [
         ('GG', '경기도'),
         ('SL', '서울시'),
@@ -78,6 +83,7 @@ class Rider(models.Model): # 배달원
     class Meta:
         db_table = 'rider'
         verbose_name = '라이더 가입 정보'
+        verbose_name_plural = "라이더 가입 정보" # 뒤에 붙는 s없앰
 
 ###################################################################################### 수정완료
 

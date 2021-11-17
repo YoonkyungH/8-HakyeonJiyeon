@@ -6,8 +6,9 @@ from django.views import View
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404
 
-from .models import Rider #orders
+# from .models import Rider #orders
 from django.core.serializers import serialize
+from member.models import Rider
 
 # Create your views here.
 def order_confirm_view(request):

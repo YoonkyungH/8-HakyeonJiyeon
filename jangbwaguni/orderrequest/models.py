@@ -1,18 +1,73 @@
 from django.db import models
 from member.models import Rider, Customer
 
+from django.core.validators import MaxValueValidator, MinValueValidator
+
 # from django.utils import timezone
 # import datetime
 # from phonenumber_field.modelfields import PhoneNumberField
 # from multiselectfield import MultiSelectField
 
+
 # phone_num = PhoneNumberField(unique=True, null=True, blank=False) # 휴대폰 번호
 
+
+
 class OrderApply(models.Model):
-    product = models.ForeignKey(Customer, on_delete=models.CASCADE, blank=True)
-    introduction = models.CharField(max_length=30, null=True)
-    # pub_date = models.DateTimeField('date order', auto_now_add=True) # 주문일 / 자동기입
-    #product = models.ForeignKey(Customer, on_delete=models.CASCADE, defalut=datetime.datetime.now())#datetime.datetime(2021, 11, 12, 3, 0, 50, 586398, tzinfo=<Asia/Seoul>)) # Customer 클래스와 다대일 관계
+    # orderer = models.ForeignKey(Customer, on_delete=models.CASCADE, verbose_name='주문자', blank=True, related_name='ord')
+    # product = models.ForeignKey(Product, verbose_name = "상품", on_delete = models.CASCADE)
+    quantity = models.PositiveSmallIntegerField(verbose_name = "수량", null=True, default=1, validators=[MinValueValidator(1), MaxValueValidator(100)]) # 1이상 100이하
+    product = models.CharField(max_length=15, verbose_name = "상품명")
+    price = models.CharField(max_length=200)
+    # price = models.PositiveSmallIntegerField(verbose_name = "가격", null=True, default=1, validators=[MinValueValidator(1)]) # 1이상
+    sale_store = models.CharField(verbose_name="구매장소", max_length=15, null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name="등록시간")
+
+    class Meta:
+        verbose_name = '장바구니'
+        verbose_name_plural = f'{verbose_name} 목록'
+        # ordering = ['-pk']
+
+    # 장바구니에 담긴 각 상품의 합계
+    def sub_total(self):
+        return self.price
+    # def sub_total(self):
+    # 	# 템플릿에서 사용하는 변수로 장바구니에 담긴 각 상품의 합계
+    #     return self.product.price * self.quantity
+
+    # def __str__(self):
+    #     return self.product.orderer
+
+###################################################################################### 추후에 null = True 삭제
+# class Product(models.Model):
+#     # drink = models.CharField(max_length=10)
+#     price = 1000
+
+#     PRODUCT_CHOICES = [
+#         ('A', '파워에이드'),
+#         ('B', '허쉬초코우유'),
+#         ('C', '초콜렛'),
+#         ('D', '청국장'),
+#         ('E', '부대찌개'),
+#     ]
+#     products = models.CharField(max_length=1, choices=PRODUCT_CHOICES, blank=True)
+
+
+
+
+
+
+#     # def __str__(self):
+#     #     return str(self.orderer) + ' ' + str(self.product)
+    
+#     class Meta:
+#         db_table = "Ordering"
+#         verbose_name = "주문서"
+#         verbose_name_plural = "주문서"
+###################################################################################### 추후에 null = True 삭제
+
+# class Product (OrderApply):
+    
     # 선택한 배달원
     # 인기품목
     # 주문 품목

@@ -3,6 +3,8 @@ from django.db.models.fields import DateTimeField
 from multiselectfield import MultiSelectField
 from phonenumber_field.modelfields import PhoneNumberField
 
+# from member.models import Rider, Customer
+
 class orders(models.Model):
     # 주문자 이름, 주소, 주문 항목, 요청 시간, 안심번호, 요청사항,
 
@@ -25,7 +27,7 @@ class orders(models.Model):
     order_product = MultiSelectField(   # 다중선택(~10개)이 가능하도록 multiselectfield 사용
         # max_length = 2,
         choices=PRODUCT_CHOICES,
-        max_choices = 2,               # 선택 요소가 많아지면 수정
+        max_choices = 4,               # 선택 요소가 많아지면 수정
         verbose_name='주문 목록',
         ) 
 

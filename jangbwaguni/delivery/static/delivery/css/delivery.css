@@ -84,5 +84,38 @@
 
 .btn-khaki {
     background-color: #FFD08F;
-    
+}
+
+
+/* background images */
+
+.bg-imag-main {
+    background-color: rgba(255, 255, 255, 0.5); 
+}
+
+.bg-img-main {
+    position: relative;
+    height: 100vh;
+    width: 100%;
+}
+
+.bg-img-main::before {
+    content: "";
+    background-image: url("/static/main/img/main.jpg");
+    background-repeat: no-repeat;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    position:absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    opacity: 0.35;
+}
+
+.bg-content {
+    position: relative;
+    opacity: 1;
 }

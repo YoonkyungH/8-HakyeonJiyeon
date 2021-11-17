@@ -5,110 +5,44 @@ from django.shortcuts import redirect, render
 from django.contrib import auth
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
-from django.shortcuts import render, redirect
+
+import json
+from django.views import View
+from django.http import HttpResponse, JsonResponse
+from django.shortcuts import get_object_or_404
+from .models import User
+from django.core.serializers import serialize
+
+# 로그인시 필요
+from rest_framework.parsers import JSONParser
+
 
 # django에 이 라이브러리들이 내장되어 있음
 
-def login_view(request):
-    if request.method == 'POST':
-        form = AuthenticationForm(request=request, data=request.POST)
-        if form.is_valid():
-            # cleaned_data: 유효성 검사를 통과한 클린한 데이터
-            username = form.cleaned_data.get('username')
-            password = form.cleaned_data.get('password')
-            user = authenticate(request=request, username=username, password=password)
+# def login_view(request):
+#     if request.method == 'POST':
+#         form = AuthenticationForm(request=request, data=request.POST)
+#         if form.is_valid():
+#             # cleaned_data: 유효성 검사를 통과한 클린한 데이터
+#             username = form.cleaned_data.get('username')
+#             password = form.cleaned_data.get('password')
+#             user = authenticate(request=request, username=username, password=password)
 
-            if user is not None:
-                login_view(request, user)
+#             if user is not None:
+#                 login_view(request, user)
             
-            return redirect('home')
-    else:
-        form = AuthenticationForm()
-        return render(request, 'login.html', {'form' : form})
-
-def logout_view(request):
-    logout(request)
-    return redirect("home")
-
-
-# 회원가입
-def signup(request):
-    if request.method == 'POST':
-        if request.POST['password1'] == request.POST['password2']:
-            user = User.objects.create_user(
-                username=request.POST['username'],
-                password=request.POST['password1'],
-                # email=request.POST['email'],
-                )
-            auth.login(request, user)
-            return redirect('/')
-        return render(request, 'signup.html')
-    return render(request, 'signup.html')
-
-
-
-
-
-# from django.shortcuts import render, redirect
-# from django.contrib.auth.models import User
-# from django.contrib import auth
-
-# from django.views.decorators.csrf import csrf_exempt    # csrf 에러 방지
-
-# from member.models import *
-
-
-# # # 회원 가입
-
-# @csrf_exempt            # csrf 에러 방지
-# def signup(request):    # 회원가입
-#     if request.method == 'POST':
-#         # password와 confirm에 입력된 값이 같다면
-#         # if request.POST['password'] == request.POST['confirm']:
-#             # user 객체를 새로 생성
-#         user = User.objects.create_user(
-#             username=request.POST['cus_name'], password=request.POST['cus_pw'])
-#     #     # 로그인 한다
-#         auth.login(request, user)
-#         # return redirect('/')
-#         return render(request, 'home.html')
-
-
+#             return redirect('home')
 #     else:
-#     # signup으로 GET 요청이 왔을 때, 회원가입 화면을 띄워준다.
-#         return render(request, 'signup.html')
+#         form = AuthenticationForm()
+#         return render(request, 'login.html', {'form' : form})
 
-# # 로그인
-
-
-# def login(request):
-#     # login으로 POST 요청이 들어왔을 때, 로그인 절차를 밟는다.
-#     if request.method == 'POST':
-#         # login.html에서 넘어온 username과 password를 각 변수에 저장한다.
-#         username = request.POST['username']
-#         password = request.POST['password']
-
-#         # 해당 username과 password와 일치하는 user 객체를 가져온다.
-#         user = auth.authenticate(request, username=username, password=password)
-
-#         # 해당 user 객체가 존재한다면
-#         if user is not None:
-#             # 로그인 한다
-#             auth.login(request, user)
-#             return redirect('/')
-#         # 존재하지 않는다면
-#         else:
-#             # 딕셔너리에 에러메세지를 전달하고 다시 login.html 화면으로 돌아간다.
-#             return render(request, 'login.html', {'error': 'username or password is incorrect.'})
-#     # login으로 GET 요청이 들어왔을때, 로그인 화면을 띄워준다.
-#     else:
-#         return render(request, 'login.html')
-
-# # 로그 아웃
+# def logout_view(request):
+#     logout(request)
+#     return redirect("home")
 
 
-# def logout(request):
-#     # logout으로 POST 요청이 들어왔을 때, 로그아웃 절차를 밟는다.
+# # 회원가입
+# def signup(request):
 #     if request.method == 'POST':
 #         auth.logout(request)
 #         return redirect('/')
@@ -122,3 +56,74 @@ def d_mypage_orderlist(request):
 
 def d_mypage(request):
     return render(request, 'member/mypage.html')
+#         # if request.POST['password1'] == request.POST['password2']:
+#         user = User.objects.create(
+#             username = request.POST['username'],
+#             password = request.POST['password'],
+#             address = request.POST['address'],
+#             # cus_id=request.POST['cus_id'],
+#             # cus_pw=request.POST['cus_pw'],
+#             # cus_name=request.POST['cus_name'],
+#             # cus_address=request.POST['cus_address']
+#             )
+#         auth.login(request, user)
+#         return redirect('index.html')
+#     return render(request, 'signup.html')
+
+
+
+
+class IndexView(View):
+    def get(self, request):
+        users = User.objects.all().order_by('-id')
+        data = json.loads(serialize('json', users))
+        return JsonResponse({'users': data})
+        
+    def post(self, request):
+        if request.META['CONTENT_TYPE'] == 'application/json':
+            request = json.loads(request.body)
+            user = User(
+                cus_id = request['cus_id'],
+                cus_pw = request['cus_pw'],
+                cus_name = request['cus_name'],
+                cus_address = request['cus_address'],
+            )
+        else:
+            user = User(
+                cus_id = request.POST['cus_id'],
+                cus_pw = request.POST['cus_pw'],
+                cus_name = request.POST['cus_name'],
+                cus_address = request.POST['cus_address'],
+            )
+
+        user.save()
+        return HttpResponse(status=200)
+
+    def put(self, request):
+        request = json.loads(request.body)
+        id = request['id']
+        cus_address = request['cus_address']
+        user = get_object_or_404(User, pk=id)
+        user.cus_address = cus_address  # 주소만 변경 가능하도록
+        user.save()
+        return HttpResponse(status = 200)
+
+    def delete(self, request):
+        request = json.loads(request.body)
+        id = request['id']
+        user = get_object_or_404(User, pk=id)
+        user.delete()
+        return HttpResponse(status = 200)
+
+# http://127.0.0.1:8000/member/ -> GET으로 먼저 유저 목록을 확인한 뒤
+# http://127.0.0.1:8000/member/login -> {"cus_id":"", "cus_pw":""} id와 pw를 POST로 보내기
+def login(request):
+    if request.method == 'POST':
+        data = JSONParser().parse(request)  # rest_framework.parsers
+        search_id = data['cus_id']
+        obj = User.objects.get(cus_id = search_id)
+
+        if data['cus_pw'] == obj.cus_pw:
+            return HttpResponse(status=200)
+        else:
+            return HttpResponse(status=400)

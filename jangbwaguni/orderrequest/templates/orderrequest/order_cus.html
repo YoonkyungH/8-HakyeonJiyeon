@@ -29,31 +29,17 @@
  }
 </script>
 
-<!-- 테이블에 행 추가 -->
+<!-- 기타 품목 테이블에 행 추가 -->
 <script>
-    var newRow = HTMLTableElement.insertRow(index);
-    var newCell = HTMLTableRowElement.insertCell(index);
-
-    function addRow() {
-    // table element 찾기
-    const table = document.getElementById('order-detail-table-1');
-    
-    // 새 행(Row) 추가
-    const newRow = table.insertRow();
-    
-    // 새 행(Row)에 Cell 추가
-    const newCell1 = newRow.insertCell(0);
-    const newCell2 = newRow.insertCell(1);
-    const newCell3 = newRow.insertCell(1);
-    const newCell4 = newRow.insertCell(1);
-
-    // Cell에 텍스트 추가
-    newCell1.innerText = '1';
-    newCell2.innerText = '2';
-    newCell3.innerText = '3';
-    newCell4.innerText = '4';
-}
+    function addRow(){
+        $('#first-row .order-list').clone().find('input').val('').end().appendTo('#repeat-list');
+    }
+    function removeRow(){
+        $('#repeat-list .order-list').last().remove();
+    }
 </script>
+
+<!-- 본문 -->
 <div class="container-flex-box">
 
 
@@ -99,13 +85,18 @@
                 <th style="text-align: center;">가격</th>
 
                 <!-- 반복할 구간 -->
-                <tr class="order-list" style="vertical-align: center;">
+                <tbody id="first-row">
+                <tr class="order-list" style="vertical-align: center; background-color: #D4E2C2; border-bottom:1px solid white;">
                     <td style="border-right: 1px solid white;  max-width:120px;"><input name="input-quantity" type="number" aria-label="수량" class="form-control" style="background-color: #D4E2C2;"></td>
                     <td style="border-right: 1px solid white; min-width: 150px;"><input name="input-item" type="text" aria-label="품목" class="form-control" style="background-color: #D4E2C2;"></td>
                     <td style="border-right: 1px solid white;"><input name="input-location" type="text" aria-label="구매소" class="form-control" style="background-color: #D4E2C2;"></td>
                     <td style="border-right: 1px solid white;"><input id="input-price" name="input-price" type="text" aria-label="가격" class="form-control" style="background-color: #D4E2C2;" onkeyup="inputNumberFormat(this)"></td>
                 </tr>
+                </tbody>
                 <!-- 반복 종료 -->
+                <!-- <div id="repeat-list"></div> -->
+                <tbody id="repeat-list">
+                </tbody>
             </table>
         </td>
     </tr>
@@ -113,7 +104,8 @@
         <td></td>
         <td></td>
         <td>
-            <button onclick='addRow()' value="행추가" id="btn-add" type="submit">&nbsp + 추가 &nbsp</button>
+            <button onclick='addRow()' value="행추가" id="btn-add" type="button">&nbsp + 추가 &nbsp</button>
+            <button onclick='removeRow()' value="행제거" id="btn-add" type="button">&nbsp - 삭제 &nbsp</button>
         </td>
     </tr>
 

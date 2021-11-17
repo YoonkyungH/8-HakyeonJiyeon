@@ -107,10 +107,6 @@ td{
     /* width:70%; */
 }
 
-.order-list{
-    background-color: #D4E2C2;
-}
-
 input:active, input:focus, input { 
     border: none !important; box-shadow: none !important;
 }

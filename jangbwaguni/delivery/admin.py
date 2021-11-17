@@ -1,5 +1,5 @@
 from django.contrib import admin
 
-from .models import orders, rider
+from .models import orders, Rider
 admin.site.register(orders)
-admin.site.register(rider)
+admin.site.register(Rider)

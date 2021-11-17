@@ -7,4 +7,5 @@ from . import views
 urlpatterns = [
     path('customer/', views.d_order_cus, name='d_order_cus'),
     path('rider/', views.d_rider_list, name='d_rider_list'),
+    # path('rider/', views.IndexView.as_view(), name='index'),
 ]

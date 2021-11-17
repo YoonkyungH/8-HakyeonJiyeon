@@ -13,10 +13,13 @@ from django.views.decorators.csrf import csrf_exempt
 # TEST
 from django.core.serializers import serialize
 from rest_framework import serializers
+from rest_framework.parsers import JSONParser
+from .serializers import DeliverySerializer
 
 # Create your views here.
 def order_confirm_view(request):
     return render(request, 'delivery/order_confirm.html', {})
+    
 
 # http://127.0.0.1:8000/delivery/register/ -> POST로
 # {"rider_id": "", "rider_pw": "", "rider_name": "", "rider_intro": "", "min_delivery_amount": } 형식으로 send
@@ -25,8 +28,8 @@ def register_rider_view(request):   # 라이더 등록
     if request.method == 'GET':
         rider_list = Rider.objects.all()
         data = json.loads(serialize('json', rider_list))
-        return JsonResponse({'rider_lsit': data})
-        # return render(request, 'delivery/register_rider.html', {})
+        # return JsonResponse({'rider_lsit': data})
+        return render(request, 'delivery/register_rider.html', {})
 
 
     if request.method == 'POST':
@@ -74,12 +77,36 @@ def register_rider_view(request):   # 라이더 등록
         # return render(request, 'delivery/register_rider.html', {})
 
 
-# def order_list_view(request):
-#     if request.method == 'GET': # 주문 목록
-#         order_list = orders.objects.all()
-#         data = json.loads(serialize('json', order_list))
-#         return JsonResponse({'order_list': data})
+def order_list_view(request):
+    # if request.method == 'GET': # 주문 목록
+        # order_list = orders.objects.all()
+        # data = json.loads(serialize('json', order_list))
+        # return JsonResponse({'order_list': data})
+    #     return render(request, 'delivery/order_list.html', {})
 
+    if request.method == 'GET':
+        # all_orders = orders.objects
+        order_list = orders.objects.all()
+        # order_list = all_orders.all()
+        list = {'order_list': order_list}
+        return render(request, 'delivery/order_list.html', list)
+
+
+# def order_list_view(request, pk):
+#     obj = orders.objects.get(pk=pk)
+
+#     if request.method == 'GET':
+#         serializer = DeliverySerializer(obj)
+    
+#         return JsonResponse(serializer.data, safe=False)
+
+    # if request.method == 'GET':
+    #     order_list = orders.objects.all()
+    #     list = {'order_list': order_list}
+    #     return render(request, 'delivery/order_list.html', list)
+
+
+# orderrequest로 옮김
 #     if request.method == 'POST':    # 주문하기
 #         if request.META['CONTENT_TYPE'] == 'application/json':
 #             request = json.loads(request.body)

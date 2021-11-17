@@ -12,16 +12,20 @@
                 <option value="recent">최근순</option>
             </select>
         </div>
+
+        <!-- {% for list in order_list %} -->
         <div id="order_lists" class="my-3">
-
             <div class="row justify-content-evenly my-3">
                 <div class="col-5 border p-3" style="position: relative;">
+                    <!-- {% for list in order_list %} -->
                     <div class="row align-items-center">
+                        <!-- <div class="col-auto fw-bold">{{ list.cus_name }}</div> -->
                         <div class="col-auto fw-bold">충청남도 천안시 동남구 병천면 충절로</div>
                         <div class="col-auto gx-0 text-secondary text-sm">12.37 km</div>
                     </div>
                     <div class="text-xs my-1">
                         우유 1L, 계란 1판, 밀가루 한봉지, 설탕 500g, 쌀 5kg
+                        <!-- {{ list.order_product }} -->
                     </div>
                     <div class="text-xs my-1">
                         ★3.9 (352개)
@@ -30,97 +34,125 @@
                         <div class="col-auto fs-3 fw-bold">2,000 원</div>
                     </div>
                     <a class="btn btn-lg btn-primary" style="position: absolute; right: 0px; bottom: 0px;">배송하기</a>
+                    <!-- {% endfor %} -->
                 </div>
-    
-                <div class="col-5 border p-3" style="position: relative;">
-                    <div class="row align-items-center">
-                        <div class="col-auto fw-bold">충청남도 천안시 동남구 병천면 충절로</div>
-                        <div class="col-auto gx-0 text-secondary text-sm">12.37 km</div>
-                    </div>
-                    <div class="text-xs my-1">
-                        우유 1L, 계란 1판, 밀가루 한봉지, 설탕 500g, 쌀 5kg
-                    </div>
-                    <div class="text-xs my-1">
-                        ★3.9 (352개)
-                    </div>
-                    <div class="row mt-3 mb-5 justify-content-between align-items-center">
-                        <div class="col-auto fs-3 fw-bold">2,000 원</div>
-                    </div>
-                    <a class="btn btn-lg btn-primary" style="position: absolute; right: 0px; bottom: 0px;">배송하기</a>
-                </div>    
             </div>
+        </div>
+        <!-- {% endfor %} -->
 
-            <div class="row justify-content-evenly my-3">
-                <div class="col-5 border p-3" style="position: relative;">
-                    <div class="row align-items-center">
-                        <div class="col-auto fw-bold">충청남도 천안시 동남구 병천면 충절로</div>
-                        <div class="col-auto gx-0 text-secondary text-sm">12.37 km</div>
-                    </div>
-                    <div class="text-xs my-1">
-                        우유 1L, 계란 1판, 밀가루 한봉지, 설탕 500g, 쌀 5kg
-                    </div>
-                    <div class="text-xs my-1">
-                        ★3.9 (352개)
-                    </div>
-                    <div class="row mt-3 mb-5 justify-content-between align-items-center">
-                        <div class="col-auto fs-3 fw-bold">2,000 원</div>
-                    </div>
-                    <a class="btn btn-lg btn-primary" style="position: absolute; right: 0px; bottom: 0px;">배송하기</a>
-                </div>
-    
-                <div class="col-5 border p-3" style="position: relative;">
-                    <div class="row align-items-center">
-                        <div class="col-auto fw-bold">충청남도 천안시 동남구 병천면 충절로</div>
-                        <div class="col-auto gx-0 text-secondary text-sm">12.37 km</div>
-                    </div>
-                    <div class="text-xs my-1">
-                        우유 1L, 계란 1판, 밀가루 한봉지, 설탕 500g, 쌀 5kg
-                    </div>
-                    <div class="text-xs my-1">
-                        ★3.9 (352개)
-                    </div>
-                    <div class="row mt-3 mb-5 justify-content-between align-items-center">
-                        <div class="col-auto fs-3 fw-bold">2,000 원</div>
-                    </div>
-                    <a class="btn btn-lg btn-primary" style="position: absolute; right: 0px; bottom: 0px;">배송하기</a>
-                </div>    
+<!--
+        <div class="col-5 border p-3" style="position: relative;">
+            <div class="row align-items-center">
+                <div class="col-auto fw-bold">{{ list.cus_name }}</div>
+                <div class="col-auto fw-bold">충청남도 천안시 동남구 병천면 충절로</div>
+                <div class="col-auto gx-0 text-secondary text-sm">12.37 km</div>
             </div>
+            <div class="text-xs my-1">
+                우유 1L, 계란 1판, 밀가루 한봉지, 설탕 500g, 쌀 5kg
+                {{ list.order_product }}
+            </div>
+            <div class="text-xs my-1">
+                ★3.9 (352개)
+            </div>
+            <div class="row mt-3 mb-5 justify-content-between align-items-center">
+                <div class="col-auto fs-3 fw-bold">2,000 원</div>
+            </div>
+            <a class="btn btn-lg btn-primary" style="position: absolute; right: 0px; bottom: 0px;">배송하기</a>
 
-            <div class="row justify-content-evenly my-3">
-                <div class="col-5 border p-3" style="position: relative;">
-                    <div class="row align-items-center">
-                        <div class="col-auto fw-bold">충청남도 천안시 동남구 병천면 충절로</div>
-                        <div class="col-auto gx-0 text-secondary text-sm">12.37 km</div>
-                    </div>
-                    <div class="text-xs my-1">
-                        우유 1L, 계란 1판, 밀가루 한봉지, 설탕 500g, 쌀 5kg
-                    </div>
-                    <div class="text-xs my-1">
-                        ★3.9 (352개)
-                    </div>
-                    <div class="row mt-3 mb-5 justify-content-between align-items-center">
-                        <div class="col-auto fs-3 fw-bold">2,000 원</div>
-                    </div>
-                    <a class="btn btn-lg btn-primary" style="position: absolute; right: 0px; bottom: 0px;">배송하기</a>
-                </div>
-    
-                <div class="col-5 border p-3" style="position: relative;">
-                    <div class="row align-items-center">
-                        <div class="col-auto fw-bold">충청남도 천안시 동남구 병천면 충절로</div>
-                        <div class="col-auto gx-0 text-secondary text-sm">12.37 km</div>
-                    </div>
-                    <div class="text-xs my-1">
-                        우유 1L, 계란 1판, 밀가루 한봉지, 설탕 500g, 쌀 5kg
-                    </div>
-                    <div class="text-xs my-1">
-                        ★3.9 (352개)
-                    </div>
-                    <div class="row mt-3 mb-5 justify-content-between align-items-center">
-                        <div class="col-auto fs-3 fw-bold">2,000 원</div>
-                    </div>
-                    <a class="btn btn-lg btn-primary" style="position: absolute; right: 0px; bottom: 0px;">배송하기</a>
-                </div>    
+        </div>
+
+
+
+        <div class="col-5 border p-3" style="position: relative;">
+            <div class="row align-items-center">
+                <div class="col-auto fw-bold">충청남도 천안시 동남구 병천면 충절로</div>
+                <div class="col-auto gx-0 text-secondary text-sm">12.37 km</div>
             </div>
+            <div class="text-xs my-1">
+                우유 1L, 계란 1판, 밀가루 한봉지, 설탕 500g, 쌀 5kg
+            </div>
+            <div class="text-xs my-1">
+                ★3.9 (352개)
+            </div>
+            <div class="row mt-3 mb-5 justify-content-between align-items-center">
+                <div class="col-auto fs-3 fw-bold">2,000 원</div>
+            </div>
+            <a class="btn btn-lg btn-primary" style="position: absolute; right: 0px; bottom: 0px;">배송하기</a>
+            </div>
+        </div>
+
+        <div class="row justify-content-evenly my-3">
+            <div class="col-5 border p-3" style="position: relative;">
+                <div class="row align-items-center">
+                <div class="col-auto fw-bold">충청남도 천안시 동남구 병천면 충절로</div>
+                <div class="col-auto gx-0 text-secondary text-sm">12.37 km</div>
+            </div>
+            <div class="text-xs my-1">
+                우유 1L, 계란 1판, 밀가루 한봉지, 설탕 500g, 쌀 5kg
+            </div>
+            <div class="text-xs my-1">
+                ★3.9 (352개)
+            </div>
+            <div class="row mt-3 mb-5 justify-content-between align-items-center">
+                <div class="col-auto fs-3 fw-bold">2,000 원</div>
+            </div>
+            <a class="btn btn-lg btn-primary" style="position: absolute; right: 0px; bottom: 0px;">배송하기</a>
+        </div>
+
+        <div class="col-5 border p-3" style="position: relative;">
+            <div class="row align-items-center">
+                <div class="col-auto fw-bold">충청남도 천안시 동남구 병천면 충절로</div>
+                <div class="col-auto gx-0 text-secondary text-sm">12.37 km</div>
+            </div>
+            <div class="text-xs my-1">
+                우유 1L, 계란 1판, 밀가루 한봉지, 설탕 500g, 쌀 5kg
+            </div>
+            <div class="text-xs my-1">
+                ★3.9 (352개)
+            </div>
+            <div class="row mt-3 mb-5 justify-content-between align-items-center">
+                <div class="col-auto fs-3 fw-bold">2,000 원</div>
+            </div>
+            <a class="btn btn-lg btn-primary" style="position: absolute; right: 0px; bottom: 0px;">배송하기</a>
+            </div>    
+        </div> 
+
+        <div class="row justify-content-evenly my-3">
+            <div class="col-5 border p-3" style="position: relative;">
+                <div class="row align-items-center">
+                <div class="col-auto fw-bold">충청남도 천안시 동남구 병천면 충절로</div>
+                <div class="col-auto gx-0 text-secondary text-sm">12.37 km</div>
+            </div>
+            <div class="text-xs my-1">
+                우유 1L, 계란 1판, 밀가루 한봉지, 설탕 500g, 쌀 5kg
+            </div>
+            <div class="text-xs my-1">
+                ★3.9 (352개)
+            </div>
+            <div class="row mt-3 mb-5 justify-content-between align-items-center">
+                <div class="col-auto fs-3 fw-bold">2,000 원</div>
+            </div>
+            <a class="btn btn-lg btn-primary" style="position: absolute; right: 0px; bottom: 0px;">배송하기</a>
+        </div>
+
+        <div class="col-5 border p-3" style="position: relative;">
+            <div class="row align-items-center">
+                <div class="col-auto fw-bold">충청남도 천안시 동남구 병천면 충절로</div>
+                <div class="col-auto gx-0 text-secondary text-sm">12.37 km</div>
+            </div>
+            <div class="text-xs my-1">
+                우유 1L, 계란 1판, 밀가루 한봉지, 설탕 500g, 쌀 5kg
+            </div>
+            <div class="text-xs my-1">
+                ★3.9 (352개)
+            </div>
+            <div class="row mt-3 mb-5 justify-content-between align-items-center">
+                <div class="col-auto fs-3 fw-bold">2,000 원</div>
+            </div>
+            <a class="btn btn-lg btn-primary" style="position: absolute; right: 0px; bottom: 0px;">배송하기</a>
+            </div>    
+        </div>
+    -->
 
         </div>
     </div>

@@ -60,7 +60,8 @@ class IndexView(View):
 
         rider_list = Rider.objects.all()
         data = json.loads(serialize('json', rider_list))
-        return JsonResponse({'rider_list': data})
+        # return JsonResponse({'rider_list': data})
+        return render(request, 'orderrequest/rider_list.html')
         
 
 

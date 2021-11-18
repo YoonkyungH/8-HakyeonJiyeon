@@ -1,6 +1,7 @@
 from django.core.serializers import serialize
 from rest_framework import serializers
-from .models import Rider, orders
+from .models import orders
+from member.models import Rider
 
 # class DeliverySerializer(serializers.ModelSerializer):
 class DeliverySerializer(serializers.Serializer):

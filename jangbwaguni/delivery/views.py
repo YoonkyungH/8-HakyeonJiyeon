@@ -5,9 +5,9 @@ import json
 from django.views import View
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404
-from .models import orders
-from member.models import Rider
 from django.core.serializers import serialize
+from member.models import Rider, Customer
+from orderrequest.models import OrderApply
 
 from django.views.decorators.csrf import csrf_exempt
 
@@ -75,7 +75,7 @@ def register_rider_view(request):   # 라이더 등록
 
 def order_list_view(request):
     if request.method == 'GET': # 주문 목록
-        order_list = orders.objects.all()
+        order_list = OrderApply.objects.all()
         data = json.loads(serialize('json', order_list))
         return render(request, 'delivery/order_list.html', {})
         # return JsonResponse({'order_list': data})
@@ -83,7 +83,7 @@ def order_list_view(request):
     if request.method == 'POST':    # 주문하기
         if request.META['CONTENT_TYPE'] == 'application/json':
             request = json.loads(request.body)
-            order_list = orders(
+            order_list = OrderApply(
                 cus_name = request['cus_name'],
                 cus_address = request['cus_address'],
                 # order_product
@@ -91,7 +91,7 @@ def order_list_view(request):
                 order_message = request['order_message'],
             )
         else:
-            order_list = orders(
+            order_list = OrderApply(
                 cus_name = request.POST['cus_name'],
                 cus_address = request['cus_address'],
                 # order_product

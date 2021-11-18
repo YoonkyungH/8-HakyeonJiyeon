@@ -6,6 +6,26 @@ from member.models import Rider
 class DeliverySerializer(serializers.Serializer):
     class Meta:
         model = Rider
-        # fields = ('rider_name, rider_intro')
+        fields = [ 'rider_nickname', 'rider_name', 'rider_intro', 'rider_img', 'rider_area', 'rider_vehicle', 'min_delivery_amount', 'bankbook', 'license']
+
+    # serialize가 호출됐을 때
+    def create(self, validated_data):
+        """검증한 데이터로 새 'Snippet' 인스턴스를 생성하여 반환"""
+        return Rider.objects.create(**validated_data)
+
     # rider_name = Rider.rider_name
     # rider_intro = Rider.rider_intro
+
+#from typing_extensions import required
+
+# class SnippetSerializer(serializers.Serializer):
+#     """직렬화/역직렬화 field 정의"""
+# 값 검증을 위한 옵션 추가 가능
+    # id = serializers.IntegerField(read_only=True)
+    # title = serializers.CharField(required=False, allow_blank=True, max_length=100)
+    # code = serializers.CharField(style={'base_template':'textarea.html'})
+    # linenos = serializers.BooleanField(required=False)
+    # language = serializers.ChoiceField(choices=LANGUAGE_CHOICES, default='python')
+    # style = serializers.ChoiceField(choices=STYLE_CHOICES, default='friendly')
+
+    

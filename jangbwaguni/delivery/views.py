@@ -76,7 +76,8 @@ def order_list_view(request):
     if request.method == 'GET': # 주문 목록
         order_list = orders.objects.all()
         data = json.loads(serialize('json', order_list))
-        return JsonResponse({'order_list': data})
+        return render(request, 'delivery/order_list.html', {})
+        # return JsonResponse({'order_list': data})
 
     if request.method == 'POST':    # 주문하기
         if request.META['CONTENT_TYPE'] == 'application/json':

@@ -5,8 +5,9 @@ import json
 from django.views import View
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404
-from .models import orders
 from django.core.serializers import serialize
+from member.models import Rider, Customer
+from orderrequest.models import OrderApply
 
 from django.views.decorators.csrf import csrf_exempt
 
@@ -163,3 +164,4 @@ def order_list_view(request):   # 선착순 주문 목록
 #         order_list.save()
 #         return HttpResponse(status=200)
 #         # return render(request, 'delivery/order_list.html', {})
+

@@ -1,17 +1,19 @@
 from django.contrib import admin
 from django.urls import path, include
+from main.views import main_view
 
 # 정적파일 제공
 
 from django.conf import settings
 from django.conf.urls.static import static
 
-urlpatterns = [
+urlpatterns = [ 
     path('admin/', admin.site.urls),
+    path('', main_view, name="home"),
     path('main/', include('main.urls')),
     path('delivery/', include('delivery.urls')),
     path('order/', include('orderrequest.urls')),
-    path('member/', include('member.urls')),
+    path('mypage/', include('member.urls')),
 ]
 
 urlpatterns += \

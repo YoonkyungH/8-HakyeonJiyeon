@@ -10,8 +10,13 @@
             장봐구니
         </div>
         <div class="col-auto mt-4">
-            <a class="btn btn-primary mx-1">로그인</a>
-            <a class="btn btn-primary mx-1">회원가입</a>
+            {% if user.is_authenticated %}
+            <a class="btn btn-primary mx-1" href="{% url 'member:d_mypage_orderlist' %}">마이페이지</a>
+            <a class="btn btn-primary mx-1" href="{% url 'member:logout' %}">로그아웃</a>
+            {% else %}
+            <a class="btn btn-primary mx-1" href="{% url 'member:login' %}">로그인</a>
+            <a class="btn btn-primary mx-1" href="{% url 'member:signup' %}">회원가입</a>
+            {% endif %}
         </div>
     </div>
     

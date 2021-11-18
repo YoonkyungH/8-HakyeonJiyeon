@@ -1,9 +1,6 @@
 from django.contrib import admin
+from .models import Customer, Rider
 
-from .models import Customer
 admin.site.register(Customer)
+admin.site.register(Rider)
 
-# class UserAdmin(admin.ModelAdmin):
-#     list_display = ('cus_id', )
-
-# admin.site.register(user, UserAdmin)

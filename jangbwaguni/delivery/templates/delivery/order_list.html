@@ -22,10 +22,16 @@
 
             <!-- 여기부터 손댐 -->
             {% for list in order_list %}
+            <!-- {% for l in order %} -->
             <div class="row justify-content-evenly my-3">
-                <div class="col-5 border p-3 this" style="position: relative;">
+                
+                <!-- {% endfor %} -->
+        
+                
+                <div class="col-5 border p-3 this" id="disappear" style="position: relative;">
                     <div class="row align-items-center">
-                        <div class="col-auto fw-bold">{{ list.cus_name }}</div> <!--일단 cus_address는 둘 다 경기도라서 일단 cus_name으로 구분이 편하게 해둠-->
+                        <div class="col-auto fw-bold">{{ list.cus_address }}</div>
+                        <!--일단 cus_address는 둘 다 경기도라서 일단 cus_name으로 구분이 편하게 해둠-->
                         <div class="col-auto gx-0 text-secondary text-sm">12.37 km</div>
                     </div>
                     <div class="text-xs my-1">
@@ -37,12 +43,11 @@
                     <div class="row mt-3 mb-5 justify-content-between align-items-center">
                         <div class="col-auto fs-3 fw-bold">2,000 원</div>
                     </div>
-                    
-                    <!-- <a class="btn btn-lg btn-primary" style="position: absolute; right: 0px; bottom: 0px;" href="#mymodal"> -->
-                    <!-- <a class="btn btn-lg btn-primary open" style="position: absolute; right: 0px; bottom: 0px;" href="#mymodal" id="btn-change"> -->
-                        <!-- 배송하기 눌러 모달이 뜨고 배송 출발을 누르면 버튼이 배송 출발로 바뀜 -->
-                        <input class="btn btn-lg btn-primary open" type='button' id='btn-go' style="position: absolute; right: 0px; bottom: 0px; border: 0; outline: 0;" href="#mymodal" value='배송하기'/> 
-                    <!-- </a> -->
+                
+                    <!-- 배송하기 눌러 모달이 뜨고 배송 출발을 누르면 버튼이 배송 출발로 바뀜 -->
+                    <input class="btn btn-lg btn-primary open" type='button' id='btn-go'
+                        style="position: absolute; right: 0px; bottom: 0px; border: 0; outline: 0;" href="#mymodal" value='배송하기' />
+                
                     <div class="modal hidden" id="mymodal" tabindex="-1">
                         <div class="modal-dialog">
                             <div class="modal-content">
@@ -57,7 +62,7 @@
                                         <p><strong>주문 물품</strong>: {{ list.order_product }}</p>
                                         <p><strong>요청 사항</strong>: {{ list.order_message }}</p>
                                     </div>
-                                    
+                
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary btn-rej" data-bs-dismiss="modal">배송 거절</button>
@@ -66,7 +71,7 @@
                             </div>
                         </div>
                     </div>
-                    
+                
                     <script>
                         const modal = document.querySelector('#mymodal');
                         const btnOpenPopup = document.querySelector('.btn-lg');
@@ -77,6 +82,8 @@
                         const open = document.querySelector(".open");
                         const start = document.querySelector(".start");
 
+                        const disappear = document.querySelector("#disappear");
+
                         btnOpenPopup.addEventListener('click', () => {  // '배송하기' 눌러 모달창 열기
                             modal.style.display = 'block';
                         })
@@ -84,97 +91,32 @@
                             modal.style.display = 'none';
                         })
                         close2.addEventListener('click', () => {        // '배송출발' 누르면 모달창 닫기
-                            const btnElement = document.getElementById('btn-go')
-                            btnElement.style.backgroundColor = "#E8995B";
-                            // btnElement.style.color = "black";
+                            // '배송출발' 누르면 버튼 색 바뀜
+                            // const btnElement = document.getElementById('btn-go')
+                            // btnElement.style.backgroundColor = "#E8995B";
                             modal.style.display = 'none';
+                            disappear.style.display='none';
+                            disappear.hide();
                         })
-                        $( 'button.btn-rej' ).click( function() {
+                        $('button.btn-rej').click(function () {
                             modal.style.display = 'none';               // '배송거절' 누르면 모달창 사라지게
-                            $( 'div.this' ).hide();
+                            disappear.style.display = 'none';
+                            disappear.hide();
                         })
-                        
-                        function changename() {
-                            const btnElement = document.getElementById('btn-go');
-                            btnElement.value = "배송출발";
-                        }
+
+                        // '배송출발' 누르면 '배송하기' -> '배송확정'
+                        // function changename() {
+                        //     const btnElement = document.getElementById('btn-go');
+                        //     btnElement.value = "배송확정";
+                        // }
                     </script>
-                    
-                </div>
-            
                 
-                <div class="col-5 border p-3" style="position: relative;">
-                    <div class="row align-items-center">
-                        <div class="col-auto fw-bold">{{ list.cus_name }}</div> <!--일단 cus_address는 둘 다 경기도라서 일단 cus_name으로 구분이 편하게 해둠-->
-                        <div class="col-auto gx-0 text-secondary text-sm">12.37 km</div>
-                    </div>
-                    <div class="text-xs my-1">
-                        {{ list.order_product }}
-                    </div>
-                    <div class="text-xs my-1">
-                        ★3.9 (352개)
-                    </div>
-                    <div class="row mt-3 mb-5 justify-content-between align-items-center">
-                        <div class="col-auto fs-3 fw-bold">2,000 원</div>
-                    </div>
-                    
-                    <!-- <a class="btn btn-lg btn-primary" style="position: absolute; right: 0px; bottom: 0px;" href="#mymodal"> -->
-                    <!-- <a class="btn btn-lg btn-primary open" style="position: absolute; right: 0px; bottom: 0px;" href="#mymodal">
-                        배송하기
-                    </a> -->
-                    <input class="btn btn-lg btn-primary open" type='button' id='btn-go' style="position: absolute; right: 0px; bottom: 0px;" href="#mymodal" value='배송하기'/> 
-
-                    <div class="modal hidden" id="mymodal" tabindex="-1">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title">배송 상세정보</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <div>
-                                        <p><strong>주문한 사람</strong>: {{ list.cus_name }}</p>
-                                        <p><strong>배송 주소</strong>: {{ list.cus_address }}</p>
-                                        <p><strong>주문 물품</strong>: {{ list.order_product }}</p>
-                                        <p><strong>요청 사항</strong>: {{ list.order_message }}</p>
-                                    </div>
-                                    
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">배송 거절</button>
-                                    <button type="button" class="btn btn-primary btn-close2" onclick='changename()' >배송 출발</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <script>
-                        const modal = document.querySelector('#mymodal');
-                        const btnOpenPopup = document.querySelector('.btn-lg');
-                        const close = document.querySelector(".btn-close");
-                        const close2 = document.querySelector(".btn-close2");
-
-
-                        btnOpenPopup.addEventListener('click', () => {  // '배송하기' 눌러 모달창 열기
-                            modal.style.display = 'block';
-                        })
-                        close.addEventListener('click', () => {         // x 누르면 모달창 닫기
-                            modal.style.display = 'none';
-                        })
-                        close2.addEventListener('click', () => {         // '배송출발' 누르면 모달창 닫기
-                            modal.style.display = 'none';
-                        })
-
-                        function changename() {                          // '배송출발 누르면 배송하기 버튼이 배송출발로 바뀜'
-                            const btnElement = document.getElementById('btn-go');
-                            btnElement.value = "배송출발";
-                        }
-                    </script>
                 </div>
-
-            </div>
             {% endfor %}
 
+            </div>
+            
+            <!-- </div> -->
             <!-- <div class="row justify-content-evenly my-3">
                 <div class="col-5 border p-3" style="position: relative;">
                     <div class="row align-items-center">

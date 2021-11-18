@@ -5,10 +5,12 @@ import json
 from django.views import View
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404
-from .models import Rider, orders
+from .models import orders
 from django.core.serializers import serialize
 
 from django.views.decorators.csrf import csrf_exempt
+
+from member.models import Rider
 
 # TEST
 from django.core.serializers import serialize
@@ -17,9 +19,33 @@ from rest_framework.parsers import JSONParser
 from .serializers import DeliverySerializer
 
 # Create your views here.
+def order_confirm_view(request, pk):    # 들어온 주문을 확인
+    obj = orders.objects.get(pk=pk)     # 지정된 배달원
+
+    if request.method == 'GET':
+        serializer = DeliverySerializer(obj)
+        data = json.loads(serialize('json', serializer))
+        # return HttpResponse(status=200)
+        # return JsonResponse(serializer.data, safe=False)
+        return render(request, 'delivery/order_confirm.html', {})
+
+
+# def order_confirm_view(request):
+#     if request.method == 'GET':
+#         order_list = orders.objects.all()
+#         list = {'order_list': order_list}
+#         return render(request, 'delivery/order_confirm.html', list)
+#         # data = json.loads(serialize('json', order_list))
+        
+#         return render(request, 'delivery/order_confirm.html', {})
+
+
 def order_confirm_view(request):
-    return render(request, 'delivery/order_confirm.html', {})
-    
+    if request.method == 'GET':
+        order_list = orders.objects.all()
+        list = {'order_list': order_list}
+        return list
+
 
 # http://127.0.0.1:8000/delivery/register/ -> POST로
 # {"rider_id": "", "rider_pw": "", "rider_name": "", "rider_intro": "", "min_delivery_amount": } 형식으로 send
@@ -77,19 +103,28 @@ def register_rider_view(request):   # 라이더 등록
         # return render(request, 'delivery/register_rider.html', {})
 
 
-def order_list_view(request):
+def order_list_view(request):   # 선착순 주문 목록
     # if request.method == 'GET': # 주문 목록
         # order_list = orders.objects.all()
         # data = json.loads(serialize('json', order_list))
         # return JsonResponse({'order_list': data})
     #     return render(request, 'delivery/order_list.html', {})
 
+    # TEST 후 이 주석 풀어주면 됨
+    # if request.method == 'GET':
+    #     # all_orders = orders.objects
+    #     order_list = orders.objects.all()
+    #     # order_list = all_orders.all()
+    #     list = {'order_list': order_list}
+    #     return render(request, 'delivery/order_list.html', list)
+
+    # TEST(이것도 됨)
     if request.method == 'GET':
-        # all_orders = orders.objects
-        order_list = orders.objects.all()
-        # order_list = all_orders.all()
-        list = {'order_list': order_list}
-        return render(request, 'delivery/order_list.html', list)
+        order_list = orders.objects.values()
+        order_list = {'order_list': order_list}
+        # order = order_list.get()
+        # orders.objects.value()[0]
+        return render(request, 'delivery/order_list.html', order_list)
 
 
 # def order_list_view(request, pk):

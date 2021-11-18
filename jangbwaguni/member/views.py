@@ -105,9 +105,9 @@ def login(request):
         return render(request, 'login.html', {'form': form})
 
 def logout(request):
-    if request.method == 'POST':
+    if request.user.is_authenticated:
         auth_logout(request)
-        redirect('main')
+        return redirect('main')
     else:
         return HttpResponse(status=400)
 

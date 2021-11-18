@@ -2,6 +2,7 @@ from django.db import models
 from django.utils import timezone
 import datetime
 from phonenumber_field.modelfields import PhoneNumberField
+from member.models import Rider, Customer
 
 # now = timezone.localtime()
 
@@ -11,6 +12,9 @@ class Customer(models.Model):
     password = models.CharField(max_length=200, null=True) # 비밀번호 / 최대 25자리 / 암호화 했을 때 길이 길어지므로 200으로 설정
     nickname = models.CharField(max_length=10, null=True) # 닉네임 / 최대 10자리 / 중복 금지
     phone_num = PhoneNumberField(unique=True, null=True, blank=False) # 휴대폰 번호
+
+class OrderApply(models.Model):
+    orderer = models.ForeignKey(Customer, on_delete=models.CASCADE, blank=True)
 
 class Rider(models.Model):
     sig_date_rider = models.DateTimeField('date signup rider', auto_now_add=True, null=True) # 라이더 가입일 / 자동기입 

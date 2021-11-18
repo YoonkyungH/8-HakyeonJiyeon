@@ -3,12 +3,15 @@ from django.core.serializers import serialize
 from django.core.serializers.base import Serializer
 from django.http.response import JsonResponse
 from django.shortcuts import render, get_object_or_404
-#from .models import Customer, Rider
+from .models import Rider
+
+from member.models import Customer
+
 
 # View
 import json
 from django.views import View
-from delivery.models import Rider, orders
+from delivery.models import orders
 from django.core.serializers import serialize
 from delivery.serializers import DeliverySerializer
 from rest_framework.parsers import JSONParser

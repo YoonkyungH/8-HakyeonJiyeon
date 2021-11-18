@@ -7,6 +7,7 @@ from django.http import HttpResponse, JsonResponse
 from django.urls import reverse
 from django.core.serializers import serialize
 from .models import CustomUser
+from delivery.models import orders
 from .forms import LoginForm, RegisterForm
 import json
 
@@ -143,4 +144,8 @@ def mypage_view(request):
     return render(request, 'mypage.html')
 
 def d_mypage_orderlist(request):
+    order_list = orders.objects.all()
+    data = json.loads(serialize('json', order_list))
+    return render(request, 'mypage_orderlist.html', {'orders': data})
+    # return JsonResponse({'order_list': data})
     return render(request, 'mypage_orderlist.html')

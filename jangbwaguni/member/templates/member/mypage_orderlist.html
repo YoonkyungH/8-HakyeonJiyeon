@@ -13,251 +13,228 @@
 <!-- 모달 -->
 
 
-<div style="width:80%; margin-left:auto; margin-right:auto; ">
+<div class="tab-content" style="width:80%; margin-left:auto; margin-right:auto;">
     <div style="border-bottom:5px solid #8E8455; margin-top:5%; margin-left:auto; margin-right: auto;">
-        <button type="submit" style="background-color:#8E8455; color:white; min-width:8rem; min-height:3rem; font-family: 'SBAggroM', 'serif'; font-size:1.2rem; border:none; padding-top:0.3rem;">주문내역</button>
-        <button type="submit" style="background-color:white; color:#8E8455; min-width:8rem; min-height:3rem; font-family: 'SBAggroM', 'serif'; font-size:1.2rem; border:none; padding-top:0.3rem; margin-left:1rem;">사용자 정보 수정</button>
+        <ul class="nav nav-tabs">
+            <li class="nav-item" id="orderlist-tab">
+                <a class="nav-link active" data-bs-toggle="tab" data-bs-target="#orderlist" href="#">주문 내역</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-bs-toggle="tab" data-bs-target="#deliverylist" href="#">배달 내역</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-bs-toggle="tab" data-bs-target="#useredit" href="#">사용자 정보 수정</a>
+            </li>
+        </ul>
     </div>
 
-    <div style="margin-top: 30px; ">
-        <span style="font-family: 'SBAggroB', 'serif'; font-size:3rem; vertical-align: middle;">주문 내역</span>
-        <span style="display:inline-block; vertical-align: middle;">
-            <select class="sort-list col-auto form-select form-select-sm w-auto" aria-label="정렬 선택">
-                <option selected value="order_count">내역순</option>
-                <option value="recent">최신순</option>
-                <option value="nickname">이름순</option>
-            </select>
-        </span>
+    <div id="orderlist" class="tab-pane container active">
+        <div class="mt-5">
+            <span style="font-family: 'SBAggroB', 'serif'; font-size:3rem; vertical-align: middle;">주문 내역</span>
+            <span style="display:inline-block; vertical-align: middle;">
+                <select class="sort-list col-auto form-select form-select-sm w-auto" aria-label="정렬 선택">
+                    <option selected value="order_count">내역순</option>
+                    <option value="recent">최신순</option>
+                    <option value="nickname">이름순</option>
+                </select>
+            </span>
+        </div>
+    
+        <div class="flex-container">
+            {% for order in orders %}
+            <!-- 반복할 구간 -->
+            <table>
+                <tr>
+                    <td colspan="2" style="padding-left:1.2rem; padding-top:3%;">
+                        <span style="font-size: 1.2rem; vertical-align: bottom;">{{ order.fields.created }}</span>
+                        <span style="font-size:0.2rem; vertical-align: bottom;">&nbsp;&nbsp;배달중..</span>
+                    </td>
+                </tr>
+                <tr style="height:2rem;">
+                    <td colspan="2" style="padding-left:1.2rem; padding-right:1.2rem; color:rgb(184, 184, 184); font-size:0.8rem; vertical-align: middle;">
+                        {{ order.fields.order_product }}
+                    </td>
+                </tr>
+                <tr style="height:2rem;">
+                    <td colspan="2" style="padding-left:1.2rem; vertical-align: middle;">
+                        <i class="star-empty far fa-star"></i>
+                        <i class="star-empty far fa-star"></i>
+                        <i class="star-empty far fa-star"></i>
+                        <i class="star-empty far fa-star"></i>
+                        <i class="star-empty far fa-star"></i>
+                    </td>
+                </tr>
+                <tr style="text-align: right; height:5rem;">
+                    <td style="vertical-align: bottom; padding-bottom:0.85rem; width:21rem;">
+                        <a href="{% url 'member:review_rider' %}" class="btn-review" >리뷰 작성하기</a>
+                    </td>
+                    <td style="vertical-align: bottom; padding-bottom:0.85rem; width:8.4rem; text-align: left;">
+                        <a id="modalBtn{{ order.pk }}"  href="#" class="btn-detail">상세 보기</a>
+                    </td>
+                </tr>
+            </table>
+            <!-- 반복종료 -->
+
+            <!-- 모달 -->
+            <div class="modal fade" tabindex="-1" id="modal{{ order.pk }}">
+                <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+
+                    <div class="modal-header">
+                    <h5 class="modal-title" style=" font-family: 'SBAggroB', 'serif'; font-size: 2rem; ">주문 상세</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+
+                    <div class="modal-body" style="margin-left:1rem; margin-top:0.5rem; margin-right:1rem;">
+
+                        <div style="border-bottom: 3px solid rgb(214, 214, 214);">
+                            <div style="display:flex; justify-content: space-between;">
+                                <p style=" font-family: 'SBAggroM', 'serif';">주문 날짜</p>
+                                <p style=" font-family: 'SBAggroL', 'serif';">{{ order.fields.created }}</p>
+                            </div>
+                            <div style="display:flex; justify-content: space-between;">
+                                <p style=" font-family: 'SBAggroM', 'serif'; ">배달원</p>
+                                <p style=" font-family: 'SBAggroL', 'serif';">abcdeft</p>
+                            </div>
+                            <div style="display:flex; justify-content: space-between;">
+                                <p style=" font-family: 'SBAggroM', 'serif';">배달 상태</p>
+                                <p style=" font-family: 'SBAggroL', 'serif';">배달 완료</p>
+                            </div>
+                        </div>
+                        <div style="margin-top:10px; font-family: 'SBAggroL', 'serif';">
+                            <p style=" font-family: 'SBAggroM', 'serif';">요청 품목</p>
+                            <p><svg xmlns="http://www.w3.org/2000/svg" height="18px" viewBox="0 0 24 28" width="18px" fill="#9ccfd9"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M12 4c4.41 0 8 3.59 8 8s-3.59 8-8 8-8-3.59-8-8 3.59-8 8-8m0-2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/></svg>
+                                우유 1L</p>
+                            <p><svg xmlns="http://www.w3.org/2000/svg" height="18px" viewBox="0 0 24 28" width="18px" fill="#9ccfd9"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M12 4c4.41 0 8 3.59 8 8s-3.59 8-8 8-8-3.59-8-8 3.59-8 8-8m0-2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/></svg>
+                                계란 1판</p>
+                            <p><svg xmlns="http://www.w3.org/2000/svg" height="18px" viewBox="0 0 24 28" width="18px" fill="#9ccfd9"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M12 4c4.41 0 8 3.59 8 8s-3.59 8-8 8-8-3.59-8-8 3.59-8 8-8m0-2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/></svg>
+                                밀가루 1봉지</p>
+                            <p><svg xmlns="http://www.w3.org/2000/svg" height="18px" viewBox="0 0 24 28" width="18px" fill="#9ccfd9"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M12 4c4.41 0 8 3.59 8 8s-3.59 8-8 8-8-3.59-8-8 3.59-8 8-8m0-2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/></svg>
+                                설탕 500g</p>
+                            <p><svg xmlns="http://www.w3.org/2000/svg" height="18px" viewBox="0 0 24 28" width="18px" fill="#9ccfd9"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M12 4c4.41 0 8 3.59 8 8s-3.59 8-8 8-8-3.59-8-8 3.59-8 8-8m0-2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/></svg>
+                                쌀 5kg</p>
+                        </div>
+                        
+                    </div>
+
+                    <div class="" style="height:200px; background-color: #9ccfd9;">
+                        <!-- 모달 닫기 -->
+                        <!-- <button type="button" class="btn" data-bs-dismiss="modal">Close</button> -->
+                        <div style="display:flex; justify-content: space-between; font-family: 'SBAggroM', 'serif'; color:white;">
+                            <p style="vertical-align: middle; ;font-size: 1.4rem; margin-left:2rem; margin-top:1rem; margin-right:1rem; margin-bottom:0;">총 품목 가격</p>
+                            <p style="vertical-align: middle; font-size: 1.4rem; text-align: right; margin-top:1rem; margin-right:2rem; margin-bottom:0;">37,800원</p>
+                        </div>
+                        <div style="display:flex; justify-content: space-between; font-family: 'SBAggroM', 'serif'; color:white;">
+                            <p style="vertical-align: middle; font-size: 1.4rem; margin-left:2rem; margin-right:1rem; margin-bottom:0;">배송비(수수료 포함)</p>
+                            <p style="vertical-align: middle; font-size: 1.4rem; text-align: right; margin-right:2rem;  margin-bottom:0;">2,500원</p>
+                        </div>
+                        <div style="display:flex; justify-content: space-between; font-family: 'SBAggroM', 'serif'; color:white; margin-top: 2.5rem;">
+                            <p style=" vertical-align: middle; font-size: 1.4rem; margin-left:2rem; margin-right:1rem; margin-top:0;">총 금액</p>
+                            <p style="vertical-align: middle; font-size: 1.7rem; text-align: right; margin-right:2rem; margin-top:0;">40,300원</p>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+            <!-- 모달 끝 -->
+            <script>
+                $('#modalBtn{{ order.pk }}').click(function(e){
+                        e.preventDefault();
+                        $('#modal{{ order.pk }}').modal("show");
+                });
+            </script>
+            {% endfor %}
+        </div>
     </div>
 
-    <div class="flex-container">
-        <!-- 반복할 구간 -->
-        <table>
-            <tr>
-                <td colspan="2" style="padding-left:1.2rem; padding-top:3%;"><span style="font-size: 1.2rem; vertical-align: bottom;">2021년 10월 23일</span><span style="font-size:0.2rem; vertical-align: bottom;">&nbsp;&nbsp;배달중..</span></td>
-                
-            </tr>
-            <tr style="height:2rem;">
-                <td colspan="2" style="padding-left:1.2rem; padding-right:1.2rem; color:rgb(184, 184, 184); font-size:0.8rem; vertical-align: middle;">우유 1L, 계란 1판, 밀가루 한봉지, 설탕 500g, 쌀 5kg</td>
-            </tr>
-            <tr style="height:2rem;">
-                <td colspan="2" style="padding-left:1.2rem; vertical-align: middle;"><i class="star-empty far fa-star"></i><i class="star-empty far fa-star"></i><i class="star-empty far fa-star"></i><i class="star-empty far fa-star"></i><i class="star-empty far fa-star"></i></td>
-            </tr>
-            
-            <tr style="text-align: right; height:5rem;">
-                <td style="vertical-align: bottom; padding-bottom:0.85rem; width:21rem;">
-                    <a href="#" class="btn-review" >리뷰 작성하기</a>
-                </td>
-                
-                <td style="vertical-align: bottom; padding-bottom:0.85rem; width:8.4rem; text-align: left;"
->
-                    <a id="testBtn"  href="#" class="btn-detail">상세 보기</a>
-                </td>
-            </tr>
-        </table>
+    <div id="deliverylist" class="tab-pane container">
+        <div class="row justify-content-evenly mb-3 mt-5">
+            <div class="row align-items-center">
+                <div class="col-auto text-subtitle">배달 내역</div>
+                <div class="col-auto">
+                    <select class="form-select rounded-0 w-auto bg-browngrey text-white">
+                        <option selected value="recent">최근순</option>
+                        <option value="distance">거리순</option>
+                    </select>
+                </div>
+            </div>
 
+            <div class="col-5 border my-3 pt-3">
+                <div class="col-auto fs-5 fw-bold">충청남도 천안시 동남구 병천면 충절로</div>
+                <div class="row align-items-baseline gx-2">
+                    <div class="col-auto text-secondary text-sm">2021년 10월 27일</div>
+                    <div class="col-auto text-secondary text-xs">12.37 km</div>
+                </div>
+                <div class="text-xs my-1">
+                    우유 1L, 계란 1판, 밀가루 한봉지, 설탕 500g, 쌀 5kg
+                </div>
+                <div class="my-1">
+                    ★★★★★
+                </div>
+                <div class="row my-3 justify-content-between align-items-center">
+                    <div class="col-auto fs-3 fw-bold">2,000 원</div>
+                </div>
+                <div class="row justify-content-end">
+                    <a class="col-auto btn btn-lg rounded-0 bg-khaki text-white" href="{% url 'member:review_customer' %}">리뷰 작성하기</a>
+                    <a class="col-auto btn btn-lg rounded-0 bg-sandybrown text-white">상세보기</a>
+                </div>
+            </div>
 
+            <div class="col-5 border my-3 pt-3">
+                <div class="col-auto fs-5 fw-bold">충청남도 천안시 동남구 병천면 충절로</div>
+                <div class="row align-items-baseline gx-2">
+                    <div class="col-auto text-secondary text-sm">2021년 10월 27일</div>
+                    <div class="col-auto text-secondary text-xs">12.37 km</div>
+                </div>
+                <div class="text-xs my-1">
+                    우유 1L, 계란 1판, 밀가루 한봉지, 설탕 500g, 쌀 5kg
+                </div>
+                <div class="my-1">
+                    ★★★★★
+                </div>
+                <div class="row my-3 justify-content-between align-items-center">
+                    <div class="col-auto fs-3 fw-bold">2,000 원</div>
+                </div>
+                <div class="row justify-content-end">
+                    <a class="col-auto btn btn-lg rounded-0 bg-khaki text-white" href="{% url 'member:review_customer' %}">리뷰 작성하기</a>
+                    <a class="col-auto btn btn-lg rounded-0 bg-sandybrown text-white">상세보기</a>
+                </div>
+            </div>
 
-        
-        <!-- 반복종료 -->
-       <!-- 반복할 구간 -->
-       <table>
-        <tr>
-            <td colspan="2" style="padding-left:1.2rem; padding-top:3%;"><span style="font-size: 1.2rem; vertical-align: bottom;">2021년 10월 23일</span><span style="font-size:0.2rem; vertical-align: bottom;">&nbsp;&nbsp;배달중..</span></td>
-            
-        </tr>
-        <tr style="height:2rem;">
-            <td colspan="2" style="padding-left:1.2rem; padding-right:1.2rem; color:rgb(184, 184, 184); font-size:0.8rem; vertical-align: middle;">우유 1L, 계란 1판, 밀가루 한봉지, 설탕 500g, 쌀 5kg</td>
-        </tr>
-        <tr style="height:2rem;">
-            <td colspan="2" style="padding-left:1.2rem; vertical-align: middle;"><i class="star-empty far fa-star"></i><i class="star-empty far fa-star"></i><i class="star-empty far fa-star"></i><i class="star-empty far fa-star"></i><i class="star-empty far fa-star"></i></td>
-        </tr>
-        
-        <tr style="text-align: right; height:5rem;">
-            <td style="vertical-align: bottom; padding-bottom:0.85rem; width:21rem;">
-                <a href="#" class="btn-review" >리뷰 작성하기</a>
-            </td>
-            
-            <td style="vertical-align: bottom; padding-bottom:0.85rem; width:8.4rem; text-align: left;"
->
-                <a id="testBtn"  href="#" class="btn-detail">상세 보기</a>
-            </td>
-        </tr>
-    </table>
+        </div>
+        <a class="d-flex justify-content-center my-5" href="#">더보기...</a>
+    </div>
 
-
-    <!-- 반복종료 -->
-    <!-- 반복할 구간 -->
-        <table>
-            <tr>
-                <td colspan="2" style="padding-left:1.2rem; padding-top:3%;"><span style="font-size: 1.2rem; vertical-align: bottom;">2021년 10월 23일</span><span style="font-size:0.2rem; vertical-align: bottom;">&nbsp;&nbsp;배달중..</span></td>
-                
-            </tr>
-            <tr style="height:2rem;">
-                <td colspan="2" style="padding-left:1.2rem; padding-right:1.2rem; color:rgb(184, 184, 184); font-size:0.8rem; vertical-align: middle;">우유 1L, 계란 1판, 밀가루 한봉지, 설탕 500g, 쌀 5kg</td>
-            </tr>
-            <tr style="height:2rem;">
-                <td colspan="2" style="padding-left:1.2rem; vertical-align: middle;"><i class="star-empty far fa-star"></i><i class="star-empty far fa-star"></i><i class="star-empty far fa-star"></i><i class="star-empty far fa-star"></i><i class="star-empty far fa-star"></i></td>
-            </tr>
-            
-            <tr style="text-align: right; height:5rem;">
-                <td style="vertical-align: bottom; padding-bottom:0.85rem; width:21rem;">
-                    <a href="#" class="btn-review" >리뷰 작성하기</a>
-                </td>
-                
-                <td style="vertical-align: bottom; padding-bottom:0.85rem; width:8.4rem; text-align: left;"
->
-                    <a id="testBtn"  href="#" class="btn-detail">상세 보기</a>
-                </td>
-            </tr>
-        </table>
-        <!-- 반복종료 --><!-- 반복할 구간 -->
-        <table>
-            <tr>
-                <td colspan="2" style="padding-left:1.2rem; padding-top:3%;"><span style="font-size: 1.2rem; vertical-align: bottom;">2021년 10월 23일</span><span style="font-size:0.2rem; vertical-align: bottom;">&nbsp;&nbsp;배달중..</span></td>
-                
-            </tr>
-            <tr style="height:2rem;">
-                <td colspan="2" style="padding-left:1.2rem; padding-right:1.2rem; color:rgb(184, 184, 184); font-size:0.8rem; vertical-align: middle;">우유 1L, 계란 1판, 밀가루 한봉지, 설탕 500g, 쌀 5kg</td>
-            </tr>
-            <tr style="height:2rem;">
-                <td colspan="2" style="padding-left:1.2rem; vertical-align: middle;"><i class="star-empty far fa-star"></i><i class="star-empty far fa-star"></i><i class="star-empty far fa-star"></i><i class="star-empty far fa-star"></i><i class="star-empty far fa-star"></i></td>
-            </tr>
-            
-            <tr style="text-align: right; height:5rem;">
-                <td style="vertical-align: bottom; padding-bottom:0.85rem; width:21rem;">
-                    <a href="#" class="btn-review" >리뷰 작성하기</a>
-                </td>
-                
-                <td style="vertical-align: bottom; padding-bottom:0.85rem; width:8.4rem; text-align: left;"
->
-                    <a id="testBtn"  href="#" class="btn-detail">상세 보기</a>
-                </td>
-            </tr>
-        </table>
-        <!-- 반복종료 --><!-- 반복할 구간 -->
-        <table>
-            <tr>
-                <td colspan="2" style="padding-left:1.2rem; padding-top:3%;"><span style="font-size: 1.2rem; vertical-align: bottom;">2021년 10월 23일</span><span style="font-size:0.2rem; vertical-align: bottom;">&nbsp;&nbsp;배달중..</span></td>
-                
-            </tr>
-            <tr style="height:2rem;">
-                <td colspan="2" style="padding-left:1.2rem; padding-right:1.2rem; color:rgb(184, 184, 184); font-size:0.8rem; vertical-align: middle;">우유 1L, 계란 1판, 밀가루 한봉지, 설탕 500g, 쌀 5kg</td>
-            </tr>
-            <tr style="height:2rem;">
-                <td colspan="2" style="padding-left:1.2rem; vertical-align: middle;"><i class="star-empty far fa-star"></i><i class="star-empty far fa-star"></i><i class="star-empty far fa-star"></i><i class="star-empty far fa-star"></i><i class="star-empty far fa-star"></i></td>
-            </tr>
-            
-            <tr style="text-align: right; height:5rem;">
-                <td style="vertical-align: bottom; padding-bottom:0.85rem; width:21rem;">
-                    <a href="#" class="btn-review" >리뷰 작성하기</a>
-                </td>
-                
-                <td style="vertical-align: bottom; padding-bottom:0.85rem; width:8.4rem; text-align: left;"
->
-                    <a id="testBtn"  href="#" class="btn-detail">상세 보기</a>
-                </td>
-            </tr>
-        </table>
-        <!-- 반복종료 --><!-- 반복할 구간 -->
-        <table>
-            <tr>
-                <td colspan="2" style="padding-left:1.2rem; padding-top:3%;"><span style="font-size: 1.2rem; vertical-align: bottom;">2021년 10월 23일</span><span style="font-size:0.2rem; vertical-align: bottom;">&nbsp;&nbsp;배달중..</span></td>
-                
-            </tr>
-            <tr style="height:2rem;">
-                <td colspan="2" style="padding-left:1.2rem; padding-right:1.2rem; color:rgb(184, 184, 184); font-size:0.8rem; vertical-align: middle;">우유 1L, 계란 1판, 밀가루 한봉지, 설탕 500g, 쌀 5kg</td>
-            </tr>
-            <tr style="height:2rem;">
-                <td colspan="2" style="padding-left:1.2rem; vertical-align: middle;"><i class="star-empty far fa-star"></i><i class="star-empty far fa-star"></i><i class="star-empty far fa-star"></i><i class="star-empty far fa-star"></i><i class="star-empty far fa-star"></i></td>
-            </tr>
-            
-            <tr style="text-align: right; height:5rem;">
-                <td style="vertical-align: bottom; padding-bottom:0.85rem; width:21rem;">
-                    <a href="#" class="btn-review" >리뷰 작성하기</a>
-                </td>
-                
-                <td style="vertical-align: bottom; padding-bottom:0.85rem; width:8.4rem; text-align: left;"
->
-                    <a id="testBtn"  href="#" class="btn-detail">상세 보기</a>
-                </td>
-            </tr>
-        </table>
-        <!-- 반복종료 -->
+    <div id="useredit" class="tab-pane container">
+        <div class="col-md-7 my-5 pb-5">
+            <div class="text-subtitle">비밀번호 변경</div>
+            <div class="ms-2 my-3">
+                <div class="row align-items-center">
+                    <label for="password" class="col-4 col-form-label fw-bold">새 비밀번호</label>
+                    <div class="col my-2">
+                        <input id="password" class="form-control rounded-0" placeholder="비밀번호 입력" />
+                    </div>
+                </div>
+                <div class="row align-items-center">
+                    <label for="password-again" class="col-4 col-form-label fw-bold">새 비밀번호 확인</label>
+                    <div class="col my-2">
+                        <input id="password-again" class="form-control rounded-0" placeholder="비밀번호 재입력" />
+                    </div>
+                </div>
+            </div>
+            <button type="submit" class="btn rounded-0 bg-browngrey text-white float-end">변경</button>
+        </div>
+        <div class="col-md-7 my-5">
+            <div class="text-subtitle">닉네임 변경</div>
+            <div class="row align-items-center ms-2 my-3">
+                <label for="password" class="col-4 col-form-label fw-bold">새 닉네임</label>
+                <div class="col my-2">
+                    <input id="password" class="form-control rounded-0" placeholder="닉네임 입력" />
+                </div>
+            </div>
+            <button type="submit" class="btn rounded-0 bg-browngrey text-white float-end">변경</button>
+        </div>
     </div>
 </div>
-
-<!-- 모달 -->
-<div class="modal fade" tabindex="-1" id="testModal">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-
-        <div class="modal-header">
-          <h5 class="modal-title" style=" font-family: 'SBAggroB', 'serif'; font-size: 2rem; ">주문 상세</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-
-        <div class="modal-body" style="margin-left:1rem; margin-top:0.5rem; margin-right:1rem;">
-
-            <div style="border-bottom: 3px solid rgb(214, 214, 214);">
-                <div style="display:flex; justify-content: space-between;">
-                    <p style=" font-family: 'SBAggroM', 'serif';">주문 날짜</p>
-                    <p style=" font-family: 'SBAggroL', 'serif';">2020년 10월 23일</p>
-                </div>
-                <div style="display:flex; justify-content: space-between;">
-                    <p style=" font-family: 'SBAggroM', 'serif'; ">배달원</p>
-                    <p style=" font-family: 'SBAggroL', 'serif';">abcdeft</p>
-                </div>
-                <div style="display:flex; justify-content: space-between;">
-                    <p style=" font-family: 'SBAggroM', 'serif';">배달 상태</p>
-                    <p style=" font-family: 'SBAggroL', 'serif';">배달 완료</p>
-                </div>
-            </div>
-            <div style="margin-top:10px; font-family: 'SBAggroL', 'serif';">
-                <p style=" font-family: 'SBAggroM', 'serif';">요청 품목</p>
-                <p><svg xmlns="http://www.w3.org/2000/svg" height="18px" viewBox="0 0 24 28" width="18px" fill="#9ccfd9"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M12 4c4.41 0 8 3.59 8 8s-3.59 8-8 8-8-3.59-8-8 3.59-8 8-8m0-2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/></svg>
-                    우유 1L</p>
-                <p><svg xmlns="http://www.w3.org/2000/svg" height="18px" viewBox="0 0 24 28" width="18px" fill="#9ccfd9"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M12 4c4.41 0 8 3.59 8 8s-3.59 8-8 8-8-3.59-8-8 3.59-8 8-8m0-2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/></svg>
-                    계란 1판</p>
-                <p><svg xmlns="http://www.w3.org/2000/svg" height="18px" viewBox="0 0 24 28" width="18px" fill="#9ccfd9"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M12 4c4.41 0 8 3.59 8 8s-3.59 8-8 8-8-3.59-8-8 3.59-8 8-8m0-2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/></svg>
-                    밀가루 1봉지</p>
-                <p><svg xmlns="http://www.w3.org/2000/svg" height="18px" viewBox="0 0 24 28" width="18px" fill="#9ccfd9"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M12 4c4.41 0 8 3.59 8 8s-3.59 8-8 8-8-3.59-8-8 3.59-8 8-8m0-2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/></svg>
-                    설탕 500g</p>
-                <p><svg xmlns="http://www.w3.org/2000/svg" height="18px" viewBox="0 0 24 28" width="18px" fill="#9ccfd9"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M12 4c4.41 0 8 3.59 8 8s-3.59 8-8 8-8-3.59-8-8 3.59-8 8-8m0-2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/></svg>
-                    쌀 5kg</p>
-            </div>
-            
-        </div>
-
-        <div class="" style="height:200px; background-color: #9ccfd9;">
-            <!-- 모달 닫기 -->
-            <!-- <button type="button" class="btn" data-bs-dismiss="modal">Close</button> -->
-            <div style="display:flex; justify-content: space-between; font-family: 'SBAggroM', 'serif'; color:white;">
-                <p style="vertical-align: middle; ;font-size: 1.4rem; margin-left:2rem; margin-top:1rem; margin-right:1rem; margin-bottom:0;">총 품목 가격</p>
-                <p style="vertical-align: middle; font-size: 1.4rem; text-align: right; margin-top:1rem; margin-right:2rem; margin-bottom:0;">37,800원</p>
-            </div>
-            <div style="display:flex; justify-content: space-between; font-family: 'SBAggroM', 'serif'; color:white;">
-                <p style="vertical-align: middle; font-size: 1.4rem; margin-left:2rem; margin-right:1rem; margin-bottom:0;">배송비(수수료 포함)</p>
-                <p style="vertical-align: middle; font-size: 1.4rem; text-align: right; margin-right:2rem;  margin-bottom:0;">2,500원</p>
-            </div>
-            <div style="display:flex; justify-content: space-between; font-family: 'SBAggroM', 'serif'; color:white; margin-top: 2.5rem;">
-                <p style=" vertical-align: middle; font-size: 1.4rem; margin-left:2rem; margin-right:1rem; margin-top:0;">총 금액</p>
-                <p style="vertical-align: middle; font-size: 1.7rem; text-align: right; margin-right:2rem; margin-top:0;">40,300원</p>
-            </div>
-            
-        
-        </div>
-
-      </div>
-    </div>
-  </div>
-<script>
-    $('#testBtn').click(function(e){
-            e.preventDefault();
-            $('#testModal').modal("show");
-    });
-</script>
-
-
 
 {% endblock %}

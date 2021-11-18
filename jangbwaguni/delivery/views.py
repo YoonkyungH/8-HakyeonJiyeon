@@ -5,7 +5,8 @@ import json
 from django.views import View
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404
-from .models import Rider, orders
+from .models import orders
+from member.models import Rider
 from django.core.serializers import serialize
 
 from django.views.decorators.csrf import csrf_exempt

@@ -276,3 +276,7 @@ td{
     font-family: 'SBAggroB','serif';
     font-size: 1.5rem;
 }
+
+input:focus{
+    outline:none;
+}

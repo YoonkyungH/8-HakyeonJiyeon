@@ -12,7 +12,6 @@ urlpatterns = [
     path('delivery/', include('delivery.urls')),
     path('order/', include('orderrequest.urls')),
     path('mypage/', include('member.urls')),
-    path('member/', include('member.urls')),
 ]
 
 urlpatterns += \

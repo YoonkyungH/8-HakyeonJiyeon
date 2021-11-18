@@ -8,7 +8,8 @@ from django.shortcuts import get_object_or_404
 
 # from .models import Rider #orders
 from django.core.serializers import serialize
-from member.models import Rider
+from member.models import Rider, Customer
+from orderrequest.models import OrderApply
 
 # Create your views here.
 def order_confirm_view(request):
@@ -54,14 +55,14 @@ def register_rider_view(request):   # 라이더 등록
 
 def order_list_view(request):
     if request.method == 'GET': # 주문 목록
-        order_list = orders.objects.all()
+        order_list = OrderApply.objects.all()
         data = json.loads(serialize('json', order_list))
         return JsonResponse({'order_list': data})
 
     if request.method == 'POST':    # 주문하기
         if request.META['CONTENT_TYPE'] == 'application/json':
             request = json.loads(request.body)
-            order_list = orders(
+            order_list = OrderApply(
                 cus_name = request['cus_name'],
                 cus_address = request['cus_address'],
                 # order_product
@@ -69,7 +70,7 @@ def order_list_view(request):
                 order_message = request['order_message'],
             )
         else:
-            order_list = orders(
+            order_list = OrderApply(
                 cus_name = request.POST['cus_name'],
                 cus_address = request['cus_address'],
                 # order_product

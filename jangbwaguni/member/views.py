@@ -1,19 +1,24 @@
+from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404
+from django.http import HttpResponse, JsonResponse
+
+# 로그인시 필요
+from rest_framework.parsers import JSONParser
 from django.contrib.auth import logout
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
-from django.shortcuts import redirect, render
-
 from django.contrib import auth 
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 
-# import json
-from django.views import View
-# from django.http import HttpResponse, JsonResponse
-# from django.shortcuts import get_object_or_404
-# from .models import User
-# from django.core.serializers import serialize
 # django에 이 라이브러리들이 내장되어 있음
+import json
+from django.views import View
+from django.core.serializers import serialize
 
+# from .models import User
+from .models import Customer
+
+# 로그인
 def login_view(request):
     if request.method == 'POST':
         form = AuthenticationForm(request=request, data=request.POST)
@@ -31,6 +36,7 @@ def login_view(request):
         form = AuthenticationForm()
         return render(request, 'login.html', {'form' : form})
 
+# 로그아웃
 def logout_view(request):
     logout(request)
     return redirect("home")
@@ -50,7 +56,6 @@ def signup(request):
         return render(request, 'signup.html')
     return render(request, 'signup.html')
 
-
 # 라이더 리뷰
 def review_rider_view(request):
     return render(request, 'review_rider.html')
@@ -64,37 +69,6 @@ def mypage_view(request):
     return render(request, 'mypage.html')
 
 
-
-# from django.shortcuts import render, redirect
-# from django.contrib.auth.models import User
-# from django.contrib import auth
-
-# 로그인시 필요
-from rest_framework.parsers import JSONParser
-
-
-# django에 이 라이브러리들이 내장되어 있음
-
-# def login_view(request):
-#     if request.method == 'POST':
-#         form = AuthenticationForm(request=request, data=request.POST)
-#         if form.is_valid():
-#             # cleaned_data: 유효성 검사를 통과한 클린한 데이터
-#             username = form.cleaned_data.get('username')
-#             password = form.cleaned_data.get('password')
-#             user = authenticate(request=request, username=username, password=password)
-
-#             if user is not None:
-#                 login_view(request, user)
-            
-#             return redirect('home')
-#     else:
-#         form = AuthenticationForm()
-#         return render(request, 'login.html', {'form' : form})
-
-# def logout_view(request):
-#     logout(request)
-#     return redirect("home")
 
 
 # # 회원가입

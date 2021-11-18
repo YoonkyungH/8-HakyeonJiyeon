@@ -12,27 +12,7 @@
 {% endblock %}
 
 {% block main_area %}
-<!-- 합 산출 https://daspace.tistory.com/190 -->
-<!-- <script>
-    /* js data type ? undefined, number, string, object(array), boolean, function */
-	/* js operator */
-	document.querySelector("button").addEventListener("click", function(e) {
-		var txtbox=document.querySelector("#n");
-		var n =txtbox.value;
-		var demo =document.querySelector("#demo");
-		
-		var hap = "";
-		var sum=0;
-		for (var i = 1; i <=n; i++) {
-			hap+= i+ (n==i?"":"+");
-			sum+=i;
-		}	
-		demo.innerText = hap+"="+sum;
-		
-		 txtbox.select();
 
-	});
-</script> -->
 <!-- 수량 input 태그에 숫자만 입력 (불안정) -->
 <script>
     $('#input-quantity').ready(function () {
@@ -40,21 +20,34 @@
     });
 </script>
 
-<!-- 천단위 콤마 추가 -->
 <script>
-     function inputNumberFormat(obj) {
-     obj.value = comma(uncomma(obj.value));
- }
+    //  금액 인식해서 출력
+    function printName()  {
+        const name = document.getElementById('inputprice').value;
+        document.getElementById("result1").innerText = name;
+        document.getElementById("result2").innerText = name;
+    }
 
- function comma(str) {
-     str = String(str);
-     return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
- }
+    // 금액 빼기
+    function chk(op) { // op라는 매개변수로 +나 -를 받아오도록 함
+        var a = document.f1.inputprice;
+        var b = document.f1.b;
+        var numA = parseInt(a.value);
+        var numB = parseInt(b.value);
+        if(op == '+') {
+            document.f1.result.value = numA + numB;
+        }
+        else if(op == '-') {
+            document.f1.result.value = numA - numB;
+        }
+    }
 
- function uncomma(str) {
-     str = String(str);
-     return str.replace(/[^\d]+/g, '');
- }
+    // 천단위 콤마 추가
+    // function numberWithCommas(x) {
+    // x = x.replace(/[^0-9]/g,'');   // 입력값이 숫자가 아니면 공백
+    // x = x.replace(/,/g,'');          // ,값 공백처리
+    // $("#inputprice").val(x.replace(/\B(?=(\d{3})+(?!\d))/g, ",")); // 정규식을 이용해서 3자리 마다 , 추가 
+    // }
 </script>
 
 <!-- 기타 품목 테이블에 행 추가/삭제 -->
@@ -68,13 +61,17 @@
 </script>
 
 
+<!---------------------------------------------------------- 본문 -------------------------------------------------------------->
 
-<!-- 본문 -->
-<!-- {% url 'd_mypage_orderlist' %} -->
+<form action="" method="POST" enctype="multipart/form-data" name="f1"> <!--{% url 'd_mypage_orderlist' %}-->
+    {%csrf_token%}
 
-<form action="" method="POST" enctype="multipart/form-data">     {%csrf_token%}
+
+
+
+
     <div class="container-flex-box">
-
+        
 <!-- 좌측 주문서 -->
         <article class="section" id="container-left">
             <table id="order-paper-table-1" style="display:inline-flex;">
@@ -122,7 +119,7 @@
                                 <td style="border-right: 1px solid white;  max-width:120px;"><input name="input-quantity" type="number" aria-label="수량" class="form-control" style="background-color: #D4E2C2;" min="1"></td>
                                 <td style="border-right: 1px solid white; min-width: 150px;"><input name="input-item" type="text" aria-label="품목" class="form-control" style="background-color: #D4E2C2;"></td>
                                 <td style="border-right: 1px solid white;"><input name="input-store" type="text" aria-label="구매소" class="form-control" style="background-color: #D4E2C2;"></td>
-                                <td style="border-right: 1px solid white;"><input id="input-price" name="input-price" type="text" aria-label="가격" class="form-control" style="background-color: #D4E2C2;" onkeyup="inputNumberFormat(this)"></td>
+                                <td style="border-right: 1px solid white;"><input id="inputprice" name="inputprice" type="text" aria-label="가격" class="form-control" style="background-color: #D4E2C2;" onkeyup=" printName()" placeholder="원"></td> <!--numberWithCommas(this.value)-->
                             </tr>
                             </tbody>
                         <!-- 반복 종료 -->
@@ -160,6 +157,9 @@
                     <td>&nbsp</td>
                 </tr>
 
+
+
+                <input name="cus-select" type="text" aria-label="주문자 아이디" style="display:none;" value="{{ cus.cus_id }}">
                 <th class="th-paper-table">배송지 정보</th>
                 <td class="sub-th">배송지명</td>
                 <td class="sub-td">
@@ -169,6 +169,7 @@
                         <option value="">기숙사</option>
                     </select>
                 </td>
+                
                 <tr>
                     <td></td>
                     <td class="sub-th">주문자명</td>
@@ -202,20 +203,20 @@
                     
                     <!-- <td class="sub-td" style="background-color: #D4E2C2;">문 앞에 놓아주세요.</td> -->
                 </tr>
-
+                
             
+
+
                 <tr>
                     <td>&nbsp</td>
                 </tr>
                 <tr>
                     <td>&nbsp</td>
                 </tr>
-
-
 
                 <th class="th-paper-table">결제 정보</th>
                 <td class="sub-th">상품 가격</td>
-                <td class="sub-td" >20,000원</td>
+                <td class="sub-td"><sapn id="result2">0</sapn>원</td>
                 <tr>
                     <td></td>
                     <td class="sub-th">쿠폰 사용</td>
@@ -225,7 +226,7 @@
                     <td></td>
                     <td class="sub-th">포인트 사용</td>
                     <td class="sub-td input-point">
-                        <span style="text-align: left; vertical-align: center;">3,000</span>
+                        <span style="text-align: left; vertical-align: center;"><input type="text" name="b" id="b" background-color:background-color: #EEEEEE/></span>
                         <span style="text-align: right;">(사용 가능 적립금 4,500)</span>
                     </td>
                 </tr>
@@ -251,14 +252,32 @@
                         </table>
                     </td>
                 </tr>
-
-                <td colspan="3" style="text-align: center; padding-top:30px;">결제 금액의 일부는 장봐구니 라이더에게 전달됩니다<br>
-                    주문 내용을 확인하였으며, 개인정보 수집 정보 제공에 동의합니다</td>
+                <tr>
+                    <td colspan="3" style="text-align: center; padding-top:30px;">결제 금액의 일부는 장봐구니 라이더에게 전달됩니다<br>
+                        주문 내용을 확인하였으며, 개인정보 수집 정보 제공에 동의합니다</td>            
+                    
+                </tr>
+                
+                <td colspan="3" style="text-align: center;"><input type="button" value="계산하기" onclick="chk('-')"
+                    style="text-align: center; 
+                    width:100%;
+                            height:40px;
+                                border: none;
+                                border-radius: 4vw;
+                                font-family: 'SBAggroB','serif';
+                                font-size: 1.5rem;
+                                float:center;"/></td>
+                
 
             </table>
         </article>
 
-<!-- 우측 주문서-->
+
+
+
+
+
+<!---------------------------------------------------------------- 우측 주문서--------------------------------------------------------->
         <article class="section" id="container-right">
             {% for rider in rider_list %}
             <div class="rider-info">
@@ -275,11 +294,13 @@
 
             <div style="align-items: center;">
                 <table class="credit-table table">
+
                     <tbody> 
                     <tr>
                         <td scope="row" style="text-align: right; max-width:80px;
                         ">기본가격</td>
-                        <td >20,000원</td>
+                        <td ><span id="result1">0</span>원</td>
+                        
                     </tr>
                     <tr>
                         <td scope="row" style="text-align: right; max-width:80px;">할인가격</td>
@@ -295,7 +316,7 @@
                     </tr>
                     <tr style="border-top: white solid 2px !important;">
                         <td scope="row" style="text-align: right; max-width:80px;">최종 결제금액</td>
-                        <td style="color:red; font-size:1.4rem;">17,000원</td>
+                        <td style="color:red; font-size:1.4rem;"><input type="text" name="result" id="result" style="max-width:6rem; color:red; font-size:1.4rem; background-color: rgba(142, 132, 85, 0.03); " value="0"/>원</td>
                     </tr>
                     </tbody>
                 </table>

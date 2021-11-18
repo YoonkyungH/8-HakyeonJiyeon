@@ -46,7 +46,6 @@ class RegisterForm(forms.Form):
                 user.save()
                 # member 저장 완료
 
-
 class LoginForm(forms.Form):
     email = forms.EmailField(
         error_messages={

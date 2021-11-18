@@ -29,39 +29,46 @@ from django.views.decorators.csrf import csrf_exempt # 추후 삭제
 def d_order_cus(request, rider_id):
     rider = get_object_or_404(Rider, pk=rider_id) # Rider클래스에서 가지는 pk값이 아니면 404에러 발생
     rider_list = Rider.objects.all().filter(id=rider_id) # Rider값 중 pk값에 해당하는 object만 넘겨줌
+    # cus_list = Customer.objects.all().filter(id=cus_id)
+
+    # rider_list = Rider.objects.get(id=rider_id)
+
     ######################################3# 유효성 검사 추가 안함
     # POST 방식일 때
     if request.method == 'POST':
-        new_order = OrderApply()
+        new_order = OrderApply()  
         new_order.quantity = request.POST['input-quantity']
-        # listIWantToStore = request.POST['input-quantity']
-        new_order.product = request.POST.get("input-item[]", False)
-        # new_order.product = request.POST["test[]"]
-        # new_order.product = request.POST.get('input-item')
-# name_age_pairs = zip(request.POST.getlist('name'), request.POST.getlist('age'))
-# data_dicts = [{'name': name, 'age': age} for name, age in name_age_pairs]
-# for data in data_dicts:
-#     form = PersonForm(data)
-#     form.save()
-
+        new_order.product = request.POST['input-item']
         new_order.sale_store = request.POST['input-store']
-        new_order.price = request.POST['input-price']
+        new_order.price = request.POST['inputprice']
         new_order.created_at = datetime.datetime.now()
-        new_order.rider_selected = request.POST['rider-select'] 
+        # new_order.save(commit=False)
+        # new_order.rider_selected = rider_selected
+        new_order.rider_selected = request.POST['rider-select']
+        # new_order.cus_orderer = request.POST[cus_orderer]
+        new_order.order_name = request.POST['input-cus']
+        new_order.order_phone = request.POST['input-phone']
+        new_order.order_address = request.POST['input-adress']
+        new_order.order_post = request.POST['input-post']
+        new_order.order_additional = request.POST['input-etc']
+        
         new_order.save()
-        # return redirect('d_rider_list')
-        return redirect('d_mypage_orderlist')
+        # return redirect('d_mypage_orderlist', cus_id)
+        return render(request, 'member/mypage_orderlist.html')
     # GET 방식일 때
     else:
         new_order = OrderApply.objects.all()
-        return render(request, 'orderrequest/order_cus.html', {'rider_unique':rider, 'rider_list':rider_list})
+        return render(request, 'orderrequest/order_cus.html', {'rider_list':rider_list})
+
+    # return redirect ('d_mypage_orderlist', cus_id)
     # return redirect('order_list', customer.id)
 
 
 #### 하단의 IndexView와 동일한 기능
-def d_rider_list(request):
+def d_rider_list(request, cus_id):
+    cus_list = get_object_or_404(Customer, pk=cus_id) # Customer클래스에서 가지는 pk값이 아니면 404에러 발생
     rider_list = Rider.objects.all() # Rider 클래스의 데이터 가져옴
-    return render(request, 'orderrequest/rider_list.html', {'rider_list':rider_list})
+    return render(request, 'orderrequest/rider_list.html', {'cus_list':cus_list,'rider_list':rider_list})
 
     # if request.method == 'GET':
     #     riders = Rider.objects.all()

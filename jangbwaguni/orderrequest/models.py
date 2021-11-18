@@ -15,7 +15,7 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 # phone_num = PhoneNumberField(unique=True, null=True, blank=False) # 휴대폰 번호
 
 class OrderApply(models.Model):
-    # orderer = models.ForeignKey(Customer, on_delete=models.CASCADE, verbose_name='주문자', blank=True, related_name='ord')
+    ### 구매정보
     # product = models.ForeignKey(Product, verbose_name = "상품", on_delete = models.CASCADE)
     # quantity = models.PositiveSmallIntegerField(verbose_name = "수량", blank=True, null=True, default=1, validators=[MinValueValidator(1), MaxValueValidator(100)]) # 1이상 100이하
     quantity = models.PositiveSmallIntegerField(verbose_name = "수량", blank=True, null=True, validators=[MinValueValidator(1), MaxValueValidator(100)]) # 1이상 100이하
@@ -27,8 +27,20 @@ class OrderApply(models.Model):
     sale_store = models.CharField(verbose_name="구매장소", max_length=15, null=True, blank=True)
     created_at = models.DateTimeField(verbose_name="등록시간", null=True, blank=True) #auto_now_add=True,
 
-    rider_selected = models.CharField(max_length=20, verbose_name='라이더 이름', blank=True) # rider_name
-    # rider = models.Col
+   
+
+    #### 라이더 정보
+    # rider_selected = models.OneToOneField(Rider, verbose_name='라이더 name', blank=True, on_delete=models.CASCADE) # rider_name
+    rider_selected = models.CharField(max_length=20, verbose_name='라이더 이름', blank=True)
+
+    #### 주문자 정보 (Customer랑 연동 X)
+    # cus_orderer = models.CharField(max_length=20, verbose_name='주문자 아이디', blank=True)
+    # cus_orderer = models.ForeignKey(Customer, on_delete=models.CASCADE, verbose_name='주문자 아아디', blank=True, related_name='ord')
+    order_name = models.CharField(verbose_name='주문자명', max_length=10, blank=True)
+    order_phone = models.CharField(verbose_name='연락처', max_length=13, blank=True)
+    order_address = models.CharField(verbose_name='주소', max_length=30, blank=True)
+    order_post = models.CharField(verbose_name='우편번호', max_length=5, blank=True)
+    order_additional = models.TextField(verbose_name='요청사항',blank=True)
 
     class Meta:
         verbose_name = '주문서'
@@ -44,6 +56,8 @@ class OrderApply(models.Model):
 
     # def __str__(self):
     #     return self.product.orderer
+
+ 
 
 ###################################################################################### 추후에 null = True 삭제
 # class Product(models.Model):

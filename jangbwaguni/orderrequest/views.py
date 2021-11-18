@@ -8,7 +8,7 @@ from django.shortcuts import render, get_object_or_404
 # View
 import json
 from django.views import View
-from delivery.models import Rider
+from member.models import Rider
 from django.core.serializers import serialize
 from delivery.serializers import DeliverySerializer
 from rest_framework.parsers import JSONParser

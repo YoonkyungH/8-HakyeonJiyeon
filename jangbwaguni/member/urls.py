@@ -14,3 +14,4 @@ urlpatterns = [
     path('reviewcustomer/', views.review_cus_view, name="review_customer"),
     path('mypage/', views.mypage_view, name="mypage"),
 ]
+

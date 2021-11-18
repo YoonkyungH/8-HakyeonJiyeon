@@ -17,7 +17,6 @@ class Customer(models.Model):
     phone_num = PhoneNumberField(unique=True, null=True, blank=False) # 휴대폰 번호
 
 
-
 # phone_num = PhoneNumberField(unique=True, null=True, blank=False) # 휴대폰 번호
 
 class OrderApply(models.Model):

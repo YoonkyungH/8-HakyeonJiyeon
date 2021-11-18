@@ -12,12 +12,12 @@
             <div class="col-5 ms-5 my-auto">
                 <div class="row mb-4">
                     <label class="col-auto my-auto fs-4"><strong>닉네임</strong></label>
-                    <input type="text" class="col form-control form-control-sm border-0 align-self-end" placeholder="예) 용돈벌이">
+                    <input type="text" name="rider_name" class="col form-control form-control-sm border-0 align-self-end" placeholder="예) 용돈벌이">
                     <div class="border-top border-1 border-grey mt-1"></div>
                 </div>
                 <div class="row mt-4">
                     <label class="col-auto my-auto fs-4"><strong>소개</strong></label>
-                    <input type="text" class="col form-control form-control-sm border-0 align-self-end" placeholder="예) 받자마자 갑니다.">
+                    <input type="text" name="rider_intro" class="col form-control form-control-sm border-0 align-self-end" placeholder="예) 받자마자 갑니다.">
                     <div class="border-top border-1 border-grey mt-1"></div>
                 </div>
             </div>
@@ -26,52 +26,84 @@
             <div class="mx-3">
                 <div class="row my-5">
                     <label class="col-8 fs-4"><strong>지역 선택</strong></label>
-                    <a class="col-4 btn btn-sm btn-outline-primary">찾기</a>
+                    <!-- <a class="col-4 btn btn-sm btn-outline-primary">찾기</a> -->
+                    <select class="col-4 btn btn-sm btn-outline-primary" name="rider_area">
+                            <option value="GG">경기도</option>
+                            <option value="SL">서울시</option>
+                            <option value="CC">충청도</option>
+                            <option value="GS">경상도</option>
+                            <option value="GW">강원도</option>
+                            <option value="JL">전라도</option>
+                            <option value="JJ">제주도</option>
+                        </select>
+                    </a>
                     <div class="border-top border-1 border-grey mt-1"></div>
                 </div>
                 <div class="row my-5 justify-content-between">
                     <label class="col-auto fs-4"><strong>배달 수단</strong></label>
                     <div id="radio" class="col-auto align-self-end">
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="1">
-                            <label class="form-check-label" for="inlineRadio1">도보</label>
+                            <!-- <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="1"> -->
+                            <!-- <label class="form-check-label" for="inlineRadio1">도보</label> -->
+                            <label><input type="checkbox" name="vehicle[]" value="NL"> 도보</label>
                         </div>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="2">
-                            <label class="form-check-label" for="inlineRadio2">모터사이클</label>
+                            <!-- <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="2"> -->
+                            <!-- <label class="form-check-label" for="inlineRadio2">모터사이클</label> -->
+                            <label><input type="checkbox" name="vehicle[]" value="AB"> 모터사이클</label>
                         </div>
                         <div class="form-check form-check-inline me-0">
-                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="3">
-                            <label class="form-check-label" for="inlineRadio3">자동차</label>
+                            <!-- <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="3">
+                            <label class="form-check-label" for="inlineRadio3">자동차</label> -->
+                            <label><input type="checkbox" name="vehicle[]" value="CR"> 자동차</label>
                         </div>
                         <div class="form-check form-check-inline me-0">
+                            <label><input type="checkbox" name="vehicle[]" value="BC"> 자전거</label>
+                        </div>
+                        <!-- <div class="form-check form-check-inline me-0">
                             <input class="form-control form-control-sm" type="text" placeholder="기타">
-                        </div>
+                        </div> -->
                     </div>
                     
                     <div class="border-top border-1 border-grey mt-1"></div>
                 </div>
                 <div class="row my-5">
                     <label class="col-3 fs-4"><strong>최소주문금액</strong></label>
-                    <input class="col form-control form-control-sm border-0 text-end" type="text">
+                    <input class="col form-control form-control-sm border-0 text-end" type="text" name="min_delivery_amount">
                     <div class="col-auto align-self-end"><strong>원</strong></div>
                     <div class="border-top border-1 border-grey mt-1"></div>
                 </div>
                 <div class="row my-5">
                     <label class="col-8 fs-4"><strong>통장 사본</strong></label>
-                    <a class="col-4 btn btn-sm btn-outline-primary">찾기</a>
+                    <!-- <a class="col-4 btn btn-sm btn-outline-primary">찾기</a> -->
+                    <a class="col-4 btn btn-sm btn-outline-primary" id="btn-upload">
+                        <input type="file" id="input_file" accept="image/png" style="position: center; display: none;">파일 선택</a>
+                    </a>
                     <div class="border-top border-1 border-grey mt-1"></div>
                 </div>
                 <div class="row my-5">
                     <label class="col-8 fs-4"><strong>운전면허증</strong></label>
-                    <a class="col-4 btn btn-sm btn-outline-primary">찾기</a>
+                    <!-- <a class="col-4 btn btn-sm btn-outline-primary">찾기</a> -->
+                    <a class="col-4 btn btn-sm btn-outline-primary">
+                        <input type="file" accept="image/png" style="position: center;"/>
+                    </a>
                     <div class="border-top border-1 border-grey mt-1"></div>
                 </div>
                 <div class="row my-5">
                     <label class="col-3 fs-4"><strong>추천인코드</strong></label>
-                    <input class="col form-control form-control-sm border-0 text-center" type="text">
+                    <input class="col form-control form-control-sm border-0 text-center" name="recommended_person" type="text">
                     <div class="border-top border-1 border-grey mt-1"></div>
                 </div>
+
+                <script>
+                    const fileBtn = document.querySelector(".btn-upload");
+                    const file = document.querySelector(".input_file");
+
+                    fileBtn.addEventListener('click', () => {
+                        file.style.display = 'block';
+                    })
+                </script>
+
             </div>
         </div>
         <div class="row justify-content-center mb-5">

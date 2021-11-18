@@ -35,7 +35,6 @@ class Rider(models.Model): # 배달원
     rider_intro = models.TextField(max_length=100, verbose_name='라이더 소개', blank=True)
     rider_img = models.ImageField(upload_to='images/', verbose_name='라이더 프로필 사진', blank=True, null=True)
 
-
     AREA_CHOICES = [
         ('GG', '경기도'),
         ('SL', '서울시'),

@@ -76,8 +76,8 @@
                 <div class="row my-5">
                     <label class="col-8 fs-4"><strong>통장 사본</strong></label>
                     <!-- <a class="col-4 btn btn-sm btn-outline-primary">찾기</a> -->
-                    <a class="col-4 btn btn-sm btn-outline-primary">
-                        <input type="file" accept="image/png" style="position: center;">
+                    <a class="col-4 btn btn-sm btn-outline-primary" id="btn-upload">
+                        <input type="file" id="input_file" accept="image/png" style="position: center; display: none;">파일 선택</a>
                     </a>
                     <div class="border-top border-1 border-grey mt-1"></div>
                 </div>
@@ -85,7 +85,7 @@
                     <label class="col-8 fs-4"><strong>운전면허증</strong></label>
                     <!-- <a class="col-4 btn btn-sm btn-outline-primary">찾기</a> -->
                     <a class="col-4 btn btn-sm btn-outline-primary">
-                        <input type="file" accept="image/png" style="position: center;">
+                        <input type="file" accept="image/png" style="position: center;"/>
                     </a>
                     <div class="border-top border-1 border-grey mt-1"></div>
                 </div>
@@ -94,6 +94,16 @@
                     <input class="col form-control form-control-sm border-0 text-center" name="recommended_person" type="text">
                     <div class="border-top border-1 border-grey mt-1"></div>
                 </div>
+
+                <script>
+                    const fileBtn = document.querySelector(".btn-upload");
+                    const file = document.querySelector(".input_file");
+
+                    fileBtn.addEventListener('click', () => {
+                        file.style.display = 'block';
+                    })
+                </script>
+
             </div>
         </div>
         <div class="row justify-content-center mb-5">

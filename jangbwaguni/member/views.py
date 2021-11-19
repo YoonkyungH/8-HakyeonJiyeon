@@ -117,9 +117,6 @@ def review_rider_view(request):
 def review_cus_view(request):
     return render(request, 'review_cus.html')
 
-def mypage_view(request):
-    return render(request, 'mypage.html')
-
 def d_mypage_orderlist(request):
     order_list = OrderApply.objects.all()
     data = json.loads(serialize('json', order_list))

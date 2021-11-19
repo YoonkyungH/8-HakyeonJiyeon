@@ -127,7 +127,7 @@ def review_rider_view(request, rider_id):
                 speed=speed_value, fresh=fresh_value, accuracy=accuracy_value)
             evaluation.save()
 
-
+    evaluations = EvalRider.objects.filter(rider=rider)
 
     speed_star = "★☆☆"
     fresh_star = "★★☆"

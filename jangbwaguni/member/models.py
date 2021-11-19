@@ -17,7 +17,7 @@ class Customer(AbstractUser):
     cus_img = models.ImageField(upload_to='images/', verbose_name='고객 프로필 사진', blank=True, null=True)
 
     def __str__(self):  # 객체가 설정한 [cus_name]으로 보여짐
-        return self.cus_nickname
+        return self.cus_nickname + self.username
 
     class Meta:
         db_table = 'customer'

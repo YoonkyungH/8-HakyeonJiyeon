@@ -30,6 +30,12 @@
     </span>
 </div>
 <!-- 폼 -->
+
+{% for order in order_list %}
+{{order.product}}
+{% endfor%}
+
+
 <form action="#" method="POST">
     {%csrf_token%}
 
@@ -62,7 +68,7 @@
                 </td>
             </tr>
             <tr>
-                <td class="col1" style="border-bottom: 2px solid gray; vertical-align: bottom;"><a href="{% url 'd_order_cus' rider.id %}" class="button-delivery btn btn-lg align-items-center">배달요청</a></td>
+                <td class="col1" style="border-bottom: 2px solid gray; vertical-align: bottom;"><a href="{% url 'd_order_cus' cus.id rider.id %}" class="button-delivery btn btn-lg align-items-center">배달요청</a></td>
                 <td class="col2" style="border-bottom: 2px solid gray; ">소개</td>
                 <td class="col3" style="border-bottom: 2px solid gray; ">{{rider.rider_intro}}</td>
             </tr>

@@ -17,7 +17,6 @@ from .models import Customer
 def d_mypage_orderlist(request):
     return render(request, 'member/mypage_orderlist.html')
 
-
 class IndexView(View):
     def get(self, request):
         users = Customer.objects.all().order_by('-id')

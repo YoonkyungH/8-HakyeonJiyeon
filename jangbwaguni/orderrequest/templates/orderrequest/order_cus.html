@@ -63,11 +63,11 @@
 
 <!---------------------------------------------------------- 본문 -------------------------------------------------------------->
 
-<form action="" method="POST" enctype="multipart/form-data" name="f1"> <!--{% url 'd_mypage_orderlist' %}-->
+<form action="" method="POST" enctype="multipart/form-data" name="f1">
     {%csrf_token%}
 
 
-
+    {{form.as_p}}
 
 
     <div class="container-flex-box">
@@ -108,7 +108,10 @@
 
                     <td class="sub-td" style="width:25rem;">
                         <table id="order-detail-table-1" style="min-width: 400px;">
-                            <th style="text-align: center;">수량</th>
+                            <th style="text-align: center;">수량<input type="text" name="sale_store" value="{{form.sale_store.value|default_if_none:''}}">
+                                <input type="text" name="product[]" value="{{form.sale_product.value|default_if_none:''}}"style="background-color: yellow;">
+                                <input type="text" name="product[]" value="{{form.sale_product.value|default_if_none:''}}" style="background-color: red;">
+                            </th>
                             <th style="text-align: center;">품목명</th>
                             <th style="text-align: center;">구매소</th>
                             <th style="text-align: center;">가격</th>

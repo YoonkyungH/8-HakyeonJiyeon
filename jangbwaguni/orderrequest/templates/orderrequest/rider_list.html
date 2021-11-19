@@ -42,8 +42,13 @@
         <table class="table-rider-list">  
             <tr>
                 <td rowspan="3" class="col1">
+                    {% if rider.rider_img %}
                     <img src="{{ rider.rider_img.url }}" class="table-profile-image" alt="프로필사진"></td>
-                <td class="col2">닉네임</td>
+                    {% else %}
+                    <svg xmlns="http://www.w3.org/2000/svg" height="100px" viewBox="0 0 24 24" width="100px" fill="rgb(104, 103, 103)"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+                    {% endif %}
+
+                    <td class="col2">닉네임</td>
                 <td class="col3">{{rider.rider_name}}</td>
             </tr>
             <tr>

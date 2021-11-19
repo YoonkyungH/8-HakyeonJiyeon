@@ -9,49 +9,46 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 
 # now = timezone.localtime()
 
-class Customer(models.Model):
-    sig_date_cus = models.DateTimeField('date signup customer', auto_now_add=True, null=True) # 가입일 / 자동기입
-    id_unique = models.CharField(unique=True, max_length=20, null=True) # 아이디 / 최대 20자리 / 중복 금지
-    password = models.CharField(max_length=200, null=True) # 비밀번호 / 최대 25자리 / 암호화 했을 때 길이 길어지므로 200으로 설정
-    nickname = models.CharField(max_length=10, null=True) # 닉네임 / 최대 10자리 / 중복 금지
-    phone_num = PhoneNumberField(unique=True, null=True, blank=False) # 휴대폰 번호
+# class Customer(models.Model):
+#     sig_date_cus = models.DateTimeField('date signup customer', auto_now_add=True, null=True) # 가입일 / 자동기입
+#     id_unique = models.CharField(unique=True, max_length=20, null=True) # 아이디 / 최대 20자리 / 중복 금지
+#     password = models.CharField(max_length=200, null=True) # 비밀번호 / 최대 25자리 / 암호화 했을 때 길이 길어지므로 200으로 설정
+#     nickname = models.CharField(max_length=10, null=True) # 닉네임 / 최대 10자리 / 중복 금지
+#     phone_num = PhoneNumberField(unique=True, null=True, blank=False) # 휴대폰 번호
 
 
 # phone_num = PhoneNumberField(unique=True, null=True, blank=False) # 휴대폰 번호
 
 class OrderApply(models.Model):
     ### 구매정보
-    # product = models.ForeignKey(Product, verbose_name = "상품", on_delete = models.CASCADE)
     # quantity = models.PositiveSmallIntegerField(verbose_name = "수량", blank=True, null=True, default=1, validators=[MinValueValidator(1), MaxValueValidator(100)]) # 1이상 100이하
-    # quantity = models.PositiveSmallIntegerField(verbose_name = "수량", blank=True, null=True, validators=[MinValueValidator(1), MaxValueValidator(100)]) # 1이상 100이하
-    # product = models.CharField(verbose_name = "상품명", max_length=15)
+    quantity = models.PositiveSmallIntegerField(verbose_name = "수량", blank=True, null=True, validators=[MinValueValidator(1), MaxValueValidator(100)]) # 1이상 100이하
+    product = models.CharField(verbose_name = "상품명", max_length=15, blank=True)
     # product = ArrayField(models.CharField(verbose_name = "상품명", max_length=15, blank=True))
 
-    PRODUCT_CHOICES = ( # 목록 추후 수정
-        ('N', 'Null'),  # 선택 안함
-        ('E', 'Egg'),   # 'DB에 저장할 실제 값', 'display용 이름'
-        ('M', 'Milk'),
-        ('R', 'Rice'),
-        ('W', 'Water'),
-    )
-    order_product = MultiSelectField(   # 다중선택(~10개)이 가능하도록 multiselectfield 사용
-        choices=PRODUCT_CHOICES,
-        max_choices = 10,               # 선택 요소가 많아지면 수정
-        verbose_name='주문 목록',
-    ) 
+    # PRODUCT_CHOICES = ( # 목록 추후 수정
+    #     ('N', 'Null'),  # 선택 안함
+    #     ('E', 'Egg'),   # 'DB에 저장할 실제 값', 'display용 이름'
+    #     ('M', 'Milk'),
+    #     ('R', 'Rice'),
+    #     ('W', 'Water'),
+    # )
+    # order_product = MultiSelectField(   # 다중선택(~10개)이 가능하도록 multiselectfield 사용
+    #     choices=PRODUCT_CHOICES,
+    #     max_choices = 2,               # 선택 요소가 많아지면 수정
+    #     verbose_name='주문 목록',
+    # ) 
 
-    price = models.CharField(verbose_name = "가격", max_length=200)
+    # price = models.CharField(verbose_name = "가격", max_length=200)
     # price = models.PositiveSmallIntegerField(verbose_name = "가격", null=True, default=1, validators=[MinValueValidator(1)]) # 1이상
     sale_store = models.CharField(verbose_name="구매장소", max_length=15, null=True, blank=True)
     # created_at = models.DateTimeField(verbose_name="등록시간", null=True, blank=True) #auto_now_add=True,
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='주문 요청 시간', null=True, blank=True)
 
     #### 라이더 정보
-    # rider_selected = models.OneToOneField(Rider, verbose_name='라이더 name', blank=True, on_delete=models.CASCADE) # rider_name
-    rider_selected = models.CharField(max_length=20, verbose_name='라이더 이름', blank=True)
+    rider_selected = models.ForeignKey(Rider, on_delete=models.CASCADE, verbose_name='라이더 아이디', blank=True, related_name='ord')
 
     #### 주문자 정보 (Customer랑 연동 X)
-    # cus_orderer = models.CharField(max_length=20, verbose_name='주문자 아이디', blank=True)
     cus_orderer = models.ForeignKey(Customer, on_delete=models.CASCADE, verbose_name='주문자 아아디', blank=True, related_name='ord')
     order_additional = models.TextField(verbose_name='요청사항',blank=True)
 
@@ -61,8 +58,8 @@ class OrderApply(models.Model):
         # ordering = ['-pk']
 
     # 장바구니에 담긴 각 상품의 합계
-    def sub_total(self):
-        return self.price
+    # def sub_total(self):
+    #     return self.price
     # def sub_total(self):
     # 	# 템플릿에서 사용하는 변수로 장바구니에 담긴 각 상품의 합계
     #     return self.product.price * self.quantity

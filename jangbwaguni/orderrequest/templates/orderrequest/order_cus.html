@@ -15,8 +15,8 @@
 
 <!-- 수량 input 태그에 숫자만 입력 (불안정) -->
 <script>
-    $('#input-quantity').ready(function () {
-        $('#input-quantity').mask('0', { reverse: true });
+    $('#quantity[]').ready(function () {
+        $('#quantity[]').mask('0', { reverse: true });
     });
 </script>
 
@@ -63,13 +63,8 @@
 
 <!---------------------------------------------------------- 본문 -------------------------------------------------------------->
 
-<form action="" method="POST" enctype="multipart/form-data" name="f1"> <!--{% url 'd_mypage_orderlist' %}-->
-    {%csrf_token%}
-
-
-
-
-
+<form action="" method="POST" enctype="multipart/form-data" name="f1">
+    {% csrf_token %}
     <div class="container-flex-box">
         
 <!-- 좌측 주문서 -->
@@ -78,7 +73,7 @@
                 <tr>
                     <th class="th-paper-table">
                         주문 내역
-                    </th>
+                    </th>{{user.cus_nickname}}
                     <td class="sub-th">
                         인기 품목
                     </td>
@@ -116,9 +111,10 @@
                         <!-- 반복할 구간 -->
                             <tbody id="first-row">
                             <tr class="order-list" style="vertical-align: center; background-color: #D4E2C2; border-bottom:1px solid white;">
-                                <td style="border-right: 1px solid white;  max-width:120px;"><input name="input-quantity" type="number" aria-label="수량" class="form-control" style="background-color: #D4E2C2;" min="1"></td>
-                                <td style="border-right: 1px solid white; min-width: 150px;"><input name="input-item" type="text" aria-label="품목" class="form-control" style="background-color: #D4E2C2;"></td>
-                                <td style="border-right: 1px solid white;"><input name="input-store" type="text" aria-label="구매소" class="form-control" style="background-color: #D4E2C2;"></td>
+                                <td style="border-right: 1px solid white;  max-width:120px;"><input name="quantity" value="{{form.quantity.value|default_if_none:''}}" type="number" aria-label="수량" class="form-control" style="background-color: red;" min="1"></td>
+                                <td style="border-right: 1px solid white; min-width: 150px;"><input name="product[]" value="{{form.sale_product.value|default_if_none:''}}" type="text" aria-label="품목" class="form-control" style="background-color: red;"></td>
+                                <td style="border-right: 1px solid white;"><input name="sale_store[]" value="{{form.sale_store.value|default_if_none:''}}" type="text" aria-label="구매소" class="form-control" style="background-color: red;">
+                                </td>
                                 <td style="border-right: 1px solid white;"><input id="inputprice" name="inputprice" type="text" aria-label="가격" class="form-control" style="background-color: #D4E2C2;" onkeyup=" printName()" placeholder="원"></td> <!--numberWithCommas(this.value)-->
                             </tr>
                             </tbody>
@@ -132,7 +128,7 @@
                             <!-- <script>
                                 function getlist(){
                                     var list = new Array();
-                                    $("input[name=input-item]").each(function(index, item){
+                                    $("input[name=product[]]").each(function(index, item){
                                         list.push($(item).val());
                                     });
                                     $("#test_list").val(list);
@@ -157,9 +153,6 @@
                     <td>&nbsp</td>
                 </tr>
 
-
-
-                <input name="cus-select" type="text" aria-label="주문자 아이디" style="display:none;" value="{{ cus.cus_id }}">
                 <th class="th-paper-table">배송지 정보</th>
                 <td class="sub-th">배송지명</td>
                 <td class="sub-td">
@@ -174,7 +167,7 @@
                     <td></td>
                     <td class="sub-th">주문자명</td>
                     <td class="sub-td">
-                        <input name="input-cus" type="text" aria-label="주소" class="form-control" style="background-color: #D4E2C2;" placeholder="주문자명">
+                        <input name="input-cus" type="text" aria-label="주소" class="form-control" style="background-color: #D4E2C2;" placeholder="주문자명" >
                     </td>
                 </tr>
                 <tr>
@@ -189,7 +182,7 @@
                     <td class="sub-th">주소</td>
                     <td class="sub-td">
                         <div class="sub-td input-group">
-                            <input name="input-adress" type="text" aria-label="주소" class="form-control" style="background-color: #D4E2C2;" placeholder="주소">
+                            <input name="input-adress" type="text" aria-label="주소" class="form-control" style="background-color: #D4E2C2;" placeholder="주소" value="{{cus.cus_address}}">
                             <input name="input-post" type="text" aria-label="우편번호" class="form-control" style="background-color: #D4E2C2; max-width:100px;" placeholder="우편번호">
                         </div>
                     </td>
@@ -198,7 +191,7 @@
                     <td></td>
                     <td class="sub-th">요청사항</td>
                     <td class="sub-td">
-                        <input name="input-etc" type="text" aria-label="요청사항" class="form-control" style="background-color: #D4E2C2;" placeholder="예) 배송 전 연락주세요">
+                        <input name="order_additional" value="{{form.order_additional.value|default_if_none:''}}" type="text" aria-label="요청사항" class="form-control" style="background-color: red;" placeholder="예) 배송 전 연락주세요">
                     </td>
                     
                     <!-- <td class="sub-td" style="background-color: #D4E2C2;">문 앞에 놓아주세요.</td> -->
@@ -279,7 +272,6 @@
 
 <!---------------------------------------------------------------- 우측 주문서--------------------------------------------------------->
         <article class="section" id="container-right">
-            {% for rider in rider_list %}
             <div class="rider-info">
                 <p style="font-family:'SBAggroB', 'serif'; font-size:1.4rem; margin-bottom:10px;">배달원 정보</p>
                 <div class="profile-box">
@@ -290,7 +282,6 @@
                 <p style="margin-bottom:6px;">신선도 <i class="star-filled fas fa-star"></i><i class="star-filled fas fa-star"></i><i class="star-filled fas fa-star"></i></p>
                 <p style="margin-bottom:6px;">정확도 <i class="star-filled fas fa-star"></i><i class="star-filled fas fa-star"></i><i class="star-filled fas fa-star" style="color:gray;"></i></p>
             </div>
-            {% endfor %}
 
             <div style="align-items: center;">
                 <table class="credit-table table">

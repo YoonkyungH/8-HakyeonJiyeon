@@ -13,6 +13,8 @@ urlpatterns = [
     path('index/', views.IndexView.as_view(), name='index'),
     path('signup/', views.signup, name="signup"),  # 임의
     path('login/', views.login, name="login"), # 임의
+    # path('signup/', views.signup, name='signup'), # 임의
+
     path('signup/', views.signup, name='signup'), # 임의
     path('logout/', views.logout, name='logout'),
     path('reviewrider/', views.review_rider_view, name="review_rider"),

@@ -30,8 +30,11 @@
     </span>
 </div>
 <!-- 폼 -->
+
+
 <form action="#" method="POST">
     {%csrf_token%}
+
 
     <div class="table-container">
         {% for rider in rider_list %}
@@ -71,7 +74,7 @@
         {% endfor %}
     </div>
 </form>
-
+<div></div>
 <!-- 페이지네이션 -->
 <div style="text-align: center; margin-top:5%;">
     <nav aria-label="Page navigation example" style="display:inline-block;">

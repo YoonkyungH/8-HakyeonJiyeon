@@ -1,7 +1,6 @@
 from django.contrib import admin
 
-from .models import Customer, OrderApply
-admin.site.register(Customer)
+from .models import OrderApply
 admin.site.register(OrderApply)
 
 # class OrderAdmin(admin.ModelAdmin):

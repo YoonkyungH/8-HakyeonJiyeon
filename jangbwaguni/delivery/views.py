@@ -21,7 +21,7 @@ from .serializers import DeliverySerializer
 
 # Create your views here.
 def order_confirm_view(request, pk):    # 들어온 주문을 확인
-    obj = orders.objects.get(pk=pk)     # 지정된 배달원
+    obj = Customer.objects.get(pk=pk)     # 지정된 배달원
 
     if request.method == 'GET':
         serializer = DeliverySerializer(obj)
@@ -43,7 +43,7 @@ def order_confirm_view(request, pk):    # 들어온 주문을 확인
 
 def order_confirm_view(request):
     if request.method == 'GET':
-        order_list = orders.objects.all()
+        order_list = Customer.objects.all()
         list = {'order_list': order_list}
         return list
 
@@ -121,7 +121,7 @@ def order_list_view(request):   # 선착순 주문 목록
 
     # TEST(이것도 됨)
     if request.method == 'GET':
-        order_list = orders.objects.values()
+        order_list = Customer.objects.values()
         order_list = {'order_list': order_list}
         # order = order_list.get()
         # orders.objects.value()[0]

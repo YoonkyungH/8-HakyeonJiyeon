@@ -7,6 +7,7 @@ from multiselectfield import MultiSelectField
 # import datetime
 
 ###################################################################################### 추후에 null = True 삭제
+from django.contrib.auth.models import AbstractUser
 
 class Customer(AbstractUser):
     # 평가 추가 : 좋아요 / 보통이에요 / 별로에요
@@ -75,6 +76,6 @@ class Rider(models.Model): # 배달원
         verbose_name = '라이더 가입 정보'
         verbose_name_plural = "라이더 가입 정보" # 뒤에 붙는 s없앰
 
-    speed = models.IntegerField(max_length=1, verbose_name='스피드')
-    fresh = models.IntegerField(max_length=1, verbose_name='신선도')
-    accuracy = models.IntegerField(max_length=1, verbose_name='정확도')
+    speed = models.IntegerField(verbose_name='스피드')
+    fresh = models.IntegerField(verbose_name='신선도')
+    accuracy = models.IntegerField(verbose_name='정확도')

@@ -79,7 +79,7 @@ class LoginForm(AuthenticationForm):
         super(LoginForm, self).__init__(*args, **kwargs)
 
     class Meta:
-        model = CustomUser
+        model = Customer
         fields = ['username', 'password']
 
 

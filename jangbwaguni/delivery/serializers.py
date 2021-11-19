@@ -6,7 +6,7 @@ from member.models import Rider
 # class DeliverySerializer(serializers.ModelSerializer):
 class DeliverySerializer(serializers.Serializer):
     class Meta:
-        model = Rider, OrderApply
+        model = Rider
         # fields = ('rider_name, rider_intro')
 
     # rider_name = Rider.rider_name

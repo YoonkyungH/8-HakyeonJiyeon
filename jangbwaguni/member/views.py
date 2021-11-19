@@ -7,7 +7,6 @@ from django.views import View
 from django.http import HttpResponse, JsonResponse
 from django.urls import reverse
 from django.core.serializers import serialize
-from .models import Customer
 from .forms import LoginForm, RegisterForm
 import json
 from .models import Customer

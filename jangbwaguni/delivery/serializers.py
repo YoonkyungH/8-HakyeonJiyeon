@@ -1,5 +1,6 @@
 from django.core.serializers import serialize
 from rest_framework import serializers
+from orderrequest.models import OrderApply
 from member.models import Rider
 
 # class DeliverySerializer(serializers.ModelSerializer):

@@ -186,11 +186,4 @@ def d_mypage_orderlist(request):
     else:
         delivery_list = None
     return render(request, 'mypage_orderlist.html', {'orders': order_list, 'deliveries': delivery_list})
-    # return JsonResponse({'order_list': data})
-    return render(request, 'mypage_orderlist.html')
 
-def d_mypage_orderlist(request):
-    if request.method == 'GET':
-        order_list = OrderApply.objects.all()
-        order_list = {'order_list' : order_list}
-        return render(request, 'member/mypage_orderlist.html', order_list)

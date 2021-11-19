@@ -1,4 +1,3 @@
-
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from multiselectfield import MultiSelectField
@@ -11,7 +10,8 @@ from django.contrib.auth.models import AbstractUser
 
 class Customer(AbstractUser):
     # 평가 추가 : 좋아요 / 보통이에요 / 별로에요
-    cus_nickname = models.CharField(max_length=20, verbose_name='고객 별명', blank=True, unique=True) # 중복금지
+    email = models.EmailField(blank=True, null=True)    # 임시
+    cus_nickname = models.CharField(max_length=20, verbose_name='고객 별명', blank=True, unique=False) # 중복금지
     cus_address = models.TextField(max_length=100, verbose_name='고객 주소', blank=True)
     cus_post_no = models.IntegerField(verbose_name='우편번호', null=True, blank=True)
     cus_phone = PhoneNumberField(verbose_name='폰번호', null=True, blank=True)
@@ -68,7 +68,7 @@ class Rider(models.Model): # 배달원
         blank=True
     )
 
-    min_delivery_amount = models.IntegerField(verbose_name='최소 주문 금액', blank=True) # 필수
+    min_delivery_amount = models.IntegerField(verbose_name='최소 주문 금액', blank=True, null=True) # 필수
     
     bankbook = models.ImageField(upload_to='images/', verbose_name='통장 사본', blank=True, null=True)
     license = models.ImageField(upload_to='images/', verbose_name='면허증 사본', blank=True, null=True)
@@ -78,6 +78,6 @@ class Rider(models.Model): # 배달원
         verbose_name = '라이더 가입 정보'
         verbose_name_plural = "라이더 가입 정보" # 뒤에 붙는 s없앰
 
-    speed = models.IntegerField(verbose_name='스피드')
-    fresh = models.IntegerField(verbose_name='신선도')
-    accuracy = models.IntegerField(verbose_name='정확도')
+    speed = models.IntegerField(verbose_name='스피드', blank=True, null=True)
+    fresh = models.IntegerField(verbose_name='신선도', blank=True, null=True)
+    accuracy = models.IntegerField(verbose_name='정확도', blank=True, null=True)

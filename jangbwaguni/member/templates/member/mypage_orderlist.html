@@ -69,14 +69,14 @@
                         <a href="{% url 'member:review_rider' order.rider_selected.id %}" class="btn-review" >리뷰 작성하기</a>
                     </td>
                     <td style="vertical-align: bottom; padding-bottom:0.85rem; width:8.4rem; text-align: left;">
-                        <a id="modalBtn{{ order.pk }}"  href="#" class="btn-detail">상세 보기</a>
+                        <a id="modalBtn{{ list.pk }}"  href="#" class="btn-detail">상세 보기</a>
                     </td>
                 </tr>
             </table>
             <!-- 반복종료 -->
 
             <!-- 모달 -->
-            <div class="modal fade" tabindex="-1" id="modal{{ order.pk }}">
+            <div class="modal fade" tabindex="-1" id="modal{{ list.pk }}">
                 <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
 
@@ -133,9 +133,9 @@
             </div>
             <!-- 모달 끝 -->
             <script>
-                $('#modalBtn{{ order.pk }}').click(function(e){
+                $('#modalBtn{{ list.pk }}').click(function(e){
                         e.preventDefault();
-                        $('#modal{{ order.pk }}').modal("show");
+                        $('#modal{{ list.pk }}').modal("show");
                 });
             </script>
             {% endfor %}

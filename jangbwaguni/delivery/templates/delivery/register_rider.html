@@ -1,5 +1,4 @@
 {% extends 'base.html' %}
-
 {% load static %}
 
 {% block head_title %}장봐구니 라이더 등록{% endblock %}
@@ -7,6 +6,7 @@
 {% block main_area %}
 <div class="container">
     <form class="d-flex flex-column my-5" method="post">
+        {% csrf_token %}
         <div id="pic_area" class="justify-content-center row">
             <div id="rider_pic" class="col-auto" style="background-color: brown; width: 150px; height: 150px;"></div>
             <div class="col-5 ms-5 my-auto">

@@ -9,8 +9,8 @@ from django.urls import reverse
 from django.core.serializers import serialize
 from .forms import LoginForm, RegisterForm
 import json
-from .models import Customer
-from orderrequest.models import OrderApply
+from .models import Customer, Rider
+from orderrequest.models import OrderApply, EvalCustomer, EvalRider
 
 
 def d_mypage_orderlist(request):
@@ -112,18 +112,84 @@ def signup(request):
     else:
         return render(request, 'register.html', {'form': form})
 
-def review_rider_view(request):
-    return render(request, 'review_rider.html')
+def review_rider_view(request, rider_id):
+    rider = get_object_or_404(Rider, pk=rider_id)
 
-def review_cus_view(request):
-    return render(request, 'review_cus.html')
+    if request.method == 'POST':
+        speed_value = int(request.POST.get('speed'))
+        fresh_value = int(request.POST.get('fresh'))
+        accuracy_value = int(request.POST.get('accuracy'))
+        evaluation = EvalRider.objects.filter(rider=rider, evaluator=request.user).first()
+        if evaluation is not None:
+            evaluation.speed = speed_value
+            evaluation.fresh = fresh_value
+            evaluation.accuracy = accuracy_value
+            evaluation.save()
+        else:
+            evaluation = EvalRider(rider=rider, evaluator=request.user, 
+                speed=speed_value, fresh=fresh_value, accuracy=accuracy_value)
+            evaluation.save()
+
+    evaluations = EvalRider.objects.filter(rider=rider)
+    speed = 0
+    fresh = 0
+    accuracy = 0
+
+    for evaluation in evaluations:
+        speed += evaluation.speed
+        fresh += evaluation.fresh
+        accuracy += evaluation.accuracy
+    count = evaluations.count()
+    speed /= count
+    fresh /= count
+    accuracy /= count
+
+    speed_star = ["☆" for i in range(3)]
+    fresh_star = ["☆" for i in range(3)]
+    accuracy_star = ["☆" for i in range(3)]
+
+    for i in range(int(speed)):
+        speed_star[i] = "★"
+    for i in range(int(fresh)):
+        fresh_star[i] = "★"
+    for i in range(int(accuracy)):
+        accuracy_star[i] = "★"
+    return render(request, 'review_rider.html', {'rider':rider, 'evaluations':evaluations, 
+        'speed':"".join(speed_star), 'fresh':"".join(fresh_star), 'accuracy':"".join(accuracy_star)})
+
+def review_cus_view(request, cus_id=None, score=None):
+    customer = get_object_or_404(Customer, pk=cus_id)
+    rider = get_object_or_404(Rider, rider_nickname=request.user)
+    if score and score >= 0 and score <= 2:
+        evaluation = EvalCustomer.objects.filter(customer=customer, evaluator=rider).first()
+        if evaluation is not None:
+            evaluation.score = score
+            evaluation.save()
+        else:
+            evaluation = EvalCustomer(customer=customer, evaluator=rider, score=score)
+            evaluation.save()
+
+    evaluations = EvalCustomer.objects.filter(customer=customer)
+    avg_score = 0
+    for evaluation in evaluations:
+        avg_score += evaluation.score
+    avg_score /= evaluations.count()
+
+    return render(request, 'review_cus.html', {'customer': customer, 'evaluations': evaluations, 'score': avg_score})
+
 
 def mypage_view(request):
     return render(request, 'mypage.html')
 
 def d_mypage_orderlist(request):
-    order_list = OrderApply.objects.all()
-    data = json.loads(serialize('json', order_list))
-    return render(request, 'mypage_orderlist.html', {'orders': data})
+    order_list = OrderApply.objects.filter(cus_orderer=request.user)
+    if order_list is not None:
+        order_list = order_list.order_by('-created_at')
+    rider = Rider.objects.filter(rider_nickname=request.user).first()
+    if rider is not None:
+        delivery_list = OrderApply.objects.filter(rider_selected=rider)
+    else:
+        delivery_list = None
+    return render(request, 'mypage_orderlist.html', {'orders': order_list, 'deliveries': delivery_list})
     # return JsonResponse({'order_list': data})
     return render(request, 'mypage_orderlist.html')

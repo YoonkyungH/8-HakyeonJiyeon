@@ -9,14 +9,6 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 
 # now = timezone.localtime()
 
-class Customer(models.Model):
-    sig_date_cus = models.DateTimeField('date signup customer', auto_now_add=True, null=True) # 가입일 / 자동기입
-    id_unique = models.CharField(unique=True, max_length=20, null=True) # 아이디 / 최대 20자리 / 중복 금지
-    password = models.CharField(max_length=200, null=True) # 비밀번호 / 최대 25자리 / 암호화 했을 때 길이 길어지므로 200으로 설정
-    nickname = models.CharField(max_length=10, null=True) # 닉네임 / 최대 10자리 / 중복 금지
-    phone_num = PhoneNumberField(unique=True, null=True, blank=False) # 휴대폰 번호
-
-
 # phone_num = PhoneNumberField(unique=True, null=True, blank=False) # 휴대폰 번호
 
 class OrderApply(models.Model):
@@ -47,7 +39,7 @@ class OrderApply(models.Model):
 
     #### 라이더 정보
     # rider_selected = models.OneToOneField(Rider, verbose_name='라이더 name', blank=True, on_delete=models.CASCADE) # rider_name
-    rider_selected = models.CharField(max_length=20, verbose_name='라이더 이름', blank=True)
+    rider_selected = models.ForeignKey(Rider, verbose_name='라이더 이름', on_delete=models.CASCADE, null=True, blank=True)
 
     #### 주문자 정보 (Customer랑 연동 X)
     # cus_orderer = models.CharField(max_length=20, verbose_name='주문자 아이디', blank=True)
@@ -170,12 +162,38 @@ class OrderApply(models.Model):
 #     # 배달 상태
 #     # 포인트
 
-# # class EvalRider(models.Model):
-# #     # 스피드
-# #     # 신선도
-# #     # 정확도
+class EvalRider(models.Model):
+    rider = models.ForeignKey(Rider, on_delete=models.CASCADE, verbose_name='평가 라이더')
+    evaluator = models.ForeignKey(Customer, on_delete=models.CASCADE, verbose_name='평가 고객')
+    eval_date = models.DateTimeField(verbose_name='평가 날짜', auto_now=True)
+    speed = models.IntegerField(verbose_name='스피드', validators=[MinValueValidator(0), MaxValueValidator(3)])
+    fresh = models.IntegerField(verbose_name='신선도', validators=[MinValueValidator(0), MaxValueValidator(3)])
+    accuracy = models.IntegerField(verbose_name='정확도', validators=[MinValueValidator(0), MaxValueValidator(3)])
 
-# # class EvalCustomer(models.Model):
-# #     # 좋아요
-# #     # 보통이에요
-# #     # 싫어요   
+    @property
+    def speed_range(self):
+        return range(self.speed)
+    @property
+    def fresh_range(self):
+        return range(self.fresh)
+    @property
+    def accuracy_range(self):
+        return range(self.accuracy)
+    @property
+    def speed_reverse(self):
+        return range(3-self.speed)
+    @property
+    def fresh_reverse(self):
+        return range(3-self.fresh)
+    @property
+    def accuracy_reverse(self):
+        return range(3-self.accuracy)
+
+class EvalCustomer(models.Model):
+    # 좋아요
+    # 보통이에요
+    # 싫어요
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE, verbose_name='평가 고객')
+    evaluator = models.ForeignKey(Rider, on_delete=models.CASCADE, verbose_name='평가 라이더')
+    eval_date = models.DateTimeField(verbose_name='평가 날짜', auto_now=True)
+    score = models.IntegerField(verbose_name='평가 점수', validators=[MinValueValidator(0), MaxValueValidator(2)])

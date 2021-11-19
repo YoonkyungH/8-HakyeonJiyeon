@@ -40,33 +40,33 @@
             </span>
         </div>
     
+
+        {% if not orders %}
+            <div class="d-flex justify-content-center fw-bold display-1 mt-3">텅...</div>
+        {% endif %}
         <div class="flex-container">
+            
             {% for order in orders %}
             <!-- 반복할 구간 -->
             <table>
                 <tr>
                     <td colspan="2" style="padding-left:1.2rem; padding-top:3%;">
-                        <span style="font-size: 1.2rem; vertical-align: bottom;">{{ order.fields.created }}</span>
-                        <span style="font-size:0.2rem; vertical-align: bottom;">&nbsp;&nbsp;배달중..</span>
+                        <span style="font-size: 1.2rem; vertical-align: bottom;">{{ order.created_at | date:"Y년 m월 d일" }}</span>
                     </td>
                 </tr>
                 <tr style="height:2rem;">
                     <td colspan="2" style="padding-left:1.2rem; padding-right:1.2rem; color:rgb(184, 184, 184); font-size:0.8rem; vertical-align: middle;">
-                        {{ order.fields.order_product }}
+                        {{ order.order_product }}
                     </td>
                 </tr>
                 <tr style="height:2rem;">
-                    <td colspan="2" style="padding-left:1.2rem; vertical-align: middle;">
-                        <i class="star-empty far fa-star"></i>
-                        <i class="star-empty far fa-star"></i>
-                        <i class="star-empty far fa-star"></i>
-                        <i class="star-empty far fa-star"></i>
-                        <i class="star-empty far fa-star"></i>
+                    <td colspan="2" style="padding-left:1.2rem; padding-top:3%;">
+                        라이더: {{ order.rider_selected.rider_nickname }}
                     </td>
                 </tr>
                 <tr style="text-align: right; height:5rem;">
                     <td style="vertical-align: bottom; padding-bottom:0.85rem; width:21rem;">
-                        <a href="{% url 'member:review_rider' %}" class="btn-review" >리뷰 작성하기</a>
+                        <a href="{% url 'member:review_rider' order.rider_selected.id %}" class="btn-review" >리뷰 작성하기</a>
                     </td>
                     <td style="vertical-align: bottom; padding-bottom:0.85rem; width:8.4rem; text-align: left;">
                         <a id="modalBtn{{ order.pk }}"  href="#" class="btn-detail">상세 보기</a>
@@ -90,11 +90,11 @@
                         <div style="border-bottom: 3px solid rgb(214, 214, 214);">
                             <div style="display:flex; justify-content: space-between;">
                                 <p style=" font-family: 'SBAggroM', 'serif';">주문 날짜</p>
-                                <p style=" font-family: 'SBAggroL', 'serif';">{{ order.fields.created }}</p>
+                                <p style=" font-family: 'SBAggroL', 'serif';">{{ order.created_at | date:"Y년 m월 d일" }}</p>
                             </div>
                             <div style="display:flex; justify-content: space-between;">
                                 <p style=" font-family: 'SBAggroM', 'serif'; ">배달원</p>
-                                <p style=" font-family: 'SBAggroL', 'serif';">abcdeft</p>
+                                <p style=" font-family: 'SBAggroL', 'serif';">{{ order.rider_selected.rider_nickname }}</p>
                             </div>
                             <div style="display:flex; justify-content: space-between;">
                                 <p style=" font-family: 'SBAggroM', 'serif';">배달 상태</p>
@@ -103,16 +103,11 @@
                         </div>
                         <div style="margin-top:10px; font-family: 'SBAggroL', 'serif';">
                             <p style=" font-family: 'SBAggroM', 'serif';">요청 품목</p>
+                            {% for product in order.order_product %}
                             <p><svg xmlns="http://www.w3.org/2000/svg" height="18px" viewBox="0 0 24 28" width="18px" fill="#9ccfd9"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M12 4c4.41 0 8 3.59 8 8s-3.59 8-8 8-8-3.59-8-8 3.59-8 8-8m0-2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/></svg>
-                                우유 1L</p>
-                            <p><svg xmlns="http://www.w3.org/2000/svg" height="18px" viewBox="0 0 24 28" width="18px" fill="#9ccfd9"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M12 4c4.41 0 8 3.59 8 8s-3.59 8-8 8-8-3.59-8-8 3.59-8 8-8m0-2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/></svg>
-                                계란 1판</p>
-                            <p><svg xmlns="http://www.w3.org/2000/svg" height="18px" viewBox="0 0 24 28" width="18px" fill="#9ccfd9"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M12 4c4.41 0 8 3.59 8 8s-3.59 8-8 8-8-3.59-8-8 3.59-8 8-8m0-2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/></svg>
-                                밀가루 1봉지</p>
-                            <p><svg xmlns="http://www.w3.org/2000/svg" height="18px" viewBox="0 0 24 28" width="18px" fill="#9ccfd9"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M12 4c4.41 0 8 3.59 8 8s-3.59 8-8 8-8-3.59-8-8 3.59-8 8-8m0-2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/></svg>
-                                설탕 500g</p>
-                            <p><svg xmlns="http://www.w3.org/2000/svg" height="18px" viewBox="0 0 24 28" width="18px" fill="#9ccfd9"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M12 4c4.41 0 8 3.59 8 8s-3.59 8-8 8-8-3.59-8-8 3.59-8 8-8m0-2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/></svg>
-                                쌀 5kg</p>
+                                {{ product }}
+                            </p>
+                            {% endfor %}
                         </div>
                         
                     </div>
@@ -122,7 +117,7 @@
                         <!-- <button type="button" class="btn" data-bs-dismiss="modal">Close</button> -->
                         <div style="display:flex; justify-content: space-between; font-family: 'SBAggroM', 'serif'; color:white;">
                             <p style="vertical-align: middle; ;font-size: 1.4rem; margin-left:2rem; margin-top:1rem; margin-right:1rem; margin-bottom:0;">총 품목 가격</p>
-                            <p style="vertical-align: middle; font-size: 1.4rem; text-align: right; margin-top:1rem; margin-right:2rem; margin-bottom:0;">37,800원</p>
+                            <p style="vertical-align: middle; font-size: 1.4rem; text-align: right; margin-top:1rem; margin-right:2rem; margin-bottom:0;">{{ order.price }}원</p>
                         </div>
                         <div style="display:flex; justify-content: space-between; font-family: 'SBAggroM', 'serif'; color:white;">
                             <p style="vertical-align: middle; font-size: 1.4rem; margin-left:2rem; margin-right:1rem; margin-bottom:0;">배송비(수수료 포함)</p>
@@ -130,7 +125,7 @@
                         </div>
                         <div style="display:flex; justify-content: space-between; font-family: 'SBAggroM', 'serif'; color:white; margin-top: 2.5rem;">
                             <p style=" vertical-align: middle; font-size: 1.4rem; margin-left:2rem; margin-right:1rem; margin-top:0;">총 금액</p>
-                            <p style="vertical-align: middle; font-size: 1.7rem; text-align: right; margin-right:2rem; margin-top:0;">40,300원</p>
+                            <p style="vertical-align: middle; font-size: 1.7rem; text-align: right; margin-right:2rem; margin-top:0;">{{ order.price }}원</p>
                         </div>
                     </div>
                 </div>
@@ -159,47 +154,88 @@
                 </div>
             </div>
 
+            {% if not deliveries %}
+                <div class="d-flex justify-content-center fw-bold display-1 mt-3">텅...</div>
+            {% endif %}
+            
+            {% for delivery in deliveries %}
             <div class="col-5 border my-3 pt-3">
                 <div class="col-auto fs-5 fw-bold">충청남도 천안시 동남구 병천면 충절로</div>
                 <div class="row align-items-baseline gx-2">
-                    <div class="col-auto text-secondary text-sm">2021년 10월 27일</div>
-                    <div class="col-auto text-secondary text-xs">12.37 km</div>
+                    <div class="col-auto text-secondary text-sm">{{ delivery.created_at | date:"Y년 m월 d일" }}</div>
                 </div>
                 <div class="text-xs my-1">
-                    우유 1L, 계란 1판, 밀가루 한봉지, 설탕 500g, 쌀 5kg
-                </div>
-                <div class="my-1">
-                    ★★★★★
+                    {{ delivery.order_product }}
                 </div>
                 <div class="row my-3 justify-content-between align-items-center">
                     <div class="col-auto fs-3 fw-bold">2,000 원</div>
                 </div>
                 <div class="row justify-content-end">
-                    <a class="col-auto btn btn-lg rounded-0 bg-khaki text-white" href="{% url 'member:review_customer' %}">리뷰 작성하기</a>
-                    <a class="col-auto btn btn-lg rounded-0 bg-sandybrown text-white">상세보기</a>
+                    <a class="col-auto btn btn-lg rounded-0 bg-khaki text-white" href="{% url 'member:review_customer' user.id %}">리뷰 작성하기</a>
+                    <a id="modal-delivery-btn-{{ delivery.pk }}" href="#" class="col-auto btn btn-lg rounded-0 bg-sandybrown text-white">상세보기</a>
                 </div>
             </div>
 
-            <div class="col-5 border my-3 pt-3">
-                <div class="col-auto fs-5 fw-bold">충청남도 천안시 동남구 병천면 충절로</div>
-                <div class="row align-items-baseline gx-2">
-                    <div class="col-auto text-secondary text-sm">2021년 10월 27일</div>
-                    <div class="col-auto text-secondary text-xs">12.37 km</div>
+            <!-- 모달 -->
+            <div class="modal fade" tabindex="-1" id="modal-delivery-{{ delivery.pk }}">
+                <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+
+                    <div class="modal-header">
+                    <h5 class="modal-title" style=" font-family: 'SBAggroB', 'serif'; font-size: 2rem; ">주문 상세</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+
+                    <div class="modal-body" style="margin-left:1rem; margin-top:0.5rem; margin-right:1rem;">
+
+                        <div style="border-bottom: 3px solid rgb(214, 214, 214);">
+                            <div style="display:flex; justify-content: space-between;">
+                                <p style=" font-family: 'SBAggroM', 'serif';">주문 날짜</p>
+                                <p style=" font-family: 'SBAggroL', 'serif';">{{ delivery.created_at | date:"Y년 m월 d일" }}</p>
+                            </div>
+                            <div style="display:flex; justify-content: space-between;">
+                                <p style=" font-family: 'SBAggroM', 'serif';">배달 상태</p>
+                                <p style=" font-family: 'SBAggroL', 'serif';">배달 완료</p>
+                            </div>
+                        </div>
+                        <div style="margin-top:10px; font-family: 'SBAggroL', 'serif';">
+                            <p style=" font-family: 'SBAggroM', 'serif';">요청 품목</p>
+                            {% for product in delivery.order_product %}
+                            <p><svg xmlns="http://www.w3.org/2000/svg" height="18px" viewBox="0 0 24 28" width="18px" fill="#9ccfd9"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M12 4c4.41 0 8 3.59 8 8s-3.59 8-8 8-8-3.59-8-8 3.59-8 8-8m0-2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/></svg>
+                                {{ product }}
+                            </p>
+                            {% endfor %}
+                        </div>
+                        
+                    </div>
+
+                    <div class="" style="height:200px; background-color: #9ccfd9;">
+                        <!-- 모달 닫기 -->
+                        <!-- <button type="button" class="btn" data-bs-dismiss="modal">Close</button> -->
+                        <div style="display:flex; justify-content: space-between; font-family: 'SBAggroM', 'serif'; color:white;">
+                            <p style="vertical-align: middle; ;font-size: 1.4rem; margin-left:2rem; margin-top:1rem; margin-right:1rem; margin-bottom:0;">총 품목 가격</p>
+                            <p style="vertical-align: middle; font-size: 1.4rem; text-align: right; margin-top:1rem; margin-right:2rem; margin-bottom:0;">{{ delivery.price }}원</p>
+                        </div>
+                        <div style="display:flex; justify-content: space-between; font-family: 'SBAggroM', 'serif'; color:white;">
+                            <p style="vertical-align: middle; font-size: 1.4rem; margin-left:2rem; margin-right:1rem; margin-bottom:0;">배송비(수수료 포함)</p>
+                            <p style="vertical-align: middle; font-size: 1.4rem; text-align: right; margin-right:2rem;  margin-bottom:0;">2,500원</p>
+                        </div>
+                        <div style="display:flex; justify-content: space-between; font-family: 'SBAggroM', 'serif'; color:white; margin-top: 2.5rem;">
+                            <p style=" vertical-align: middle; font-size: 1.4rem; margin-left:2rem; margin-right:1rem; margin-top:0;">총 금액</p>
+                            <p style="vertical-align: middle; font-size: 1.7rem; text-align: right; margin-right:2rem; margin-top:0;">{{ delivery.price }}원</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="text-xs my-1">
-                    우유 1L, 계란 1판, 밀가루 한봉지, 설탕 500g, 쌀 5kg
-                </div>
-                <div class="my-1">
-                    ★★★★★
-                </div>
-                <div class="row my-3 justify-content-between align-items-center">
-                    <div class="col-auto fs-3 fw-bold">2,000 원</div>
-                </div>
-                <div class="row justify-content-end">
-                    <a class="col-auto btn btn-lg rounded-0 bg-khaki text-white" href="{% url 'member:review_customer' %}">리뷰 작성하기</a>
-                    <a class="col-auto btn btn-lg rounded-0 bg-sandybrown text-white">상세보기</a>
                 </div>
             </div>
+            <!-- 모달 끝 -->
+            <script>
+                $('#modal-delivery-btn-{{ delivery.pk }}').click(function(e){
+                        e.preventDefault();
+                        $('#modal-delivery-{{ delivery.pk }}').modal("show");
+                });
+            </script>
+            {% endfor %}
 
         </div>
         <a class="d-flex justify-content-center my-5" href="#">더보기...</a>

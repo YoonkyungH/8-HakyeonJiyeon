@@ -42,7 +42,9 @@
         <table class="table-rider-list">  
             <tr>
                 <td rowspan="3" class="col1">
+                    {% if rider.rider_img %}
                     <img src="{{ rider.rider_img.url }}" class="table-profile-image" alt="프로필사진"></td>
+                    {% endif %}
                 <td class="col2">닉네임</td>
                 <td class="col3">{{rider.rider_name}}</td>
             </tr>

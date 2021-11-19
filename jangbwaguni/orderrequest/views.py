@@ -64,6 +64,7 @@ def d_order_cus(request, rider_id):
             new_order.product = request.POST.getlist("product[]")
             new_order.sale_store = request.POST.getlist("sale_store[]")
             new_order.save()
+            # return redirect(request, 'member/mypage_orderlist.html')
             return render(request, 'member/mypage_orderlist.html')
     else:
         form = OrderApplyForm()

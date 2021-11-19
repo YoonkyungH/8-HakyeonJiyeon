@@ -28,4 +28,3 @@ $ pip install -r requirements.txt
 
 * **secrets key 파일 불러오는 방법**
   * jangbwaguni 폴더에 있는 `secrets.json` 파일을 `manage.py` 파일이 있는 폴더로 이동
-

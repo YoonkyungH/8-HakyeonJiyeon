@@ -96,24 +96,26 @@ def register_rider_view(request):   # 라이더 등록
             rider.intro = request.POST['rider_intro']
             rider.min_delivery_amount = request.POST['min_delivery_amount']
             rider.rider_area = request.POST['rider_area']
-            # rider.rider_vehicle = request.POST.getlist['vehicle[]']
-            # rider = Rider(
-                # # rider_nickname = request.POST['rider_nickname'],
-                # # rider_id=request.POST['rider_id'],
-                # # rider_pw=request.POST['rider_pw'],
-                # rider_name=request.POST['rider_name'],
-                # min_delivery_amount=request.POST['min_delivery_amount'],
-                # rider_intro = request.POST['rider_intro'],
-                # # recommended_person=request.POST['recommended_person'],
-                # rider_area=request.POST['rider_area'],
-                # # bankbook=request.POST['bankbook'],
-                # # license=request.POST['license'],
+            rider.rider_vehicle = request.POST.getlist('vehicle[]')
 
-                # # rider_vehicle = request.POST.getlist('vehicle')
-                # # rider_vehicle=request.POST['rider_vehicle'],
-                # rider_vehicle=request.POST.getlist('vehicle[]'),
+            # rider = Rider(
+            #     # rider_nickname = request.POST['rider_nickname'],
+            #     # rider_id=request.POST['rider_id'],
+            #     # rider_pw=request.POST['rider_pw'],
+            #     rider_name=request.POST['rider_name'],
+            #     min_delivery_amount=request.POST['min_delivery_amount'],
+            #     rider_intro = request.POST['rider_intro'],
+            #     # recommended_person=request.POST['recommended_person'],
+            #     rider_area=request.POST['rider_area'],
+            #     # bankbook=request.POST['bankbook'],
+            #     # license=request.POST['license'],
+
+            #     # rider_vehicle = request.POST.getlist('vehicle')
+            #     # rider_vehicle=request.POST['rider_vehicle'],
+            #     rider_vehicle=request.POST.getlist('vehicle[]'),
             # )
         rider.save()
+        print(3)
         # return HttpResponse(status=200)
         return render(request, 'main.html')
     
@@ -130,7 +132,7 @@ def order_list_view(request):   # 선착순 주문 목록
     # TEST 후 이 주석 풀어주면 됨
     # if request.method == 'GET':
     #     # all_orders = orders.objects
-    #     order_list = Customer.objects.all()
+    #     order_list = OrderApply.objects.all()
     #     # order_list = all_orders.all()
     #     list = {'order_list': order_list}
     #     return render(request, 'delivery/order_list.html', list)
@@ -138,7 +140,7 @@ def order_list_view(request):   # 선착순 주문 목록
     # TEST(이것도 됨)
     if request.method == 'GET':
         # order_list = OrderApply.objects.values()
-        order_list = OrderApply.objects.all()   # cus_orderer 정보 받아와야 함
+        order_list = OrderApply.objects.all()   # cus_orderer 정보 받아오려면 이렇게 써야 함
         order_list = {'order_list': order_list}
         # cus_list = Customer.objects.values()
         # cus_list = {'cus_list': cus_list}

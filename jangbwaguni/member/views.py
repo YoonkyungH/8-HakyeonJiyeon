@@ -13,8 +13,6 @@ from .models import Customer
 from orderrequest.models import OrderApply
 
 
-def d_mypage_orderlist(request):
-    return render(request, 'member/mypage_orderlist.html')
 
 class IndexView(View):
     def get(self, request):
@@ -126,3 +124,11 @@ def d_mypage_orderlist(request):
     return render(request, 'mypage_orderlist.html', {'orders': data})
     # return JsonResponse({'order_list': data})
     return render(request, 'mypage_orderlist.html')
+
+
+def d_mypage_orderlist(request):
+    if request.method == 'GET':
+        order_list = OrderApply.objects.all()
+        order_list = {'order_list': order_list}
+        # food_list = 
+        return render(request, 'member/mypage_orderlist.html', order_list)

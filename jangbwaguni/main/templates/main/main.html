@@ -1,0 +1,48 @@
+{% extends 'main/base.html' %}
+
+{% load static %}
+
+{% block head_title %}장봐구니{% endblock %}
+{% block main_area %}
+<div class="container">
+    <div class="row justify-content-between py-3">
+        <div id="title" class="col-auto display-1 fw-bold" style="font-family: 'SBAggroB', 'serif'">
+            장봐구니
+        </div>
+        <div class="col-auto mt-4">
+            {% if user.is_authenticated %}
+            <a class="btn btn-sm btn-outline-dark mx-2" href="{% url 'member:d_mypage_orderlist' %}">마이페이지</a>
+            <a class="btn btn-sm btn-outline-dark mx-2" href="{% url 'member:logout' %}">로그아웃</a>
+            {% else %}
+            <a class="btn btn-sm btn-outline-dark mx-2"  href="{% url 'member:login' %}">로그인</a>
+            <a class="btn btn-sm btn-outline-dark mx-2" href="{% url 'member:signup' %}">회원가입</a>
+            {% endif %}
+        </div>
+    </div>
+    
+    <div class="row my-5">
+        <div class="col-6 row mx-3" >
+            <div class="display-3 mb-3">
+                <div class="">
+                    나가는게
+                </div>
+                <div class="float-end" style="font-family: 'SBAggroM', 'serif'">
+                    꺼려질 때
+                </div>
+            </div>
+            <div class="display-3 mt-3" >
+                <div class="">
+                    심부름꾼이
+                </div>
+                <div class="float-end" style="font-family: 'SBAggroM', 'serif'">
+                    필요할 때
+                </div>
+            </div>
+        </div>
+        <div class="col-auto ms-5">
+            <img src="{% static 'main/img/rider.png' %}" width="400" alt="라이더 이미지" />
+        </div>
+    </div>
+    
+</div>
+{% endblock %}

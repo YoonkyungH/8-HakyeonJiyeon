@@ -1,0 +1,74 @@
+@font-face {
+    font-family: 'SBAggroB';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SBAggroB.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'SBAggroM';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SBAggroM.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'SBAggroL';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SBAggroL.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+*{
+    padding:0;
+    margin:0;
+} 
+
+body{
+    /* background-color: rgb(248, 248, 248); */
+}
+
+table{
+    background-color: white;
+    min-height:100px;
+    min-width: 500px;
+    border:1px solid rgb(214, 214, 214);
+    margin-right: 3rem;
+    margin-bottom: 1rem;
+}
+
+.star-empty{
+    color:rgb(0, 0, 0);
+}
+.btn-review{
+    background-color: #FFD08F;
+    color:white;
+    padding: 1rem 1rem;
+    text-decoration-line : none;
+}
+.btn-review:hover{
+    background-color:white;
+    color: #FFD08F;
+    font-weight: bold;
+}
+.btn-detail{
+    background-color: #E8995B;
+    color:white;
+    padding: 1rem 2rem;
+    text-decoration-line : none;
+}
+.btn-detail:hover{
+    background-color:white;
+    color: #E8995B;
+    font-weight: bold;
+}
+
+a{
+    color:white;
+}
+
+.flex-container{
+    display:flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    /* align-content:space-evenly; */
+    /* margin-top:10px; */
+}

@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block head_title %}주문 확인{% endblock %}
+{%block navbar_title %}주문 확인{% endblock %}
+{% block main_area %}
+
+<!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> -->
+
+<link rel="stylesheet" href="../../static/delivery/css/confirm.css"/>
+
+<div class="table-container">
+
+    <!-- 지정된 주문만 받 X. 모든 주문을 받고있음 -->
+
+    {% for list in order_list %}
+    <div class="card">
+        <div class="card-header">
+            주문 시간: {{ list.created }}
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">{{ list.cus_address }}</h5>
+            <p class="card-text">{{ list.order_product }}</p>
+            <a href="#" onclick="colorChange()" id="btn-go" class="btn btn-primary btncolor">배달 출발</a>
+        </div>
+
+        <script>
+            function colorChange() {
+                var color = "#D4E2C2";
+                var tag = document.getElementById("btn-go");
+                tag.style.backgroundColor = color;
+            }
+
+            // 현재시각 구하기
+            var today = new Date();
+            
+            var year = today.getFullYear();
+            var month = ('0' + (today.getMonth() + 1)).slice(-2);
+            var day = ('0' + today.getDate()).slice(-2);
+
+            var hours = ('0' + today.getHours()).slice(-2);
+            var minutes = ('0' + today.getMinutes()).slice(-2);
+            var seconds = ('0' + today.getSeconds()).slice(-2);
+           
+            var daytime = year + '-' + month + '-' + day + '-' + hours + '-' + minutes + '-' + seconds;
+            </script>
+    </div>
+    {% endfor %}
+
+    <!-- <div class="card">
+        <div class="card-header">
+            주문 시간: 
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">경기도 군포시 군포동 12-34</h5>
+            <p class="card-text">쌀 10kg, 물 2L</p>
+            <a href="#" class="btn btn-primary btncolor">배달 출발</a>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            주문 시간: 
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">서울특별시 송파구 올림픽로 300</h5>
+            <p class="card-text">달걀 30개, 우유 900ml 2개, 고무장갑</p>
+            <a href="#" class="btn btn-primary btncolor">배달 출발</a>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            주문 시간: 
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">부산광역시 남구 유엔평화로 15</h5>
+            <p class="card-text">식빵, 쌀 5kg</p>
+            <a href="#" class="btn btn-primary btncolor">배달 출발</a>
+        </div>
+    </div> -->
+
+</div>
+{% endblock %} 

@@ -1,0 +1,120 @@
+{% extends 'base.html' %}
+
+{% block head_title %}장봐구니 라이더 후기{% endblock %}
+{% block navbar_title %}장봐구니 라이더 후기{% endblock %}
+{% block main_area %}
+<div class="container">
+    <div class="d-flex flex-column my-5 mx-5">
+
+        <div id="rider_spec" class="p-5 bg-beige">
+            <div class="row">
+                <div id="rider_pic" class="col-auto ms-3" style="background-color: brown; width: 150px; height: 150px;"></div>
+                <div class="col-auto ms-4">
+                    <div class="fw-bold fs-5">{{ rider.rider_nickname }}</div>
+                    <div class="row fs-5">
+                        <div class="col-auto row">
+                            <div class="col-auto">스피드</div>
+                            <div class="col-auto gx-0">{{ speed }}</div>
+                        </div>
+                        <div class="col-auto row">
+                            <div class="col-auto">신선도</div>
+                            <div class="col-auto gx-0">{{ fresh }}</div>
+                        </div>
+                        <div class="col-auto row">
+                            <div class="col-auto">정확도</div>
+                            <div class="col-auto gx-0">{{ accuracy }}</div>
+                        </div>
+                    </div>
+                    <div class="my-2">{{ rider.rider_area }}</div>
+                    <div class="row my-3">
+                        <div class="col-5 fw-bold">이동 수단</div>
+                        <div class="col-auto">{{ rider.rider_vehicle }}</div>
+                    </div>
+                    <div class="row my-3">
+                        <div class="col-5 fw-bold">최소주문금액</div>
+                        <div class="col-auto">{{ rider.min_delivery_amount }}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <form id="review_section" class="my-5" method="post" action="{% url 'member:review_rider' rider.pk %}">
+            {% csrf_token %}
+            <div class="ms-3">
+                <div class="fs-2 fw-bold">REVIEWS</div>
+                <div class="text-sm">배달에 대해 평가해주세요.</div>
+            </div>
+            <div class="row my-3 mx-3 py-4 justify-content-center border border-browngrey fs-4 fw-bold">
+                <div class="col-auto mx-3 my-3 row">
+                    <div class="col-auto">스피드</div>
+                    <div class="col-auto gx-0">
+                        <select name="speed" class="form-select">
+                            <option value='0'>☆☆☆</option>
+                            <option value='1'>★☆☆</option>
+                            <option value='2'>★★☆</option>
+                            <option value='3' selected>★★★</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-auto mx-3 my-3 row">
+                    <div class="col-auto">신선도</div>
+                    <div class="col-auto gx-0">
+                        <select name="fresh" class="form-select">
+                            <option value='0'>☆☆☆</option>
+                            <option value='1'>★☆☆</option>
+                            <option value='2'>★★☆</option>
+                            <option value='3' selected>★★★</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-auto mx-3 my-3 row">
+                    <div class="col-auto">정확도</div>
+                    <div class="col-auto gx-0">
+                        <select name="accuracy" class="form-select">
+                            <option value='0'>☆☆☆</option>
+                            <option value='1'>★☆☆</option>
+                            <option value='2'>★★☆</option>
+                            <option value='3' selected>★★★</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary float-end me-3">저장</button>
+        </form>
+
+        <div id="review_list" class="mx-3 mb-5">
+            <div class="bg-browngrey" style="min-height: 12px;"></div>
+            <div class="mb-5">
+
+                {% for eval in evaluations %}
+                <div class="row my-3 mx-3 py-3 border border-browngrey">
+                    <div class="col-auto row gx-2 align-items-center">
+                        <div class="col-auto fs-5 fw-bold ms-3">{{ eval.evaluator }}</div>
+                        <div class="col-auto text-xs">{{ eval.eval_date | date:"Y. m. d" }}</div>
+                    </div>
+                    <div class="col row justify-content-center align-items-center fw-bold">
+                        <div class="col-auto mx-4 my-1">
+                            스피드 
+                            {% for i in eval.speed_range %}★ {% endfor %}
+                            {% for i in eval.speed_reverse %}☆ {% endfor %}
+                        </div>
+                        <div class="col-auto mx-4 my-1">
+                            신선도 
+                            {% for i in eval.fresh_range %}★ {% endfor %}
+                            {% for i in eval.fresh_reverse %}☆ {% endfor %}
+                        </div>
+                        <div class="col-auto mx-4 my-1">
+                            정확도 
+                            {% for i in eval.accuracy_range %}★ {% endfor %}
+                            {% for i in eval.accuracy_reverse %}☆ {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

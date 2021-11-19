@@ -1,0 +1,334 @@
+{% extends 'base.html' %} 
+
+{% load static %}
+{% block head_title %}주문하기{% endblock %}
+{% block navbar_title %}주문하기{% endblock %}
+{% block style %}
+    <link rel="stylesheet" type="text/css" href="{% static 'orderrequest/css/order_cus.css' %}">
+
+    <!-- 구글 icon -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    rel="stylesheet">
+{% endblock %}
+
+{% block main_area %}
+
+<!-- 수량 input 태그에 숫자만 입력 (불안정) -->
+<script>
+    $('#quantity[]').ready(function () {
+        $('#quantity[]').mask('0', { reverse: true });
+    });
+</script>
+
+<script>
+    //  금액 인식해서 출력
+    function printName()  {
+        const name = document.getElementById('inputprice').value;
+        document.getElementById("result1").innerText = name;
+        document.getElementById("result2").innerText = name;
+    }
+    function printName1()  {
+        const name = document.getElementById('b').value;
+        document.getElementById("e").innerText = name;
+    }
+
+    // 금액 빼기
+    function chk(op) { // op라는 매개변수로 +나 -를 받아오도록 함
+        var a = document.f1.inputprice;
+        var b = document.f1.b;
+        var numA = parseInt(a.value);
+        var numB = parseInt(b.value);
+        if(op == '+') {
+            document.f1.result.value = numA + numB;
+        }
+        else if(op == '-') {
+            document.f1.price.value = numA - numB;
+        }
+    }
+
+    // 천단위 콤마 추가
+    // function numberWithCommas(x) {
+    // x = x.replace(/[^0-9]/g,'');   // 입력값이 숫자가 아니면 공백
+    // x = x.replace(/,/g,'');          // ,값 공백처리
+    // $("#inputprice").val(x.replace(/\B(?=(\d{3})+(?!\d))/g, ",")); // 정규식을 이용해서 3자리 마다 , 추가 
+    // }
+</script>
+
+<!-- 기타 품목 테이블에 행 추가/삭제 -->
+<script>
+    function addRow(){
+        $('#first-row .order-list').clone().find('input').val('').end().appendTo('#repeat-list');
+    }
+    function removeRow(){
+        $('#repeat-list .order-list').last().remove();
+    }
+</script>
+
+
+<!---------------------------------------------------------- 본문 -------------------------------------------------------------->
+
+<form action="" method="POST" enctype="multipart/form-data" name="f1">
+    {% csrf_token %}
+    <div class="container-flex-box">
+        
+<!-- 좌측 주문서 -->
+        <article class="section" id="container-left">
+            <table id="order-paper-table-1" style="display:inline-flex;">
+                <tr>
+                    <th class="th-paper-table">
+                        주문 내역
+                    </th>
+                    <td class="sub-th">
+                        인기 품목
+                    </td>
+                    <td class="sub-td">
+                        <select name="popular-list" value="선택하세요">
+                            <option value="">선택하세요</option>
+                            <optgroup label="음료수">
+                                <option vallue="">1/파워에이드</option>
+                                <option value="">1/헛개수</option>
+                                <option value="">1/허쉬초코우유</option>
+                            </optgroup>
+                            <optgroup label="과자">
+                                <option value="">1/죠리퐁</option>
+                            </optgroup>
+                        </select>
+                        <P style="color:rgb(182, 182, 182); font-size:0.3rem;">
+                            <svg xmlns="http://www.w3.org/2000/svg" height="14px" viewBox="0 0 24 24" width="16px" fill="rgb(182, 182, 182)"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M11 7h2v2h-2zm0 4h2v6h-2zm1-9C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/></svg>
+                            <!-- <span class="material-icons-outlined">info</span> -->
+                            선택하면 자동으로 추가됩니다.</P>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td class="sub-th">
+                        기타 품목
+                    </td>
+
+                    <td class="sub-td" style="width:25rem;">
+                        <table id="order-detail-table-1" style="min-width: 400px;">
+                            <th style="text-align: center;">수량</th>
+                            <th style="text-align: center;">품목명</th>
+                            <th style="text-align: center;">구매소</th>
+                            <th style="text-align: center;">가격</th>
+
+                        <!-- 반복할 구간 -->
+                            <tbody id="first-row">
+                            <tr class="order-list" style="vertical-align: center; background-color: #D4E2C2; border-bottom:1px solid white;">
+                                <td style="border-right: 1px solid white;  max-width:120px;"><input name="quantity" value="{{form.quantity.value|default_if_none:''}}" type="number" aria-label="수량" class="form-control" style="background-color: #D4E2C2;" min="1"></td>
+                                <td style="border-right: 1px solid white; min-width: 150px;"><input name="product[]" value="{{form.sale_product.value|default_if_none:''}}" type="text" aria-label="품목" class="form-control" style="background-color: #D4E2C2;"></td>
+                                <td style="border-right: 1px solid white;"><input name="sale_store[]" value="{{form.sale_store.value|default_if_none:''}}" type="text" aria-label="구매소" class="form-control" style="background-color: #D4E2C2;">
+                                </td>
+                                <td style="border-right: 1px solid white;"><input id="inputprice" name="inputprice" type="text" aria-label="가격" class="form-control" style="background-color: #D4E2C2;" onkeyup=" printName()" placeholder="원"></td> <!--numberWithCommas(this.value)-->
+                            </tr>
+                            </tbody>
+                        <!-- 반복 종료 -->
+                            <tbody id="repeat-list">
+                            </tbody>
+                            <!-- <input type="hidden" name='test[]' id='test_list' value=''>
+                            <script>
+                                src = "http://code.jquery.com/jquery-latest.min.js"
+                            </script> -->
+                            <!-- <script>
+                                function getlist(){
+                                    var list = new Array();
+                                    $("input[name=product[]]").each(function(index, item){
+                                        list.push($(item).val());
+                                    });
+                                    $("#test_list").val(list);
+                                }
+                            </script> -->
+                        </table>
+                    </td>
+                </tr>
+                <tr">
+                    <td></td>
+                    <td></td>
+                    <td>
+                        <button onclick='addRow()' value="행추가" id="btn-add" type="button">&nbsp + 추가 &nbsp</button>
+                        <button onclick='removeRow()' value="행제거" id="btn-add" type="button">&nbsp - 삭제 &nbsp</button>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>&nbsp</td>
+                </tr>
+                <tr>
+                    <td>&nbsp</td>
+                </tr>
+
+                <th class="th-paper-table">배송지 정보</th>
+                <td class="sub-th">배송지명</td>
+                <td class="sub-td">
+                    <select name="address-list" value="">
+                        <option value="">집</option>
+                        <option value="">자취방</option>
+                        <option value="">기숙사</option>
+                    </select>
+                </td>
+                
+                <tr>
+                    <td></td>
+                    <td class="sub-th">주문자명</td>
+                    <td class="sub-td">
+                        <input type="text" aria-label="주문자명" class="form-control" style="background-color: #D4E2C2;" name="order_name" id="order_name" value="{{form.order_name.value|default_if_none:''}}" placeholder="{{user.cus_nickname}}">
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td class="sub-th">연락처</td>
+                    <td class="sub-td">
+                        <input name="order_phone" type="text" aria-label="연락처" class="form-control" style="background-color: #D4E2C2;" placeholder="{{user.cus_phone}}" value="{{form.order_phone.value|default_if_none:''}}">
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td class="sub-th">주소</td>
+                    <td class="sub-td">
+                        <div class="sub-td input-group">
+                            <input name="order_address" type="text" aria-label="주문 주소" class="form-control" style="background-color: #D4E2C2;" placeholder="{{user.cus_address}}" value="{{form.order_address.value|default_if_none:''}}">
+                            <input name="order_post" type="text" aria-label="우편번호" class="form-control" style="background-color: #D4E2C2; max-width:100px;" placeholder="{{user.cus_post_no}}" value="{{form.oorder_post.value|default_if_none:''}}">
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td class="sub-th">요청사항</td>
+                    <td class="sub-td">
+                        <input name="order_additional" value="{{form.order_additional.value|default_if_none:''}}" type="text" aria-label="요청사항" class="form-control" style="background-color: #D4E2C2;" placeholder="예) 배송 전 연락주세요">
+                    </td>
+                    
+                    <!-- <td class="sub-td" style="background-color: #D4E2C2;">문 앞에 놓아주세요.</td> -->
+                </tr>
+                
+            
+
+
+                <tr>
+                    <td>&nbsp</td>
+                </tr>
+                <tr>
+                    <td>&nbsp</td>
+                </tr>
+
+                <th class="th-paper-table">결제 정보</th>
+                <td class="sub-th">상품 가격</td>
+                <td class="sub-td"><sapn id="result2">0</sapn>원</td>
+                <tr>
+                    <td></td>
+                    <td class="sub-th">쿠폰 사용</td>
+                    <td class="sub-td">첫 구매 할인 (-2,000)</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td class="sub-th">포인트 사용</td>
+                    <td class="sub-td input-point">
+                        <span style="text-align: left; vertical-align: center;"><input value="0" type="text" name="b" id="b" style="background-color: #EEEEEE"onkeyup="printName1()"/></span>
+                        <span style="text-align: right;">(사용 가능 적립금 4,500)</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td class="sub-th">배달료</td>
+                    <td class="sub-td">2000</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td class="sub-th">결제 수단</td>
+                    <td class="sub-td">
+                        <table>
+                            <tr>
+                                <td>카드 결제</td>
+                                <td>무통장 입금</td>
+                                <td>휴대전화</td>
+                            </tr>
+                            <tr>
+                                <td>카카오 페이</td>
+                                <td>네이버 페이</td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3" style="text-align: center; padding-top:30px;">결제 금액의 일부는 장봐구니 라이더에게 전달됩니다<br>
+                        주문 내용을 확인하였으며, 개인정보 수집 정보 제공에 동의합니다</td>            
+                    
+                </tr>
+                
+                <td colspan="3" style="text-align: center;"><input type="button" value="계산하기" onclick="chk('-')"
+                    style="text-align: center; 
+                    width:100%;
+                            height:40px;
+                                border: none;
+                                border-radius: 4vw;
+                                font-family: 'SBAggroB','serif';
+                                font-size: 1.5rem;
+                                float:center;"/></td>
+                
+
+            </table>
+        </article>
+
+
+
+
+
+
+<!---------------------------------------------------------------- 우측 주문서--------------------------------------------------------->
+        <article class="section" id="container-right">
+            <div class="rider-info">
+                <p style="font-family:'SBAggroB', 'serif'; font-size:1.4rem; margin-bottom:10px;">배달원 정보</p>
+                <div class="profile-box">
+                    {% if rider.rider_img %}
+                    <img src="{{ rider.rider_img.url }}" class="profile-image" alt="프로필사진">
+                    {% else %}
+                    <svg xmlns="http://www.w3.org/2000/svg" height="100px" viewBox="0 0 33 30" width="100px" fill="rgb(104, 103, 103)"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+                    {% endif %}
+                </div>
+                <input name="rider-select" type="text" aria-label="선택한 라이더" style="display:none;" value="{{ rider.rider_name }}">
+                <p style="margin-bottom:6px;">스피드 <i class="star-filled fas fa-star"></i><i class="star-filled fas fa-star"></i><i class="star-filled fas fa-star"></i></p>
+                <p style="margin-bottom:6px;">신선도 <i class="star-filled fas fa-star"></i><i class="star-filled fas fa-star"></i><i class="star-filled fas fa-star"></i></p>
+                <p style="margin-bottom:6px;">정확도 <i class="star-filled fas fa-star"></i><i class="star-filled fas fa-star"></i><i class="star-filled fas fa-star" style="color:gray;"></i></p>
+            </div>
+
+            <div style="align-items: center;">
+                <table class="credit-table table">
+
+                    <tbody> 
+                    <tr>
+                        <td scope="row" style="text-align: right; max-width:80px;
+                        ">기본가격</td>
+                        <td ><span id="result1">0</span>원</td>
+                        
+                    </tr>
+                    <tr>
+                        <td scope="row" style="text-align: right; max-width:80px;">할인가격</td>
+                        <td><span type="text" name="e" id="e">0</span>원</td>
+                    </tr>
+                    <tr>
+                        <th scope="row"></th>
+                        <td>-2,000원</td>
+                    </tr>
+                    <tr>
+                        <td scope="row" style="text-align: right; max-width:80px;" >배송가격</td>
+                        <td>+2,000원</td>
+                    </tr>
+                    <tr style="border-top: white solid 2px !important;">
+                        <td scope="row" style="text-align: right; max-width:80px;">최종 결제금액</td>
+                        <td style="color:red; font-size:1.4rem;">
+                            <input type="number" name="price" id="price" value="{{form.price.value|default_if_none:'0'}}" style="max-width:6rem; color:red; font-size:1.4rem; background-color: rgba(142, 132, 85, 0.03); " palceholder="0"/>원
+
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div>
+                <button id="btn-pay" type="submit" onclick="getlist()">결제하기</button>
+            </div>
+        </article>
+    </div>
+</form>
+
+{% endblock %}
+

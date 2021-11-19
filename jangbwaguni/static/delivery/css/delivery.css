@@ -1,0 +1,121 @@
+.mx-6 {
+    margin-left: 4.5rem !important;
+    margin-right: 4.5rem !important;
+}
+
+.mx-7 { 
+    margin-left: 8rem !important;
+    margin-right: 8rem !important;
+}
+
+.mx-8 {
+    margin-left: 12rem !important;
+    margin-right: 12rem !important;
+}
+
+
+
+/* colors */
+
+.bg-browngrey {
+    background-color: #8E8455 !important;
+}
+
+.bg-greengrey {
+    background-color: #D4E2C2;
+}
+
+.bg-beige {
+    background-color: #F6F1DE !important;
+}
+
+.bg-khaki {
+    background-color: #FFD08F;
+}
+
+.bg-sandybrown {
+    background-color: #E8995B;
+}
+
+.border-browngrey {
+    border-color: #8E8455 !important;
+}
+
+
+/* text size */
+
+.text-sm {
+    font-size: 0.85rem;
+}
+
+.text-xs {
+    font-size: 0.5rem;
+}
+
+
+/* texts */
+
+.text-subtitle {
+    font-size: 2.5rem;
+    font-weight: 700;
+}
+
+
+/* navs */
+
+.nav-tabs {
+    border-bottom: 3px solid #8E8455;
+}
+
+.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+    background-color: #8E8455;
+    color: white;
+    border-radius: 0;
+}
+
+.nav-tabs .nav-link {
+    color: black;
+    border-radius: 0;
+    border: 0px;
+}
+
+
+/* buttons */
+
+.btn-khaki {
+    background-color: #FFD08F;
+}
+
+
+/* background images */
+
+.bg-imag-main {
+    background-color: rgba(255, 255, 255, 0.5); 
+}
+
+.bg-img-main {
+    position: relative;
+    height: 100vh;
+    width: 100%;
+}
+
+.bg-img-main::before {
+    content: "";
+    background-image: url("/static/main/img/main.jpg");
+    background-repeat: no-repeat;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    position:absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    opacity: 0.35;
+}
+
+.bg-content {
+    position: relative;
+    opacity: 1;
+}

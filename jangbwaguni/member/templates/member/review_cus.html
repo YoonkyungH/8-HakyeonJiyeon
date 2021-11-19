@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block head_title %}장봐구니 고객 후기{% endblock %}
+{% block navbar_title %}장봐구니 고객 후기{% endblock %}
+{% block main_area %}
+<div class="container">
+    <div class="d-flex flex-column my-5 mx-5">
+
+        <div id="customer_spec" class="p-5 bg-beige">
+            <div class="row">
+                <div id="rider_pic" class="col-auto ms-3" style="background-color: brown; width: 150px; height: 150px;"></div>
+                <div class="col-auto ms-4">
+                    <div class="fw-bold fs-5">{{ customer.cus_nickname }}</div>
+                    <div class="fs-5">평균 점수: {{ score }}</div>
+                    <div class="my-2">{{ customer.cus_address }}</div>
+                </div>
+            </div>
+        </div>
+
+        <div id="review_section" class="my-5">
+            <div class="ms-3">
+                <div class="fs-2 fw-bold">REVIEWS</div>
+                <div class="text-sm">고객에 대해 평가해주세요.</div>
+            </div>
+            <form class="my-3 mx-3 py-4 justify-content-center row border border-browngrey fs-4 fw-bold">
+                <a class="col-auto text-decoration-none mx-5 my-3" href="{% url 'member:review_customer_update' customer.pk 2 %}">좋아요</a>
+                <a class="col-auto text-decoration-none mx-5 my-3" href="{% url 'member:review_customer_update' customer.pk 1 %}">보통이에요</a>
+                <a class="col-auto text-decoration-none mx-5 my-3" href="{% url 'member:review_customer_update' customer.pk 0 %}">싫어요</a>
+            </form>
+        </div>
+
+        <div id="review_list" class="mx-3 mb-5">
+            <div class="bg-browngrey" style="min-height: 12px;"></div>
+            <div class="mb-5">
+                {% for eval in evaluations %}
+                <div class="row my-3 mx-3 py-3 border border-browngrey">
+                    <div class="col-auto row gx-2 align-items-center">
+                        <div class="col-auto fs-5 fw-bold ms-3">{{ eval.evaluator.rider_nickname }}</div>
+                        <div class="col-auto text-xs">{{ eval.eval_date | date:"Y. m. d" }}</div>
+                    </div>
+                    <div class="col-6 row justify-content-center align-items-center">
+                        <div class="col-auto">
+                            {% if eval.score == 0 %}
+                            싫어요
+                            {% elif eval.score == 1 %}
+                            보통이에요
+                            {% else %}
+                            좋아요
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

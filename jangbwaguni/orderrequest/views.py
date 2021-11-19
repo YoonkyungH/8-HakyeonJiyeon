@@ -20,11 +20,36 @@ from delivery.serializers import DeliverySerializer
 
 from django.views.decorators.csrf import csrf_exempt # 추후 삭제
 
-
-def d_order_cus(request, cus_id, rider_id):
+# 성공-----------------------------------------------------
+# def d_order_cus(request, cus_id, rider_id):
+#     rider = get_object_or_404(Rider, pk=rider_id) # Rider클래스에서 가지는 pk값이 아니면 404에러 발생
+#     cus = get_object_or_404(Customer, pk=cus_id)
+#     # rider_list = Rider.objects.all().filter(id=rider_id) # Rider값 중 pk값에 해당하는 object만 넘겨줌
+#     form = OrderApplyForm()
+#     if request.method == 'POST':
+#         form = OrderApplyForm(request.POST)
+#         if form.is_valid():
+#             new_order = form.save(commit=False)
+#             new_order.created_at = timezone.now()
+#             # new_order.cus_orderer = 
+#             new_order.rider_selected = rider
+#             new_order.cus_orderer = cus
+#             # new_order.quantity = request.POST.getlist("quantity[]")
+#             new_order.product = request.POST.getlist("product[]")
+#             new_order.sale_store = request.POST.getlist("sale_store[]")
+#             new_order.save()
+#             return render(request, 'member/mypage_orderlist.html')
+            
+#     else:
+#         form = OrderApplyForm()
+#     context = {'form':form}
+#     return render(request, 'orderrequest/order_cus.html', {'form':form, 'rider':rider, 'cus':cus})
+# 성공------------------------------------------------
+# @login_required
+def d_order_cus(request, rider_id):
     rider = get_object_or_404(Rider, pk=rider_id) # Rider클래스에서 가지는 pk값이 아니면 404에러 발생
-    cus = get_object_or_404(Customer, pk=cus_id)
-    rider_list = Rider.objects.all().filter(id=rider_id) # Rider값 중 pk값에 해당하는 object만 넘겨줌
+    # cus = Customer.objects.all().filter(id=user)
+    print(request.user)
     form = OrderApplyForm()
     if request.method == 'POST':
         form = OrderApplyForm(request.POST)
@@ -33,26 +58,32 @@ def d_order_cus(request, cus_id, rider_id):
             new_order.created_at = timezone.now()
             # new_order.cus_orderer = 
             new_order.rider_selected = rider
-            new_order.cus_orderer = cus
+            new_order.cus_orderer = request.user
+            # new_order.quantity = request.POST.getlist("quantity[]")
             new_order.product = request.POST.getlist("product[]")
+            new_order.sale_store = request.POST.getlist("sale_store[]")
             new_order.save()
             return render(request, 'member/mypage_orderlist.html')
             
     else:
         form = OrderApplyForm()
     context = {'form':form}
-    return render(request, 'orderrequest/order_cus.html', {'rider_list':rider_list, 'form':form})
+    return render(request, 'orderrequest/order_cus.html', {'form':form, 'rider':rider})
 
-#### 하단의 IndexView와 동일한 기능
-def d_rider_list(request, cus_id):
-    cus_list = get_object_or_404(Customer, pk=cus_id) # Customer클래스에서 가지는 pk값이 아니면 404에러 발생
+def d_rider_list(request):
     rider_list = Rider.objects.all() # Rider 클래스의 데이터 가져옴
-    # order_list
-    order_list = OrderApply.objects.all()           
-    # order_product = order_list.product
-    # output = ', '.join([q.product for q in order_product])
-    return render(request, 'orderrequest/rider_list.html', {'cus_list':cus_list,'rider_list':rider_list, 'order_list':order_list})
+    return render(request, 'orderrequest/rider_list.html', {'rider_list':rider_list})
 
+# 성공------------------------------------------------
+#### 하단의 IndexView와 동일한 기능
+# def d_rider_list(request, cus_id):
+#     cus_list = get_object_or_404(Customer, pk=cus_id) # Customer클래스에서 가지는 pk값이 아니면 404에러 발생
+#     rider_list = Rider.objects.all() # Rider 클래스의 데이터 가져옴
+#     # order_list
+#     # order_product = order_list.product
+#     # output = ', '.join([q.product for q in order_product])
+#     return render(request, 'orderrequest/rider_list.html', {'cus_list':cus_list,'rider_list':rider_list})
+# 성공------------------------------------------------
     # if request.method == 'GET':
     #     riders = Rider.objects.all()
     #     serializer = DeliverySerializer(riders, many=True)

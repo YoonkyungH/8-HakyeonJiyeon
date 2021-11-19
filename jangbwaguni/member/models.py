@@ -12,13 +12,13 @@ class Customer(AbstractUser):
     # 평가 추가 : 좋아요 / 보통이에요 / 별로에요
     cus_nickname = models.CharField(max_length=20, verbose_name='고객 별명', blank=True, unique=True) # 중복금지
     cus_address = models.TextField(max_length=100, verbose_name='고객 주소', blank=True)
-    cus_post_no = models.IntegerField(verbose_name='우편번호')
-    cus_phone = PhoneNumberField(verbose_name='폰번호')
+    cus_post_no = models.IntegerField(verbose_name='우편번호', null=True, blank=True)
+    cus_phone = PhoneNumberField(verbose_name='폰번호', null=True, blank=True)
     recommended_person = models.CharField(max_length=20, verbose_name='추천인', blank=True)     # 선택, 사용자 이름을 20자로 받기 때문에 max 20
     cus_img = models.ImageField(upload_to='images/', verbose_name='고객 프로필 사진', blank=True, null=True)
 
     def __str__(self):  # 객체가 설정한 [cus_name]으로 보여짐
-        return self.cus_nickname
+        return self.cus_nickname + self.username
 
     class Meta:
         db_table = 'customer'

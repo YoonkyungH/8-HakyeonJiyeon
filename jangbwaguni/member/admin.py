@@ -7,12 +7,12 @@ class OrderApplyInline(admin.StackedInline):
     model = OrderApply
     extra = 0
 
-class CustomerAdmin(admin.StackedInline):
+class CustomerAdmin(admin.ModelAdmin):
     inlines = [OrderApplyInline]
 
 class RiderAdmin(admin.ModelAdmin):
     inlines = [OrderApplyInline]
 
-admin.site.register(Customer)
+admin.site.register(Customer, CustomerAdmin)
 admin.site.register(Rider, RiderAdmin)
 

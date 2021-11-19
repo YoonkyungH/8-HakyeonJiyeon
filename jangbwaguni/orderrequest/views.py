@@ -46,10 +46,10 @@ from django.views.decorators.csrf import csrf_exempt # 추후 삭제
 #     return render(request, 'orderrequest/order_cus.html', {'form':form, 'rider':rider, 'cus':cus})
 # 성공------------------------------------------------
 # @login_required
+@csrf_exempt
 def d_order_cus(request, rider_id):
     rider = get_object_or_404(Rider, pk=rider_id) # Rider클래스에서 가지는 pk값이 아니면 404에러 발생
     # cus = Customer.objects.all().filter(id=user)
-    print(request.user)
     form = OrderApplyForm()
     if request.method == 'POST':
         form = OrderApplyForm(request.POST)

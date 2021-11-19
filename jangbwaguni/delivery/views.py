@@ -124,7 +124,7 @@ def order_list_view(request):   # 선착순 주문 목록
     # TEST(이것도 됨)
     if request.method == 'GET':
         # order_list = OrderApply.objects.values()
-        order_list = OrderApply.objects.all()
+        order_list = OrderApply.objects.all()   # cus_orderer 정보 받아와야 함
         order_list = {'order_list': order_list}
         # cus_list = Customer.objects.values()
         # cus_list = {'cus_list': cus_list}

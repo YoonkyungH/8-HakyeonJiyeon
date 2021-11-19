@@ -53,6 +53,9 @@
             *{
                 font-family: 'SBAggroL', 'serif';
             }
+            #logo{
+                outline:none;
+            }
         </style>
     </head>
     <body>
@@ -60,6 +63,7 @@
             <div class="navbar align-items-start" style="background-color: #F5F1E3; min-height: 6rem;">
                 <div class="container-fluid">
                     <div class="navbar-brand ms-5" style="font-size: 2rem;">
+                        <a id="logo" href="{% url 'main'%}"><img src="{% static 'orderrequest/images/logo.png' %}" style="max-width:100px;"></a>
                         <strong style="font-family: 'SBAggroB','serif';">{% block navbar_title %}{% endblock %}</strong>
                     </div>
                     <div class="d-flex align-items-start">

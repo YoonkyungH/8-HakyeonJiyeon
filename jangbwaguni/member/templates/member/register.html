@@ -2,23 +2,23 @@
 
 {% block main_area %}
 <div class="row mt-5">
-    <div class="col-12 text-center">
+    <div class="col-12 text-center mt-5">
         <h1>회원가입</h1>
     </div>
 </div>
 
-<div class="row mt-5">
+<div class="row mt-3">
     <div class="col-12">
         {{ error }}
     </div>
 </div>
 
-<div class="row mt-5">
-    <div class="col-12">
+<div class="row justify-content-center my-5">
+    <div class="col-5">
         <form method="POST" action=".">
             {% csrf_token %}
             {% for field in form %}
-            <div class="form-group">
+            <div class="form-group my-3">
                 <label for="{{ field.id_for_label }}">{{ field.label }}</label>
                 <input type="{{ field.field.widget.input_type }}" class="form-control" id="{{ field.id_for_label }}"
                     placeholder="{{ field.label }}" name="{{ field.name }}"/>
@@ -27,7 +27,7 @@
             <span style="color: red">{{ field.errors }}</span>
             {% endif %}
             {% endfor %}
-            <button type="submit" class="btn btn-primary">회원가입</button>
+            <button type="submit" class="btn btn-primary float-end">회원가입</button>
         </form>
     </div>
 </div>

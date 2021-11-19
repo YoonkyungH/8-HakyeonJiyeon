@@ -10,6 +10,7 @@ from django.core.serializers import serialize
 from .forms import LoginForm, RegisterForm
 import json
 from .models import Customer
+from orderrequest.models import OrderApply
 
 
 def d_mypage_orderlist(request):
@@ -95,11 +96,12 @@ def signup(request):
         form = RegisterForm(data=request.POST)
         if form.is_valid():
             cleaned_data = form.cleaned_data
-            user = CustomUser(
+            user = Customer(
                 username = cleaned_data.get('username'),
                 password = cleaned_data.get('password'),
-                cus_name = cleaned_data.get('name'),
+                cus_nickname = cleaned_data.get('nickname'),
                 cus_address = cleaned_data.get('address'),
+                cus_post_no = cleaned_data.get('post_no')
             )
             user.set_password(cleaned_data.get('password'))
             user.save()
@@ -120,7 +122,7 @@ def mypage_view(request):
     return render(request, 'mypage.html')
 
 def d_mypage_orderlist(request):
-    order_list = orders.objects.all()
+    order_list = OrderApply.objects.all()
     data = json.loads(serialize('json', order_list))
     return render(request, 'mypage_orderlist.html', {'orders': data})
     # return JsonResponse({'order_list': data})

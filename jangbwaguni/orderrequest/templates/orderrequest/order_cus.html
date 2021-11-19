@@ -15,8 +15,8 @@
 
 <!-- 수량 input 태그에 숫자만 입력 (불안정) -->
 <script>
-    $('#input-quantity').ready(function () {
-        $('#input-quantity').mask('0', { reverse: true });
+    $('#quantity[]').ready(function () {
+        $('#quantity[]').mask('0', { reverse: true });
     });
 </script>
 
@@ -26,6 +26,10 @@
         const name = document.getElementById('inputprice').value;
         document.getElementById("result1").innerText = name;
         document.getElementById("result2").innerText = name;
+    }
+    function printName1()  {
+        const name = document.getElementById('b').value;
+        document.getElementById("e").innerText = name;
     }
 
     // 금액 빼기
@@ -38,7 +42,7 @@
             document.f1.result.value = numA + numB;
         }
         else if(op == '-') {
-            document.f1.result.value = numA - numB;
+            document.f1.price.value = numA - numB;
         }
     }
 
@@ -63,13 +67,8 @@
 
 <!---------------------------------------------------------- 본문 -------------------------------------------------------------->
 
-<form action="" method="POST" enctype="multipart/form-data" name="f1"> <!--{% url 'd_mypage_orderlist' %}-->
-    {%csrf_token%}
-
-
-
-
-
+<form action="" method="POST" enctype="multipart/form-data" name="f1">
+    {% csrf_token %}
     <div class="container-flex-box">
         
 <!-- 좌측 주문서 -->
@@ -116,9 +115,10 @@
                         <!-- 반복할 구간 -->
                             <tbody id="first-row">
                             <tr class="order-list" style="vertical-align: center; background-color: #D4E2C2; border-bottom:1px solid white;">
-                                <td style="border-right: 1px solid white;  max-width:120px;"><input name="input-quantity" type="number" aria-label="수량" class="form-control" style="background-color: #D4E2C2;" min="1"></td>
-                                <td style="border-right: 1px solid white; min-width: 150px;"><input name="input-item" type="text" aria-label="품목" class="form-control" style="background-color: #D4E2C2;"></td>
-                                <td style="border-right: 1px solid white;"><input name="input-store" type="text" aria-label="구매소" class="form-control" style="background-color: #D4E2C2;"></td>
+                                <td style="border-right: 1px solid white;  max-width:120px;"><input name="quantity" value="{{form.quantity.value|default_if_none:''}}" type="number" aria-label="수량" class="form-control" style="background-color: #D4E2C2;" min="1"></td>
+                                <td style="border-right: 1px solid white; min-width: 150px;"><input name="product[]" value="{{form.sale_product.value|default_if_none:''}}" type="text" aria-label="품목" class="form-control" style="background-color: #D4E2C2;"></td>
+                                <td style="border-right: 1px solid white;"><input name="sale_store[]" value="{{form.sale_store.value|default_if_none:''}}" type="text" aria-label="구매소" class="form-control" style="background-color: #D4E2C2;">
+                                </td>
                                 <td style="border-right: 1px solid white;"><input id="inputprice" name="inputprice" type="text" aria-label="가격" class="form-control" style="background-color: #D4E2C2;" onkeyup=" printName()" placeholder="원"></td> <!--numberWithCommas(this.value)-->
                             </tr>
                             </tbody>
@@ -132,7 +132,7 @@
                             <!-- <script>
                                 function getlist(){
                                     var list = new Array();
-                                    $("input[name=input-item]").each(function(index, item){
+                                    $("input[name=product[]]").each(function(index, item){
                                         list.push($(item).val());
                                     });
                                     $("#test_list").val(list);
@@ -157,9 +157,6 @@
                     <td>&nbsp</td>
                 </tr>
 
-
-
-                <input name="cus-select" type="text" aria-label="주문자 아이디" style="display:none;" value="{{ cus.cus_id }}">
                 <th class="th-paper-table">배송지 정보</th>
                 <td class="sub-th">배송지명</td>
                 <td class="sub-td">
@@ -174,14 +171,14 @@
                     <td></td>
                     <td class="sub-th">주문자명</td>
                     <td class="sub-td">
-                        <input name="input-cus" type="text" aria-label="주소" class="form-control" style="background-color: #D4E2C2;" placeholder="주문자명">
+                        <input type="text" aria-label="주문자명" class="form-control" style="background-color: #D4E2C2;" name="order_name" id="order_name" value="{{form.order_name.value|default_if_none:''}}" placeholder="{{user.cus_nickname}}">
                     </td>
                 </tr>
                 <tr>
                     <td></td>
                     <td class="sub-th">연락처</td>
                     <td class="sub-td">
-                        <input name="input-phone" type="text" aria-label="주소" class="form-control" style="background-color: #D4E2C2;" placeholder="연락처">
+                        <input name="order_phone" type="text" aria-label="연락처" class="form-control" style="background-color: #D4E2C2;" placeholder="{{user.cus_phone}}" value="{{form.order_phone.value|default_if_none:''}}">
                     </td>
                 </tr>
                 <tr>
@@ -189,8 +186,8 @@
                     <td class="sub-th">주소</td>
                     <td class="sub-td">
                         <div class="sub-td input-group">
-                            <input name="input-adress" type="text" aria-label="주소" class="form-control" style="background-color: #D4E2C2;" placeholder="주소">
-                            <input name="input-post" type="text" aria-label="우편번호" class="form-control" style="background-color: #D4E2C2; max-width:100px;" placeholder="우편번호">
+                            <input name="order_address" type="text" aria-label="주문 주소" class="form-control" style="background-color: #D4E2C2;" placeholder="{{user.cus_address}}" value="{{form.order_address.value|default_if_none:''}}">
+                            <input name="order_post" type="text" aria-label="우편번호" class="form-control" style="background-color: #D4E2C2; max-width:100px;" placeholder="{{user.cus_post_no}}" value="{{form.oorder_post.value|default_if_none:''}}">
                         </div>
                     </td>
                 </tr>
@@ -198,7 +195,7 @@
                     <td></td>
                     <td class="sub-th">요청사항</td>
                     <td class="sub-td">
-                        <input name="input-etc" type="text" aria-label="요청사항" class="form-control" style="background-color: #D4E2C2;" placeholder="예) 배송 전 연락주세요">
+                        <input name="order_additional" value="{{form.order_additional.value|default_if_none:''}}" type="text" aria-label="요청사항" class="form-control" style="background-color: #D4E2C2;" placeholder="예) 배송 전 연락주세요">
                     </td>
                     
                     <!-- <td class="sub-td" style="background-color: #D4E2C2;">문 앞에 놓아주세요.</td> -->
@@ -226,14 +223,14 @@
                     <td></td>
                     <td class="sub-th">포인트 사용</td>
                     <td class="sub-td input-point">
-                        <span style="text-align: left; vertical-align: center;"><input type="text" name="b" id="b" background-color:background-color: #EEEEEE/></span>
+                        <span style="text-align: left; vertical-align: center;"><input value="0" type="text" name="b" id="b" style="background-color: #EEEEEE"onkeyup="printName1()"/></span>
                         <span style="text-align: right;">(사용 가능 적립금 4,500)</span>
                     </td>
                 </tr>
                 <tr>
                     <td></td>
                     <td class="sub-th">배달료</td>
-                    <td class="sub-td">0</td>
+                    <td class="sub-td">2000</td>
                 </tr>
                 <tr>
                     <td></td>
@@ -279,18 +276,20 @@
 
 <!---------------------------------------------------------------- 우측 주문서--------------------------------------------------------->
         <article class="section" id="container-right">
-            {% for rider in rider_list %}
             <div class="rider-info">
                 <p style="font-family:'SBAggroB', 'serif'; font-size:1.4rem; margin-bottom:10px;">배달원 정보</p>
                 <div class="profile-box">
+                    {% if rider.rider_img %}
                     <img src="{{ rider.rider_img.url }}" class="profile-image" alt="프로필사진">
+                    {% else %}
+                    <svg xmlns="http://www.w3.org/2000/svg" height="100px" viewBox="0 0 33 30" width="100px" fill="rgb(104, 103, 103)"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+                    {% endif %}
                 </div>
                 <input name="rider-select" type="text" aria-label="선택한 라이더" style="display:none;" value="{{ rider.rider_name }}">
                 <p style="margin-bottom:6px;">스피드 <i class="star-filled fas fa-star"></i><i class="star-filled fas fa-star"></i><i class="star-filled fas fa-star"></i></p>
                 <p style="margin-bottom:6px;">신선도 <i class="star-filled fas fa-star"></i><i class="star-filled fas fa-star"></i><i class="star-filled fas fa-star"></i></p>
                 <p style="margin-bottom:6px;">정확도 <i class="star-filled fas fa-star"></i><i class="star-filled fas fa-star"></i><i class="star-filled fas fa-star" style="color:gray;"></i></p>
             </div>
-            {% endfor %}
 
             <div style="align-items: center;">
                 <table class="credit-table table">
@@ -304,11 +303,11 @@
                     </tr>
                     <tr>
                         <td scope="row" style="text-align: right; max-width:80px;">할인가격</td>
-                        <td>-2,000원</td>
+                        <td><span type="text" name="e" id="e">0</span>원</td>
                     </tr>
                     <tr>
                         <th scope="row"></th>
-                        <td>-3,000원</td>
+                        <td>-2,000원</td>
                     </tr>
                     <tr>
                         <td scope="row" style="text-align: right; max-width:80px;" >배송가격</td>
@@ -316,7 +315,10 @@
                     </tr>
                     <tr style="border-top: white solid 2px !important;">
                         <td scope="row" style="text-align: right; max-width:80px;">최종 결제금액</td>
-                        <td style="color:red; font-size:1.4rem;"><input type="text" name="result" id="result" style="max-width:6rem; color:red; font-size:1.4rem; background-color: rgba(142, 132, 85, 0.03); " value="0"/>원</td>
+                        <td style="color:red; font-size:1.4rem;">
+                            <input type="number" name="price" id="price" value="{{form.price.value|default_if_none:'0'}}" style="max-width:6rem; color:red; font-size:1.4rem; background-color: rgba(142, 132, 85, 0.03); " palceholder="0"/>원
+
+                        </td>
                     </tr>
                     </tbody>
                 </table>

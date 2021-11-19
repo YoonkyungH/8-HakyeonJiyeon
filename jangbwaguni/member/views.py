@@ -13,9 +13,6 @@ from .models import Customer, Rider
 from orderrequest.models import OrderApply, EvalCustomer, EvalRider
 
 
-def d_mypage_orderlist(request):
-    return render(request, 'member/mypage_orderlist.html')
-
 
 class IndexView(View):
     def get(self, request):
@@ -178,8 +175,6 @@ def review_cus_view(request, cus_id=None, score=None):
     return render(request, 'review_cus.html', {'customer': customer, 'evaluations': evaluations, 'score': avg_score})
 
 
-def mypage_view(request):
-    return render(request, 'mypage.html')
 
 def d_mypage_orderlist(request):
     order_list = OrderApply.objects.filter(cus_orderer=request.user)
@@ -193,3 +188,9 @@ def d_mypage_orderlist(request):
     return render(request, 'mypage_orderlist.html', {'orders': order_list, 'deliveries': delivery_list})
     # return JsonResponse({'order_list': data})
     return render(request, 'mypage_orderlist.html')
+
+def d_mypage_orderlist(request):
+    if request.method == 'GET':
+        order_list = OrderApply.objects.all()
+        order_list = {'order_list' : order_list}
+        return render(request, 'member/mypage_orderlist.html', order_list)

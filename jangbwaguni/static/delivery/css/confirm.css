@@ -1,0 +1,14 @@
+@font-face {
+    font-family: 'SBAggroB';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SBAggroB.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+a.btncolor {
+    color: #8E8455;
+    border: #D4E2C2;
+    background-color: #D4E2C2;
+    font-weight: bold;
+    font: "SBAggroB";
+}

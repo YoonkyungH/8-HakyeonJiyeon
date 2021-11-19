@@ -7,6 +7,7 @@ from phonenumber_field.modelfields import PhoneNumberField
 # import datetime
 
 ###################################################################################### 추후에 null = True 삭제
+from django.contrib.auth.models import AbstractUser
 
 class Customer(AbstractUser):
     # 평가 추가 : 좋아요 / 보통이에요 / 별로에요

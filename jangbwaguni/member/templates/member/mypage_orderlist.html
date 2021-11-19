@@ -15,15 +15,15 @@
 
 <div class="tab-content" style="width:80%; margin-left:auto; margin-right:auto;">
     <div style="border-bottom:5px solid #8E8455; margin-top:5%; margin-left:auto; margin-right: auto;">
-        <ul class="nav nav-tabs">
+        <ul class="nav nav-tabs" style="border:none;">
             <li class="nav-item" id="orderlist-tab">
-                <a class="nav-link active" data-bs-toggle="tab" data-bs-target="#orderlist" href="#">주문 내역</a>
+                <a class="nav-link active" data-bs-toggle="tab" data-bs-target="#orderlist" href="#" style="font-family: 'SBAggroM','serif';">주문 내역</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" data-bs-toggle="tab" data-bs-target="#deliverylist" href="#">배달 내역</a>
+                <a class="nav-link" data-bs-toggle="tab" data-bs-target="#deliverylist" href="#" style="font-family: 'SBAggroM','serif';">배달 내역</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" data-bs-toggle="tab" data-bs-target="#useredit" href="#">사용자 정보 수정</a>
+                <a class="nav-link" data-bs-toggle="tab" data-bs-target="#useredit" href="#" style="font-family: 'SBAggroM','serif';">사용자 정보 수정</a>
             </li>
         </ul>
     </div>
@@ -32,14 +32,14 @@
         <div class="mt-5">
             <span style="font-family: 'SBAggroB', 'serif'; font-size:3rem; vertical-align: middle;">주문 내역</span>
             <span style="display:inline-block; vertical-align: middle;">
-                <select class="sort-list col-auto form-select form-select-sm w-auto" aria-label="정렬 선택">
-                    <option selected value="order_count">내역순</option>
-                    <option value="recent">최신순</option>
-                    <option value="nickname">이름순</option>
-                </select>
+                <div class="col-auto">
+                    <select class="form-select rounded-0 w-auto bg-browngrey text-white">
+                        <option selected value="recent">최근순</option>
+                        <option value="distance">이름순</option>
+                    </select>
+                </div>
             </span>
         </div>
-    
 
         {% if not orders %}
             <div class="d-flex justify-content-center fw-bold display-1 mt-3">텅...</div>
@@ -145,7 +145,7 @@
     <div id="deliverylist" class="tab-pane container">
         <div class="row justify-content-evenly mb-3 mt-5">
             <div class="row align-items-center">
-                <div class="col-auto text-subtitle">배달 내역</div>
+                <span class="col-auto text-subtitle" style="font-family: 'SBAggroB','serif'; font-size:3rem;">배달 내역</span>
                 <div class="col-auto">
                     <select class="form-select rounded-0 w-auto bg-browngrey text-white">
                         <option selected value="recent">최근순</option>
@@ -243,7 +243,7 @@
 
     <div id="useredit" class="tab-pane container">
         <div class="col-md-7 my-5 pb-5">
-            <div class="text-subtitle">비밀번호 변경</div>
+            <div class="text-subtitle" style="font-family: 'SBAggroB','serif'; font-size:3rem;">비밀번호 변경</div>
             <div class="ms-2 my-3">
                 <div class="row align-items-center">
                     <label for="password" class="col-4 col-form-label fw-bold">새 비밀번호</label>
@@ -261,9 +261,9 @@
             <button type="submit" class="btn rounded-0 bg-browngrey text-white float-end">변경</button>
         </div>
         <div class="col-md-7 my-5">
-            <div class="text-subtitle">닉네임 변경</div>
+            <div class="text-subtitle" style="font-family: 'SBAggroB','serif';">닉네임 변경</div>
             <div class="row align-items-center ms-2 my-3">
-                <label for="password" class="col-4 col-form-label fw-bold">새 닉네임</label>
+                <label for="password" class="col-4 col-form-label fw-bold" style="font-family: 'SBAggroM','serif';">새 닉네임</label>
                 <div class="col my-2">
                     <input id="password" class="form-control rounded-0" placeholder="닉네임 입력" />
                 </div>

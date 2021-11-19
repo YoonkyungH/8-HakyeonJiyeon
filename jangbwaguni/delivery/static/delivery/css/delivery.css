@@ -41,6 +41,17 @@
     border-color: #8E8455 !important;
 }
 
+.bg-newcolor {
+    background-color: #E8995B;
+    border-color: #E8995B;
+    outline: #E8995B;
+}
+
+.bg-newcolor:hover {
+    background-color: #FFD08F;
+    border-color: #FFD08F;
+    outline: #FFD08F;
+}
 
 /* text size */
 

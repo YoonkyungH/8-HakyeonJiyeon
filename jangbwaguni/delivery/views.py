@@ -57,8 +57,6 @@ def register_rider_view(request):   # 라이더 등록
     # rider_cus = get_object_or_404(Customer, pk=cus_id)
     # rider_cus = Customer.objects.all().filter(id=cus_id)
 
-    # print("=========")
-    # print(rider_cus.id)
     if request.method == 'GET':
         rider_list = Rider.objects.all()
         data = json.loads(serialize('json', rider_list))
@@ -115,7 +113,6 @@ def register_rider_view(request):   # 라이더 등록
             #     rider_vehicle=request.POST.getlist('vehicle[]'),
             # )
         rider.save()
-        print(3)
         # return HttpResponse(status=200)
         return render(request, 'main.html')
     

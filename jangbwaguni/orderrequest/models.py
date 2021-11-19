@@ -36,14 +36,15 @@ class OrderApply(models.Model):
     )
     order_product = MultiSelectField(   # 다중선택(~10개)이 가능하도록 multiselectfield 사용
         choices=PRODUCT_CHOICES,
-        max_choices = 2,               # 선택 요소가 많아지면 수정
+        max_choices = 10,               # 선택 요소가 많아지면 수정
         verbose_name='주문 목록',
     ) 
 
     price = models.CharField(verbose_name = "가격", max_length=200)
     # price = models.PositiveSmallIntegerField(verbose_name = "가격", null=True, default=1, validators=[MinValueValidator(1)]) # 1이상
     sale_store = models.CharField(verbose_name="구매장소", max_length=15, null=True, blank=True)
-    created_at = models.DateTimeField(verbose_name="등록시간", null=True, blank=True) #auto_now_add=True,
+    # created_at = models.DateTimeField(verbose_name="등록시간", null=True, blank=True) #auto_now_add=True,
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name='주문 요청 시간', null=True, blank=True)
 
     #### 라이더 정보
     # rider_selected = models.OneToOneField(Rider, verbose_name='라이더 name', blank=True, on_delete=models.CASCADE) # rider_name

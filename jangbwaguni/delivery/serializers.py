@@ -1,12 +1,12 @@
 from django.core.serializers import serialize
 from rest_framework import serializers
-from .models import orders
+from orderrequest.models import OrderApply
 from member.models import Rider
 
 # class DeliverySerializer(serializers.ModelSerializer):
 class DeliverySerializer(serializers.Serializer):
     class Meta:
-        model = Rider, orders
+        model = Rider, OrderApply
         # fields = ('rider_name, rider_intro')
 
     # rider_name = Rider.rider_name

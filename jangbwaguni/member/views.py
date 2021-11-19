@@ -7,8 +7,7 @@ from django.views import View
 from django.http import HttpResponse, JsonResponse
 from django.urls import reverse
 from django.core.serializers import serialize
-from .models import CustomUser
-from delivery.models import orders
+from .models import Customer
 from .forms import LoginForm, RegisterForm
 import json
 from .models import Customer
@@ -97,7 +96,7 @@ def signup(request):
         form = RegisterForm(data=request.POST)
         if form.is_valid():
             cleaned_data = form.cleaned_data
-            user = CustomUser(
+            user = Customer(
                 username = cleaned_data.get('username'),
                 password = cleaned_data.get('password'),
                 cus_name = cleaned_data.get('name'),

@@ -19,9 +19,11 @@ from rest_framework import serializers
 from rest_framework.parsers import JSONParser
 from .serializers import DeliverySerializer
 
+##################주석 풀면 orders -> Customer##################
+
 # Create your views here.
 def order_confirm_view(request, pk):    # 들어온 주문을 확인
-    obj = orders.objects.get(pk=pk)     # 지정된 배달원
+    obj = OrderApply.objects.get(pk=pk)     # 지정된 배달원
 
     if request.method == 'GET':
         serializer = DeliverySerializer(obj)
@@ -43,7 +45,7 @@ def order_confirm_view(request, pk):    # 들어온 주문을 확인
 
 def order_confirm_view(request):
     if request.method == 'GET':
-        order_list = orders.objects.all()
+        order_list = OrderApply.objects.all()
         list = {'order_list': order_list}
         return list
 
@@ -106,23 +108,26 @@ def register_rider_view(request):   # 라이더 등록
 
 def order_list_view(request):   # 선착순 주문 목록
     # if request.method == 'GET': # 주문 목록
-        # order_list = orders.objects.all()
-        # data = json.loads(serialize('json', order_list))
-        # return JsonResponse({'order_list': data})
+    #     order_list = Customer.objects.all()
+    #     data = json.loads(serialize('json', order_list))
+    #     return JsonResponse({'order_list': data})
     #     return render(request, 'delivery/order_list.html', {})
 
     # TEST 후 이 주석 풀어주면 됨
     # if request.method == 'GET':
     #     # all_orders = orders.objects
-    #     order_list = orders.objects.all()
+    #     order_list = Customer.objects.all()
     #     # order_list = all_orders.all()
     #     list = {'order_list': order_list}
     #     return render(request, 'delivery/order_list.html', list)
 
     # TEST(이것도 됨)
     if request.method == 'GET':
-        order_list = orders.objects.values()
+        # order_list = OrderApply.objects.values()
+        order_list = OrderApply.objects.all()
         order_list = {'order_list': order_list}
+        # cus_list = Customer.objects.values()
+        # cus_list = {'cus_list': cus_list}
         # order = order_list.get()
         # orders.objects.value()[0]
         return render(request, 'delivery/order_list.html', order_list)
@@ -140,28 +145,4 @@ def order_list_view(request):   # 선착순 주문 목록
     #     order_list = orders.objects.all()
     #     list = {'order_list': order_list}
     #     return render(request, 'delivery/order_list.html', list)
-
-
-# orderrequest로 옮김
-#     if request.method == 'POST':    # 주문하기
-#         if request.META['CONTENT_TYPE'] == 'application/json':
-#             request = json.loads(request.body)
-#             order_list = orders(
-#                 cus_name = request['cus_name'],
-#                 cus_address = request['cus_address'],
-#                 # order_product
-#                 cus_call = request['cus_call'],
-#                 order_message = request['order_message'],
-#             )
-#         else:
-#             order_list = orders(
-#                 cus_name = request.POST['cus_name'],
-#                 cus_address = request['cus_address'],
-#                 # order_product
-#                 cus_call = request['cus_call'],
-#                 order_message = request['order_message'],
-#             )
-#         order_list.save()
-#         return HttpResponse(status=200)
-#         # return render(request, 'delivery/order_list.html', {})
 

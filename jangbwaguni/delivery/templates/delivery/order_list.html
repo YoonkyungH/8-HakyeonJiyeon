@@ -22,16 +22,15 @@
 
             <!-- 여기부터 손댐 -->
             {% for list in order_list %}
-            <!-- {% for l in order %} -->
+            <div>{{ list }}</div>
+
             <div class="row justify-content-evenly my-3">
                 
-                <!-- {% endfor %} -->
-        
                 
                 <div class="col-5 border p-3 this" id="disappear" style="position: relative;">
                     <div class="row align-items-center">
-                        <div class="col-auto fw-bold">{{ list.cus_address }}</div>
-                        <!--일단 cus_address는 둘 다 경기도라서 일단 cus_name으로 구분이 편하게 해둠-->
+                        <div class="col-auto fw-bold" id="daytime">{{ list.created_at }}</div>
+                        <!--일단 cus_address는 둘 다 경기도라서 일단 다른걸로 구분이 편하게 해둠-->
                         <div class="col-auto gx-0 text-secondary text-sm">12.37 km</div>
                     </div>
                     <div class="text-xs my-1">
@@ -57,10 +56,11 @@
                                 </div>
                                 <div class="modal-body">
                                     <div>
-                                        <p><strong>주문한 사람</strong>: {{ list.cus_name }}</p>
-                                        <p><strong>배송 주소</strong>: {{ list.cus_address }}</p>
+                                        <p><strong>주문한 사람</strong>: {{ list.cus_orderer.nickname }}</p>
+                                        <p><strong>배송 주소</strong>: {{ list.cus_orderer.cus_address }}</p>
+                                        <p><strong>구매처</strong>: {{ list.sale_store }}</p>
                                         <p><strong>주문 물품</strong>: {{ list.order_product }}</p>
-                                        <p><strong>요청 사항</strong>: {{ list.order_message }}</p>
+                                        <p><strong>요청 사항</strong>: {{ list.order_additional }}</p>
                                     </div>
                 
                                 </div>
@@ -113,6 +113,7 @@
                 
                 </div>
             {% endfor %}
+
 
             </div>
             

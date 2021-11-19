@@ -21,7 +21,7 @@ class OrderApply(models.Model):
 
     #### 라이더 정보
     rider_selected = models.ForeignKey(Rider, on_delete=models.CASCADE, verbose_name='라이더 아이디', blank=True, related_name='ord')
-
+ 
     #### 주문자 정보
     cus_orderer = models.ForeignKey(Customer, on_delete=models.CASCADE, verbose_name='주문자 아아디', blank=True, related_name='ord')
     order_name = models.CharField(verbose_name="주문자명", max_length=10, blank=True)

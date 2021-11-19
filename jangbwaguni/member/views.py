@@ -14,7 +14,10 @@ from orderrequest.models import OrderApply
 
 
 def d_mypage_orderlist(request):
-    return render(request, 'member/mypage_orderlist.html')
+    if request.method == 'GET':
+        order_list = OrderApply.objects.all()
+        order_list = {'order_list' : order_list}
+        return render(request, 'member/mypage_orderlist.html', order_list)
 
 class IndexView(View):
     def get(self, request):
@@ -111,7 +114,7 @@ def signup(request):
     else:
         return render(request, 'register.html', {'form': form})
 
-def review_rider_view(request):
+def review_rider_view(request): 
     return render(request, 'review_rider.html')
 
 def review_cus_view(request):

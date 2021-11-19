@@ -40,20 +40,23 @@
                 </div>
             </span>
         </div>
-    
+        
+{{order_list}}
         <div class="flex-container">
-            {% for order in orders %}
+            {% for list in order_list %}
+            {{ list }}
             <!-- 반복할 구간 -->
             <table>
                 <tr>
                     <td colspan="2" style="padding-left:1.2rem; padding-top:3%;">
-                        <span style="font-size: 1.2rem; vertical-align: bottom;">{{ order.fields.created }}</span>
+                        <span style="font-size: 1.2rem; vertical-align: bottom;">{{list.product}}product</span>
                         <span style="font-size:0.2rem; vertical-align: bottom;">&nbsp;&nbsp;배달중..</span>
                     </td>
                 </tr>
                 <tr style="height:2rem;">
                     <td colspan="2" style="padding-left:1.2rem; padding-right:1.2rem; color:rgb(184, 184, 184); font-size:0.8rem; vertical-align: middle;">
-                        {{ order.fields.order_product }}
+                        <!-- {{ order.fields.order_product }} -->
+                        {{ list.created_at }}created_at
                     </td>
                 </tr>
                 <tr style="height:2rem;">
@@ -151,7 +154,7 @@
     <div id="deliverylist" class="tab-pane container">
         <div class="row justify-content-evenly mb-3 mt-5">
             <div class="row align-items-center">
-                <div class="col-auto text-subtitle" style="font-family: 'SBAggroB','serif'; font-size:3rem;">배달 내역</div>
+                <span class="col-auto text-subtitle" style="font-family: 'SBAggroB','serif'; font-size:3rem;">배달 내역</span>
                 <div class="col-auto">
                     <select class="form-select rounded-0 w-auto bg-browngrey text-white">
                         <option selected value="recent">최근순</option>

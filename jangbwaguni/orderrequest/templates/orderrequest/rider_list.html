@@ -68,7 +68,7 @@
                 </td>
             </tr>
             <tr>
-                <td class="col1" style="border-bottom: 2px solid gray; vertical-align: bottom;"><a href="{% url 'd_order_cus' cus.id rider.id %}" class="button-delivery btn btn-lg align-items-center">배달요청</a></td>
+                <td class="col1" style="border-bottom: 2px solid gray; vertical-align: bottom;"><a href="{% url 'd_order_cus' cus_list.id rider.id %}" class="button-delivery btn btn-lg align-items-center">배달요청</a></td>
                 <td class="col2" style="border-bottom: 2px solid gray; ">소개</td>
                 <td class="col3" style="border-bottom: 2px solid gray; ">{{rider.rider_intro}}</td>
             </tr>
@@ -77,7 +77,7 @@
         {% endfor %}
     </div>
 </form>
-
+<div>{{cus.id}}</div>
 <!-- 페이지네이션 -->
 <div style="text-align: center; margin-top:5%;">
     <nav aria-label="Page navigation example" style="display:inline-block;">

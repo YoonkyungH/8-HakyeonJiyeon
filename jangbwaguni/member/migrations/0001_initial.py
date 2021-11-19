@@ -7,7 +7,7 @@ from django.db import migrations, models
 import django.db.models.deletion
 import django.utils.timezone
 import multiselectfield.db.fields
-
+import phonenumber_field.modelfields
 
 class Migration(migrations.Migration):
 
@@ -34,6 +34,8 @@ class Migration(migrations.Migration):
                 ('date_joined', models.DateTimeField(default=django.utils.timezone.now, verbose_name='date joined')),
                 ('cus_nickname', models.CharField(blank=True, max_length=20, unique=True, verbose_name='고객 별명')),
                 ('cus_address', models.TextField(blank=True, max_length=100, verbose_name='고객 주소')),
+                ('cus_post_no', models.IntegerField(verbose_name='우편번호')),
+                ('cus_phone', phonenumber_field.modelfields.PhoneNumberField(max_length=128, region=None, verbose_name='폰번호')),
                 ('recommended_person', models.CharField(blank=True, max_length=20, verbose_name='추천인')),
                 ('cus_img', models.ImageField(blank=True, null=True, upload_to='images/', verbose_name='고객 프로필 사진')),
                 ('groups', models.ManyToManyField(blank=True, help_text='The groups this user belongs to. A user will get all permissions granted to each of their groups.', related_name='user_set', related_query_name='user', to='auth.Group', verbose_name='groups')),

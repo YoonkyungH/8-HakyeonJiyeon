@@ -19,6 +19,8 @@ import os
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
+# AbstractUser
+AUTH_USER_MODEL = 'member.Customer'
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
@@ -110,8 +112,6 @@ DATABASES = {
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
 
-# AbstractUser
-AUTH_USER_MODEL = 'member.Customer'
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',

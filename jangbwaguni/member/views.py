@@ -7,11 +7,10 @@ from django.views import View
 from django.http import HttpResponse, JsonResponse
 from django.urls import reverse
 from django.core.serializers import serialize
-# from .models import CustomUser/
-# from delivery.models import orders
 from .forms import LoginForm, RegisterForm
 import json
 from .models import Customer
+from orderrequest.models import OrderApply
 
 
 def d_mypage_orderlist(request):
@@ -90,26 +89,27 @@ def logout(request):
         return HttpResponse(status=400)
 
 # # 회원가입
-# def signup(request):
-#     form = RegisterForm()
-#     if request.method == 'POST':
-#         form = RegisterForm(data=request.POST)
-#         if form.is_valid():
-#             cleaned_data = form.cleaned_data
-#             user = CustomUser(
-#                 username = cleaned_data.get('username'),
-#                 password = cleaned_data.get('password'),
-#                 cus_name = cleaned_data.get('name'),
-#                 cus_address = cleaned_data.get('address'),
-#             )
-#             user.set_password(cleaned_data.get('password'))
-#             user.save()
-#             auth.login(request, user)
-#             return redirect('main')
-#         else:
-#             return HttpResponse(status=400)
-#     else:
-#         return render(request, 'register.html', {'form': form})
+def signup(request):
+    form = RegisterForm()
+    if request.method == 'POST':
+        form = RegisterForm(data=request.POST)
+        if form.is_valid():
+            cleaned_data = form.cleaned_data
+            user = Customer(
+                username = cleaned_data.get('username'),
+                password = cleaned_data.get('password'),
+                cus_nickname = cleaned_data.get('nickname'),
+                cus_address = cleaned_data.get('address'),
+                cus_post_no = cleaned_data.get('post_no')
+            )
+            user.set_password(cleaned_data.get('password'))
+            user.save()
+            auth.login(request, user)
+            return redirect('main')
+        else:
+            return HttpResponse(status=400)
+    else:
+        return render(request, 'register.html', {'form': form})
 
 def review_rider_view(request):
     return render(request, 'review_rider.html')
@@ -121,7 +121,7 @@ def mypage_view(request):
     return render(request, 'mypage.html')
 
 def d_mypage_orderlist(request):
-    order_list = Customer.objects.all()
+    order_list = OrderApply.objects.all()
     data = json.loads(serialize('json', order_list))
     return render(request, 'mypage_orderlist.html', {'orders': data})
     # return JsonResponse({'order_list': data})

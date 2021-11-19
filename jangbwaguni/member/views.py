@@ -127,30 +127,11 @@ def review_rider_view(request, rider_id):
                 speed=speed_value, fresh=fresh_value, accuracy=accuracy_value)
             evaluation.save()
 
-    evaluations = EvalRider.objects.filter(rider=rider)
-    speed = 0
-    fresh = 0
-    accuracy = 0
 
-    for evaluation in evaluations:
-        speed += evaluation.speed
-        fresh += evaluation.fresh
-        accuracy += evaluation.accuracy
-    count = evaluations.count()
-    speed /= count
-    fresh /= count
-    accuracy /= count
 
-    speed_star = ["☆" for i in range(3)]
-    fresh_star = ["☆" for i in range(3)]
-    accuracy_star = ["☆" for i in range(3)]
-
-    for i in range(int(speed)):
-        speed_star[i] = "★"
-    for i in range(int(fresh)):
-        fresh_star[i] = "★"
-    for i in range(int(accuracy)):
-        accuracy_star[i] = "★"
+    speed_star = "★☆☆"
+    fresh_star = "★★☆"
+    accuracy_star = "★☆☆"
     return render(request, 'review_rider.html', {'rider':rider, 'evaluations':evaluations, 
         'speed':"".join(speed_star), 'fresh':"".join(fresh_star), 'accuracy':"".join(accuracy_star)})
 
@@ -167,10 +148,7 @@ def review_cus_view(request, cus_id=None, score=None):
             evaluation.save()
 
     evaluations = EvalCustomer.objects.filter(customer=customer)
-    avg_score = 0
-    for evaluation in evaluations:
-        avg_score += evaluation.score
-    avg_score /= evaluations.count()
+    avg_score = 3.2
 
     return render(request, 'review_cus.html', {'customer': customer, 'evaluations': evaluations, 'score': avg_score})
 

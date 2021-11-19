@@ -19,7 +19,7 @@ import os
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # AbstractUser
-AUTH_USER_MODEL = 'member.CustomUser'
+AUTH_USER_MODEL = 'member.Customer'
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/

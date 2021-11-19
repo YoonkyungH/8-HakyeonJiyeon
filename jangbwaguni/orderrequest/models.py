@@ -1,23 +1,11 @@
 from django.db import models
+from django.db.models.fields import CharField
 from django.utils import timezone
 import datetime
 from phonenumber_field.modelfields import PhoneNumberField
 from multiselectfield import MultiSelectField
 from member.models import Rider, Customer
-
 from django.core.validators import MaxValueValidator, MinValueValidator
-
-# now = timezone.localtime()
-
-# class Customer(models.Model):
-#     sig_date_cus = models.DateTimeField('date signup customer', auto_now_add=True, null=True) # 가입일 / 자동기입
-#     id_unique = models.CharField(unique=True, max_length=20, null=True) # 아이디 / 최대 20자리 / 중복 금지
-#     password = models.CharField(max_length=200, null=True) # 비밀번호 / 최대 25자리 / 암호화 했을 때 길이 길어지므로 200으로 설정
-#     nickname = models.CharField(max_length=10, null=True) # 닉네임 / 최대 10자리 / 중복 금지
-#     phone_num = PhoneNumberField(unique=True, null=True, blank=False) # 휴대폰 번호
-
-
-# phone_num = PhoneNumberField(unique=True, null=True, blank=False) # 휴대폰 번호
 
 class OrderApply(models.Model):
     ### 구매정보
@@ -26,48 +14,29 @@ class OrderApply(models.Model):
     product = models.CharField(verbose_name = "상품명", max_length=15, blank=True)
     # product = ArrayField(models.CharField(verbose_name = "상품명", max_length=15, blank=True))
 
-    # PRODUCT_CHOICES = ( # 목록 추후 수정
-    #     ('N', 'Null'),  # 선택 안함
-    #     ('E', 'Egg'),   # 'DB에 저장할 실제 값', 'display용 이름'
-    #     ('M', 'Milk'),
-    #     ('R', 'Rice'),
-    #     ('W', 'Water'),
-    # )
-    # order_product = MultiSelectField(   # 다중선택(~10개)이 가능하도록 multiselectfield 사용
-    #     choices=PRODUCT_CHOICES,
-    #     max_choices = 2,               # 선택 요소가 많아지면 수정
-    #     verbose_name='주문 목록',
-    # ) 
-
     # price = models.CharField(verbose_name = "가격", max_length=200)
-    # price = models.PositiveSmallIntegerField(verbose_name = "가격", null=True, default=1, validators=[MinValueValidator(1)]) # 1이상
+    price = models.PositiveSmallIntegerField(verbose_name = "가격", null=True, default=0, validators=[MinValueValidator(1)]) # 1이상
     sale_store = models.CharField(verbose_name="구매장소", max_length=15, null=True, blank=True)
     # created_at = models.DateTimeField(verbose_name="등록시간", null=True, blank=True) #auto_now_add=True,
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='주문 요청 시간', null=True, blank=True)
 
     #### 라이더 정보
-    rider_selected = models.ForeignKey(Rider, on_delete=models.CASCADE, verbose_name='라이더 아이디', blank=True, related_name='ord')
+    # rider_selected = models.OneToOneField(Rider, verbose_name='라이더 name', blank=True, on_delete=models.CASCADE) # rider_name
+    rider_selected = models.ForeignKey(Rider, verbose_name='라이더 이름', on_delete=models.CASCADE, null=True, blank=True)
 
     #### 주문자 정보 (Customer랑 연동 X)
+    # cus_orderer = models.CharField(max_length=20, verbose_name='주문자 아이디', blank=True)
     cus_orderer = models.ForeignKey(Customer, on_delete=models.CASCADE, verbose_name='주문자 아아디', blank=True, related_name='ord')
-    order_additional = models.TextField(verbose_name='요청사항',blank=True)
+    order_name = models.CharField(verbose_name="주문자명", max_length=10, blank=True)
+    order_phone = models.CharField(verbose_name="주문 연락처", max_length=13, blank=True)
+    order_additional = models.TextField(verbose_name='주문 요청사항', blank=True)
+    order_address = models.CharField(verbose_name="주문 주소", max_length=200, blank=True)
+    order_post = models.PositiveIntegerField(verbose_name="주문 우편번호", blank=True, default=31253, validators=[MinValueValidator(1)])
 
     class Meta:
         verbose_name = '주문서'
         verbose_name_plural = f'{verbose_name} 목록'
         # ordering = ['-pk']
-
-    # 장바구니에 담긴 각 상품의 합계
-    # def sub_total(self):
-    #     return self.price
-    # def sub_total(self):
-    # 	# 템플릿에서 사용하는 변수로 장바구니에 담긴 각 상품의 합계
-    #     return self.product.price * self.quantity
-
-    # def __str__(self):
-    #     return self.product.orderer
-
- 
 
 ###################################################################################### 추후에 null = True 삭제
 # class Product(models.Model):
@@ -82,6 +51,19 @@ class OrderApply(models.Model):
 #         ('E', '부대찌개'),
 #     ]
 #     products = models.CharField(max_length=1, choices=PRODUCT_CHOICES, blank=True)
+
+    # PRODUCT_CHOICES = ( # 목록 추후 수정
+    #     ('N', 'Null'),  # 선택 안함
+    #     ('E', 'Egg'),   # 'DB에 저장할 실제 값', 'display용 이름'
+    #     ('M', 'Milk'),
+    #     ('R', 'Rice'),
+    #     ('W', 'Water'),
+    # )
+    # order_product = MultiSelectField(   # 다중선택(~10개)이 가능하도록 multiselectfield 사용
+    #     choices=PRODUCT_CHOICES,
+    #     max_choices = 2,               # 선택 요소가 많아지면 수정
+    #     verbose_name='주문 목록',
+    # ) 
 
 
 
@@ -168,12 +150,38 @@ class OrderApply(models.Model):
 #     # 배달 상태
 #     # 포인트
 
-# # class EvalRider(models.Model):
-# #     # 스피드
-# #     # 신선도
-# #     # 정확도
+class EvalRider(models.Model):
+    rider = models.ForeignKey(Rider, on_delete=models.CASCADE, verbose_name='평가 라이더')
+    evaluator = models.ForeignKey(Customer, on_delete=models.CASCADE, verbose_name='평가 고객')
+    eval_date = models.DateTimeField(verbose_name='평가 날짜', auto_now=True)
+    speed = models.IntegerField(verbose_name='스피드', validators=[MinValueValidator(0), MaxValueValidator(3)])
+    fresh = models.IntegerField(verbose_name='신선도', validators=[MinValueValidator(0), MaxValueValidator(3)])
+    accuracy = models.IntegerField(verbose_name='정확도', validators=[MinValueValidator(0), MaxValueValidator(3)])
 
-# # class EvalCustomer(models.Model):
-# #     # 좋아요
-# #     # 보통이에요
-# #     # 싫어요   
+    @property
+    def speed_range(self):
+        return range(self.speed)
+    @property
+    def fresh_range(self):
+        return range(self.fresh)
+    @property
+    def accuracy_range(self):
+        return range(self.accuracy)
+    @property
+    def speed_reverse(self):
+        return range(3-self.speed)
+    @property
+    def fresh_reverse(self):
+        return range(3-self.fresh)
+    @property
+    def accuracy_reverse(self):
+        return range(3-self.accuracy)
+
+class EvalCustomer(models.Model):
+    # 좋아요
+    # 보통이에요
+    # 싫어요
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE, verbose_name='평가 고객')
+    evaluator = models.ForeignKey(Rider, on_delete=models.CASCADE, verbose_name='평가 라이더')
+    eval_date = models.DateTimeField(verbose_name='평가 날짜', auto_now=True)
+    score = models.IntegerField(verbose_name='평가 점수', validators=[MinValueValidator(0), MaxValueValidator(2)])

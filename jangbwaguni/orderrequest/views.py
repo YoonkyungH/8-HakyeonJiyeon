@@ -1,14 +1,15 @@
 
 from django.http import JsonResponse
+from django.http.response import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
 import datetime
+from django.urls import reverse 
 
 # from delivery.models import Rider
 from member.models import Customer, Rider
 from orderrequest.models import OrderApply
 from .forms import OrderApplyForm
-
 # View
 import json
 from django.views import View
@@ -46,7 +47,7 @@ from django.views.decorators.csrf import csrf_exempt # 추후 삭제
 #     return render(request, 'orderrequest/order_cus.html', {'form':form, 'rider':rider, 'cus':cus})
 # 성공------------------------------------------------
 # @login_required
-@csrf_exempt
+# @csrf_exempt
 def d_order_cus(request, rider_id):
     rider = get_object_or_404(Rider, pk=rider_id) # Rider클래스에서 가지는 pk값이 아니면 404에러 발생
     # cus = Customer.objects.all().filter(id=user)
@@ -64,7 +65,6 @@ def d_order_cus(request, rider_id):
             new_order.sale_store = request.POST.getlist("sale_store[]")
             new_order.save()
             return render(request, 'member/mypage_orderlist.html')
-            
     else:
         form = OrderApplyForm()
     context = {'form':form}
@@ -95,7 +95,7 @@ def d_rider_list(request):
         #     serializer.save()
         #     return JsonResponse(serializer.data, status=201)
         # return JsonResponse(serializer.errors, status=400)
-
+ 
 # def d_order_cus(request, rider_id):
 #     rider = get_object_or_404(Rider, pk=rider_id) # Rider클래스에서 가지는 pk값이 아니면 404에러 발생
 #     rider_list = Rider.objects.all().filter(id=rider_id) # Rider값 중 pk값에 해당하는 object만 넘겨줌
